@@ -29,8 +29,7 @@ export default function Home() {
           <div
             className="absolute inset-0"
             style={{
-              background:
-                "#16161680",
+              background: "#16161680",
             }}
           ></div>
           {/* Main Hero Content */}
@@ -39,7 +38,7 @@ export default function Home() {
               <span>Smarter Financial Decisions</span>
               <span className="hero-headline-accent"> Start Here</span>
             </h1>
-            <p className="hero-description mb-6 sm:mb-8 max-w-3xl">
+            <p className="hero-description mb-6 sm:mb-8">
               Whether you're launching, scaling, or transforming, we deliver
               trusted guidance at a price that fits your business.
             </p>
@@ -165,6 +164,85 @@ export default function Home() {
                 View all Reviews
                 <ArrowRightIcon className="ml-2 h-4 w-4" />
               </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Strategic Growth Section */}
+        <section className="py-20 px-4 pr-0 bg-black">
+          <div className="max-container">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              {/* Left Side - Content */}
+              <div className="space-y-8">
+                <h2
+                  className="text-5xl md:text-6xl font-bold leading-tight"
+                  style={{
+                    fontFamily: "Helvetica, Arial, sans-serif",
+                    fontWeight: 300,
+                    color: "white",
+                  }}
+                >
+                  <span>Empowering Strategic</span>
+                  <br />
+                  <span style={{ color: "#77EB8A" }}>Growth</span>
+                </h2>
+
+                <p
+                  className="text-xl md:text-2xl leading-relaxed"
+                  style={{
+                    fontFamily: "Grift, Arial, sans-serif",
+                    fontWeight: 500,
+                    color: "white",
+                    lineHeight: "1.6",
+                  }}
+                >
+                  Tailored financial advisory from Dubai and Lebanon, driving
+                  growth and lasting value.
+                </p>
+
+                <Link
+                  href="/services"
+                  className="inline-flex items-center justify-center font-semibold hover:scale-105"
+                  style={{
+                    padding: "1rem 2.5rem",
+                    minHeight: "3.5rem",
+                    backgroundColor: "#9DD8A7",
+                    borderRadius: "5rem",
+                    border: "none",
+                    color: "#0B1F3A",
+                    textDecoration: "none",
+                    transition: "all 0.3s ease",
+                    cursor: "pointer",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = "#8BC896";
+                    e.currentTarget.style.transform = "translateY(-2px)";
+                    e.currentTarget.style.boxShadow =
+                      "0 8px 25px rgba(157, 216, 167, 0.3)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = "#9DD8A7";
+                    e.currentTarget.style.transform = "translateY(0)";
+                    e.currentTarget.style.boxShadow = "none";
+                  }}
+                >
+                  Learn More
+                </Link>
+              </div>
+
+              {/* Right Side - Chess Piece Visual */}
+              <div className="relative flex justify-center pt-50">
+                {/* Chess Queen Image */}
+                <img
+                  src="/images/chess.png"
+                  alt="Chess Queen - Strategic Thinking"
+                  className="object-contain w-full h-full"
+                  style={{
+                    filter: "brightness(1.1) contrast(1.2)",
+                    transform: "scale(1) translate(12%, 10px)",
+                  }}
+                />
+              </div>
             </div>
           </div>
         </section>

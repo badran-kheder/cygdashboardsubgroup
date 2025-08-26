@@ -210,7 +210,11 @@
   .hero-headline-accent {
     color: #77EB8A;
   }
-  
+  .max-container {
+    width: 100%;
+    overflow: hidden;
+    padding: 5% 0 5% 10%;
+  }
   .hero-description {
     font-family: 'Grift', Arial, sans-serif;
     font-weight: 500;
