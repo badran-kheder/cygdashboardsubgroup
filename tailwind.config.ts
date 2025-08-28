@@ -57,7 +57,7 @@ const config: Config = {
         // Status colors
         success: {
           50: '#BDFFDC',
-          100: '#94FFFF',
+          100: '#77EB8A',
           200: '#4FD1C5',
           300: '#38A169',
           400: '#12325A',
@@ -79,8 +79,8 @@ const config: Config = {
         },
         
         // Custom button colors
-        'btn-primary': '#9DD8A7',
-        'btn-secondary': 'transparent',
+        'btn-primary': '#38A169',
+        'btn-secondary': '#4FD1C5',
         'btn-border': '#FAFAFA',
       },
       
@@ -96,26 +96,26 @@ const config: Config = {
         '18': '4.5rem',
         '88': '22rem',
         '128': '32rem',
-        'btn-y': '1.25rem',
-        'btn-x-primary': '4rem',
-        'btn-x-secondary': '2.5rem',
+        'btn-y': '1.25rem',      // 20px (Padding/5)
+        'btn-x-primary': '4rem',  // 64px (Padding/16)
+        'btn-x-secondary': '2.5rem', // 40px (Padding/10)
       },
       
       // Border radius
       borderRadius: {
         '4xl': '2rem',
         '5xl': '2.5rem',
-        'btn': '80px',
+        'btn': '5rem',           // 80px (Padding/20)
       },
       
       // Custom button sizes
       width: {
-        'btn-primary': '17.125rem',
-        'btn-secondary': '21.5625rem',
+        'btn-primary': '17.125rem',    // 274px
+        'btn-secondary': '21.5625rem', // 345px
       },
       
       height: {
-        'btn': '4.75rem',
+        'btn': '4.75rem',              // 76px
       },
       
       // Shadows

@@ -167,14 +167,14 @@ export default function Contact() {
                 <h2 className="text-3xl font-bold text-white mb-8">Contact Information</h2>
                 <div className="space-y-8">
                   <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <EnvelopeIcon className="w-6 h-6 text-green-500" />
+                    <div className="w-12 h-12 bg-primary-500/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <EnvelopeIcon className="w-6 h-6 text-primary-500" />
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold text-white mb-2">Email</h3>
                       <a 
                         href="mailto:info@CYGPartners.com" 
-                        className="text-gray-300 hover:text-green-400 transition-colors duration-200"
+                        className="text-gray-300 hover:text-primary-500 transition-colors duration-200"
                       >
                         info@CYGPartners.com
                       </a>
@@ -182,14 +182,14 @@ export default function Contact() {
                   </div>
 
                   <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <PhoneIcon className="w-6 h-6 text-green-500" />
+                    <div className="w-12 h-12 bg-primary-500/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <PhoneIcon className="w-6 h-6 text-primary-500" />
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold text-white mb-2">Phone</h3>
                       <a 
                         href="tel:+971563221025" 
-                        className="text-gray-300 hover:text-green-400 transition-colors duration-200"
+                        className="text-gray-300 hover:text-primary-500 transition-colors duration-200"
                       >
                         +971 56 322 1025
                       </a>
@@ -197,8 +197,8 @@ export default function Contact() {
                   </div>
 
                   <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <MapPinIcon className="w-6 h-6 text-green-500" />
+                    <div className="w-12 h-12 bg-primary-500/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <MapPinIcon className="w-6 h-6 text-primary-500" />
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold text-white mb-2">Office</h3>
@@ -209,8 +209,8 @@ export default function Contact() {
                   </div>
 
                   <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <ClockIcon className="w-6 h-6 text-green-500" />
+                    <div className="w-12 h-12 bg-primary-500/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <ClockIcon className="w-6 h-6 text-primary-500" />
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold text-white mb-2">Business Hours</h3>
@@ -227,19 +227,19 @@ export default function Contact() {
                   <h3 className="text-xl font-semibold text-white mb-4">Why Choose CYG Partners?</h3>
                   <ul className="space-y-3 text-gray-300">
                     <li className="flex items-start space-x-3">
-                      <span className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></span>
+                      <span className="w-2 h-2 bg-primary-500 rounded-full mt-2 flex-shrink-0"></span>
                       <span>Tailored financial advisory solutions</span>
                     </li>
                     <li className="flex items-start space-x-3">
-                      <span className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></span>
+                      <span className="w-2 h-2 bg-primary-500 rounded-full mt-2 flex-shrink-0"></span>
                       <span>Expert guidance from Dubai and Lebanon</span>
                     </li>
                     <li className="flex items-start space-x-3">
-                      <span className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></span>
+                      <span className="w-2 h-2 bg-primary-500 rounded-full mt-2 flex-shrink-0"></span>
                       <span>Proven track record in strategic growth</span>
                     </li>
                     <li className="flex items-start space-x-3">
-                      <span className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></span>
+                      <span className="w-2 h-2 bg-primary-500 rounded-full mt-2 flex-shrink-0"></span>
                       <span>Personalized approach to every client</span>
                     </li>
                   </ul>

@@ -1,12 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import {
-  ArrowRightIcon,
-  ChartBarIcon,
-  CurrencyDollarIcon,
-  HandRaisedIcon,
-} from "@heroicons/react/24/outline";
+import { ArrowRightIcon } from "@heroicons/react/24/solid";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -29,7 +24,7 @@ export default function Home() {
           <div
             className="absolute inset-0"
             style={{
-              background: "#16161680",
+              background: "rgba(28, 28, 28, 0.5)",
             }}
           ></div>
           {/* Main Hero Content */}
@@ -47,26 +42,26 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-start items-start">
               <Link
                 href="/services"
-                className="inline-flex items-center justify-center font-semibold hover:scale-105 w-full sm:w-auto"
+                className="btn-secondary inline-flex items-center justify-center font-semibold hover:scale-105"
                 style={{
-                  padding: "1rem 2rem",
-                  minHeight: "3.5rem",
                   backgroundColor: "transparent",
-                  borderRadius: "5rem",
-                  border: "2px solid white",
-                  color: "white",
+                  color: "#FAFAFA",
                   textDecoration: "none",
                   transition: "all 0.3s ease",
                   cursor: "pointer",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor =
-                    "rgba(255, 255, 255, 0.1)";
+                  e.currentTarget.style.backgroundColor = "#FAFAFA";
+                  e.currentTarget.style.color = "#0B1F3A";
                   e.currentTarget.style.transform = "translateY(-2px)";
+                  e.currentTarget.style.boxShadow =
+                    "0 8px 25px rgba(250, 250, 250, 0.2)";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.backgroundColor = "transparent";
+                  e.currentTarget.style.color = "#FAFAFA";
                   e.currentTarget.style.transform = "translateY(0)";
+                  e.currentTarget.style.boxShadow = "none";
                 }}
               >
                 Explore Services
@@ -75,26 +70,22 @@ export default function Home() {
 
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center font-semibold hover:scale-105 w-full sm:w-auto"
+                className="btn-primary inline-flex items-center justify-center font-semibold hover:scale-105"
                 style={{
-                  padding: "1rem 2rem",
-                  minHeight: "3.5rem",
-                  backgroundColor: "#9DD8A7",
-                  borderRadius: "5rem",
-                  border: "none",
+                  backgroundColor: "#38A169",
                   color: "#0B1F3A",
                   textDecoration: "none",
                   transition: "all 0.3s ease",
                   cursor: "pointer",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = "#8BC896";
+                  e.currentTarget.style.backgroundColor = "#4FD1C5";
                   e.currentTarget.style.transform = "translateY(-2px)";
                   e.currentTarget.style.boxShadow =
-                    "0 8px 25px rgba(157, 216, 167, 0.3)";
+                    "0 8px 25px rgba(56, 161, 105, 0.3)";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = "#9DD8A7";
+                  e.currentTarget.style.backgroundColor = "#38A169";
                   e.currentTarget.style.transform = "translateY(0)";
                   e.currentTarget.style.boxShadow = "none";
                 }}
@@ -202,26 +193,22 @@ export default function Home() {
 
                 <Link
                   href="/services"
-                  className="inline-flex items-center justify-center font-semibold hover:scale-105"
+                  className="btn-primary inline-flex items-center justify-center font-semibold hover:scale-105"
                   style={{
-                    padding: "1rem 2.5rem",
-                    minHeight: "3.5rem",
-                    backgroundColor: "#9DD8A7",
-                    borderRadius: "5rem",
-                    border: "none",
+                    backgroundColor: "#38A169",
                     color: "#0B1F3A",
                     textDecoration: "none",
                     transition: "all 0.3s ease",
                     cursor: "pointer",
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = "#8BC896";
+                    e.currentTarget.style.backgroundColor = "#4FD1C5";
                     e.currentTarget.style.transform = "translateY(-2px)";
                     e.currentTarget.style.boxShadow =
-                      "0 8px 25px rgba(157, 216, 167, 0.3)";
+                      "0 8px 25px rgba(56, 161, 105, 0.3)";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = "#9DD8A7";
+                    e.currentTarget.style.backgroundColor = "#38A169";
                     e.currentTarget.style.transform = "translateY(0)";
                     e.currentTarget.style.boxShadow = "none";
                   }}
@@ -248,151 +235,181 @@ export default function Home() {
         </section>
 
         {/* Core Services Section */}
-        <section className="py-20 px-4 bg-primary-800">
+        <section
+          className="py-20 px-4"
+          style={{
+            background: "linear-gradient(180deg, #343434 0%, #9A9A9A 100%)",
+          }}
+        >
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold text-primary-200 mb-6">
-                Our Core Services
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                <span className="text-white">Our Advisory</span>
+                <br />
+                <span style={{ color: "#77EB8A" }}>Blueprint</span>
               </h2>
-              <p className="text-xl text-primary-300 max-w-3xl mx-auto">
-                We offer three core services to help you grow, sell, or
-                scale—clearly and confidently.
+              <p className="text-xl text-white max-w-3xl mx-auto">
+                Three bespoke services—Strategic, Sell-Side, and Buy-Side—to
+                drive growth, exits, and value creation.
               </p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
               {/* Strategic Advisory */}
-              <div className="bg-primary-900 border border-primary-700 rounded-lg p-8 hover:border-primary-500 transition-all duration-200 hover:shadow-glow">
-                <div className="w-16 h-16 bg-primary-700/10 rounded-lg flex items-center justify-center mb-6">
-                  <ChartBarIcon className="w-8 h-8 text-primary-500" />
-                </div>
-                <h3 className="text-2xl font-bold text-primary-200 mb-4">
-                  Explore Strategic
+              <div className="bg-black border border-gray-700 rounded-xl p-8 hover:border-primary-500 transition-all duration-200 hover:shadow-glow h-full flex flex-col">
+                <h3 className="text-2xl font-bold text-center text-white mb-4 flex-grow">
+                  Explore <span style={{ color: "#77EB8A" }}>Strategic</span>
                 </h3>
-                <p className="text-primary-300 mb-6">
+                <p className="text-white text-center mb-8 text-gray-300 flex-grow">
                   Full-cycle guidance through the sales process — from valuation
                   to closing.
                 </p>
-                <Link
-                  href="/services/strategic"
-                  className="inline-flex items-center justify-center font-semibold hover:scale-105"
-                  style={{
-                    width: "100%",
-                    maxWidth: "17.125rem",
-                    minHeight: "4.75rem",
-                    padding: "1.25rem 4rem",
-                    backgroundColor: "#52B162",
-                    borderRadius: "5rem",
-                    border: "none",
-                    color: "white",
-                    textDecoration: "none",
-                    transition: "all 0.3s ease",
-                    cursor: "pointer",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = "#4A9F58";
-                    e.currentTarget.style.transform = "translateY(-2px)";
-                    e.currentTarget.style.boxShadow =
-                      "0 8px 25px rgba(82, 177, 98, 0.3)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = "#52B162";
-                    e.currentTarget.style.transform = "translateY(0)";
-                    e.currentTarget.style.boxShadow = "none";
-                  }}
-                >
-                  Learn More
-                  <ArrowRightIcon className="ml-2 h-4 w-4" />
-                </Link>
+                <div className="rounded-lg flex items-center justify-center mb-6 flex-shrink-0">
+                  <img
+                    src="/images/Group.svg"
+                    alt="Strategic Advisory"
+                    className="object-contain"
+                    onError={(e) => {
+                      const target = e.currentTarget as HTMLImageElement;
+                      const fallback = target.nextElementSibling as HTMLElement;
+                      if (target && fallback) {
+                        target.style.display = "none";
+                        fallback.style.display = "block";
+                      }
+                    }}
+                  />
+                </div>
+                <div className="mt-auto">
+                  <Link
+                    href="/services/strategic"
+                    className="btn-service inline-flex items-center justify-center font-semibold hover:scale-105 w-full"
+                    style={{
+                      backgroundColor: "#38A169",
+                      color: "white",
+                      textDecoration: "none",
+                      transition: "all 0.3s ease",
+                      cursor: "pointer",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = "#4FD1C5";
+                      e.currentTarget.style.transform = "translateY(-2px)";
+                      e.currentTarget.style.boxShadow =
+                        "0 8px 25px rgba(56, 161, 105, 0.3)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = "#38A169";
+                      e.currentTarget.style.transform = "translateY(0)";
+                      e.currentTarget.style.boxShadow = "none";
+                    }}
+                  >
+                    Learn More
+                    <ArrowRightIcon className="ml-2 h-4 w-4" />
+                  </Link>
+                </div>
               </div>
-
-              {/* Sell-Side */}
-              <div className="bg-primary-900 border border-primary-700 rounded-lg p-8 hover:border-primary-500 transition-all duration-200 hover:shadow-glow">
-                <div className="w-16 h-16 bg-primary-700/10 rounded-lg flex items-center justify-center mb-6">
-                  <CurrencyDollarIcon className="w-8 h-8 text-primary-500" />
-                </div>
-                <h3 className="text-2xl font-bold text-primary-200 mb-4">
-                  Explore Sell-Side
+              {/* Strategic Advisory */}
+              <div className="bg-black border border-gray-700 rounded-xl p-8 hover:border-primary-500 transition-all duration-200 hover:shadow-glow h-full flex flex-col">
+                <h3 className="text-2xl font-bold text-center text-white mb-4 flex-grow">
+                  Explore <span style={{ color: "#77EB8A" }}>Strategic</span>
                 </h3>
-                <p className="text-primary-300 mb-6">
+                <p className="text-white text-center mb-8 text-gray-300 flex-grow">
                   Full-cycle guidance through the sales process — from valuation
                   to closing.
                 </p>
-                <Link
-                  href="/services/sell-side"
-                  className="inline-flex items-center justify-center font-semibold hover:scale-105"
-                  style={{
-                    width: "100%",
-                    maxWidth: "17.125rem",
-                    minHeight: "4.75rem",
-                    padding: "1.25rem 4rem",
-                    backgroundColor: "#52B162",
-                    borderRadius: "5rem",
-                    border: "none",
-                    color: "white",
-                    textDecoration: "none",
-                    transition: "all 0.3s ease",
-                    cursor: "pointer",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = "#4A9F58";
-                    e.currentTarget.style.transform = "translateY(-2px)";
-                    e.currentTarget.style.boxShadow =
-                      "0 8px 25px rgba(82, 177, 98, 0.3)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = "#52B162";
-                    e.currentTarget.style.transform = "translateY(0)";
-                    e.currentTarget.style.boxShadow = "none";
-                  }}
-                >
-                  Learn More
-                  <ArrowRightIcon className="ml-2 h-4 w-4" />
-                </Link>
+                <div className="rounded-lg flex items-center justify-center mb-6 flex-shrink-0">
+                  <img
+                    src="/images/Group.svg"
+                    alt="Strategic Advisory"
+                    className="object-contain"
+                    onError={(e) => {
+                      const target = e.currentTarget as HTMLImageElement;
+                      const fallback = target.nextElementSibling as HTMLElement;
+                      if (target && fallback) {
+                        target.style.display = "none";
+                        fallback.style.display = "block";
+                      }
+                    }}
+                  />
+                </div>
+                <div className="mt-auto">
+                  <Link
+                    href="/services/strategic"
+                    className="btn-service inline-flex items-center justify-center font-semibold hover:scale-105 w-full"
+                    style={{
+                      backgroundColor: "#38A169",
+                      color: "white",
+                      textDecoration: "none",
+                      transition: "all 0.3s ease",
+                      cursor: "pointer",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = "#4FD1C5";
+                      e.currentTarget.style.transform = "translateY(-2px)";
+                      e.currentTarget.style.boxShadow =
+                        "0 8px 25px rgba(56, 161, 105, 0.3)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = "#38A169";
+                      e.currentTarget.style.transform = "translateY(0)";
+                      e.currentTarget.style.boxShadow = "none";
+                    }}
+                  >
+                    Learn More
+                    <ArrowRightIcon className="ml-2 h-4 w-4" />
+                  </Link>
+                </div>
               </div>
-
-              {/* Buy-Side */}
-              <div className="bg-primary-900 border border-primary-700 rounded-lg p-8 hover:border-primary-500 transition-all duration-200 hover:shadow-glow">
-                <div className="w-16 h-16 bg-primary-700/10 rounded-lg flex items-center justify-center mb-6">
-                  <HandRaisedIcon className="w-8 h-8 text-primary-500" />
-                </div>
-                <h3 className="text-2xl font-bold text-primary-200 mb-4">
-                  Explore Buy-Side
+              {/* Strategic Advisory */}
+              <div className="bg-black border border-gray-700 rounded-xl p-8 hover:border-primary-500 transition-all duration-200 hover:shadow-glow h-full flex flex-col">
+                <h3 className="text-2xl font-bold text-center text-white mb-4 flex-grow">
+                  Explore <span style={{ color: "#77EB8A" }}>Strategic</span>
                 </h3>
-                <p className="text-primary-300 mb-6">
+                <p className="text-white text-center mb-8 text-gray-300 flex-grow">
                   Full-cycle guidance through the sales process — from valuation
                   to closing.
                 </p>
-                <Link
-                  href="/services/buy-side"
-                  className="inline-flex items-center justify-center font-semibold hover:scale-105"
-                  style={{
-                    width: "100%",
-                    minHeight: "4.75rem",
-                    padding: "1.25rem 4rem",
-                    backgroundColor: "#52B162",
-                    borderRadius: "5rem",
-                    border: "none",
-                    color: "white",
-                    textDecoration: "none",
-                    transition: "all 0.3s ease",
-                    cursor: "pointer",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = "#4A9F58";
-                    e.currentTarget.style.transform = "translateY(-2px)";
-                    e.currentTarget.style.boxShadow =
-                      "0 8px 25px rgba(82, 177, 98, 0.3)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = "#52B162";
-                    e.currentTarget.style.transform = "translateY(0)";
-                    e.currentTarget.style.boxShadow = "none";
-                  }}
-                >
-                  Learn More
-                  <ArrowRightIcon className="ml-2 h-4 w-4" />
-                </Link>
+                <div className="rounded-lg flex items-center justify-center mb-6 flex-shrink-0">
+                  <img
+                    src="/images/Group.svg"
+                    alt="Strategic Advisory"
+                    className="object-contain"
+                    onError={(e) => {
+                      const target = e.currentTarget as HTMLImageElement;
+                      const fallback = target.nextElementSibling as HTMLElement;
+                      if (target && fallback) {
+                        target.style.display = "none";
+                        fallback.style.display = "block";
+                      }
+                    }}
+                  />
+                </div>
+                <div className="mt-auto">
+                  <Link
+                    href="/services/strategic"
+                    className="btn-service inline-flex items-center justify-center font-semibold hover:scale-105 w-full"
+                    style={{
+                      backgroundColor: "#38A169",
+                      color: "white",
+                      textDecoration: "none",
+                      transition: "all 0.3s ease",
+                      cursor: "pointer",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = "#4FD1C5";
+                      e.currentTarget.style.transform = "translateY(-2px)";
+                      e.currentTarget.style.boxShadow =
+                        "0 8px 25px rgba(56, 161, 105, 0.3)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = "#38A169";
+                      e.currentTarget.style.transform = "translateY(0)";
+                      e.currentTarget.style.boxShadow = "none";
+                    }}
+                  >
+                    Learn More
+                    <ArrowRightIcon className="ml-2 h-4 w-4" />
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
@@ -511,28 +528,22 @@ export default function Home() {
             </h2>
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center font-semibold text-lg hover:scale-105"
+              className="btn-primary inline-flex items-center justify-center font-semibold hover:scale-105"
               style={{
-                width: "100%",
-                maxWidth: "17.125rem",
-                minHeight: "4.75rem",
-                padding: "1.25rem 4rem",
-                backgroundColor: "#9DD8A7",
-                borderRadius: "5rem",
-                border: "none",
+                backgroundColor: "#38A169",
                 color: "#0B1F3A",
                 textDecoration: "none",
                 transition: "all 0.3s ease",
                 cursor: "pointer",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = "#8BC896";
+                e.currentTarget.style.backgroundColor = "#4FD1C5";
                 e.currentTarget.style.transform = "translateY(-2px)";
                 e.currentTarget.style.boxShadow =
-                  "0 8px 25px rgba(157, 216, 167, 0.3)";
+                  "0 8px 25px rgba(56, 161, 105, 0.3)";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = "#9DD8A7";
+                e.currentTarget.style.backgroundColor = "#38A169";
                 e.currentTarget.style.transform = "translateY(0)";
                 e.currentTarget.style.boxShadow = "none";
               }}

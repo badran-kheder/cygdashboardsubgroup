@@ -45,10 +45,10 @@ export default function Header() {
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
       style={{
         height: '10rem',
-        backgroundColor: isScrolled ? 'rgba(11, 31, 58, 0.95)' : 'transparent',
+        backgroundColor: isScrolled ? 'rgba(0, 0, 0, 0.95)' : 'transparent',
         backdropFilter: isScrolled ? 'blur(8px)' : 'none',
         borderBottom: isScrolled ? '2px solid #FAFAFA' : 'none',
-        boxShadow: isScrolled ? '0px 4px 16px 0px rgba(53, 90, 236, 0.1)' : 'none'
+        boxShadow: isScrolled ? '0px 4px 16px 0px rgba(0, 0, 0, 0.1)' : 'none'
       }}
     >
       <div 
@@ -106,7 +106,7 @@ export default function Header() {
               
               {/* Services Dropdown */}
               <div 
-                className={`absolute top-full left-0 mt-2 w-64 bg-primary-800 border border-primary-700 rounded-lg shadow-xl transition-all duration-200 ${
+                className={`absolute top-full left-0 mt-2 w-64 bg-primary-950 border border-primary-700 rounded-lg shadow-xl transition-all duration-200 ${
                   isServicesOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'
                 }`}
                 onMouseEnter={() => setIsServicesOpen(true)}
