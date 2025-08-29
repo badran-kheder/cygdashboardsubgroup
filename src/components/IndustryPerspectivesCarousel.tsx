@@ -32,10 +32,10 @@ export default function IndustryPerspectivesCarousel({
         slidesPerView={1}
         navigation={true}
         pagination={{ clickable: true }}
-        autoplay={{
-          delay: 5000,
-          disableOnInteraction: false,
-        }}
+        // autoplay={{
+        //   delay: 5000,
+        //   disableOnInteraction: false,
+        // }}
         breakpoints={{
           640: {
             slidesPerView: 2,

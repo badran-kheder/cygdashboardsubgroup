@@ -14,7 +14,6 @@ import IndustryPerspectivesCarousel from "@/components/IndustryPerspectivesCarou
 export default function Home() {
   return (
     <>
-      <Header />
       <main className="min-h-screen bg-black text-primary-200">
         {/* Hero Section */}
         <Hero
@@ -230,13 +229,7 @@ export default function Home() {
             },
           ]}
         />
-
-        {/* Carousel */}
-        <section>
-          
-        </section>
       </main>
-      <Footer />
     </>
   );
 }

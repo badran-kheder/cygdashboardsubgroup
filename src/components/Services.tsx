@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { ArrowRightIcon } from '@heroicons/react/24/solid'
+import SpecialServiceCard from './SpecialServiceCard'
 
 interface ServiceCard {
   title: string
@@ -19,6 +20,21 @@ interface ServicesProps {
   description: string
   backgroundGradient?: string
   services: ServiceCard[]
+  showSpecialService?: boolean
+  specialServiceData?: {
+    title: string
+    titleAccent: string
+    description: string
+    buttonText: string
+    buttonHref: string
+    mainIcon: string
+    mainIconAlt: string
+    subServices: Array<{
+      title: string
+      icon: React.ReactNode
+      backgroundColor: 'green' | 'black'
+    }>
+  }
 }
 
 export default function Services({
@@ -26,7 +42,9 @@ export default function Services({
   titleAccent,
   description,
   backgroundGradient = "linear-gradient(180deg, #343434 0%, #9A9A9A 100%)",
-  services
+  services,
+  showSpecialService = false,
+  specialServiceData
 }: ServicesProps) {
   return (
     <section
@@ -49,7 +67,7 @@ export default function Services({
 
         <div className="grid md:grid-cols-3 gap-8">
           {services.map((service, index) => (
-            <div key={index} className="bg-black border border-gray-700 rounded-xl p-8 hover:border-primary-500 transition-all duration-200 hover:shadow-glow h-full flex flex-col">
+            <div key={index} className="bg-black border-radius border border-white rounded-xl p-8 hover:border-primary-500 transition-all duration-200 hover:shadow-glow h-full flex flex-col">
               <h3 className="text-2xl font-bold text-center text-white mb-4 flex-grow">
                 Explore <span style={{ color: "#77EB8A" }}>{service.titleAccent}</span>
               </h3>
@@ -105,6 +123,11 @@ export default function Services({
           ))}
         </div>
       </div>
+      
+      {/* Special Service Card - Conditionally Rendered */}
+      {showSpecialService && specialServiceData && (
+        <SpecialServiceCard {...specialServiceData} />
+      )}
     </section>
   )
 }

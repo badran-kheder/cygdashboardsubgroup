@@ -18,7 +18,7 @@ export default function PerspectiveCard({
   return (
     <div
       className="relative w-full p-4"
-      style={{ width: "80%", marginLeft: "20%" }}
+      // style={{ width: "80%", marginLeft: "20%" }}
     >
       <div className="overflow-hidden h-full flex flex-col">
         {/* Image and "Read More" */}

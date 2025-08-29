@@ -8,7 +8,7 @@
 @import 'swiper/css';
 @import 'swiper/css/navigation';
 @import 'swiper/css/pagination';
-
+ 
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -25,6 +25,15 @@
   position: absolute;
   left: 0;
   top: 0;
+}
+.swiper-wrapper {
+  padding-inline-start: 25%;
+}
+.swiper-slide {
+  margin-right: 0 !important;
+}
+.border-radius {
+  border-radius: 15px;
 }
 @layer components {
   /* Custom Button Components */
