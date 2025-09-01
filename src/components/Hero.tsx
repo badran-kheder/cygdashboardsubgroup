@@ -15,7 +15,7 @@ interface HeroProps {
   title: string
   titleAccent?: string
   description: string
-  buttons: HeroButton[]
+  buttons?: HeroButton[]
   textAlign?: 'left' | 'center'
   showFooter?: boolean
   footerLogos?: Array<{
@@ -30,7 +30,7 @@ export default function Hero({
   title,
   titleAccent,
   description,
-  buttons,
+  buttons = [],
   textAlign = 'left',
   showFooter = false,
   footerLogos = [],
@@ -89,8 +89,9 @@ export default function Hero({
           </p>
 
           {/* CTA Buttons */}
-          <div className={`flex flex-col sm:flex-row gap-3 sm:gap-4 ${getButtonAlignment()} items-start`}>
-            {buttons.map((button, index) => (
+          {buttons && buttons.length > 0 && (
+            <div className={`flex flex-col sm:flex-row gap-3 sm:gap-4 ${getButtonAlignment()} items-start`}>
+              {buttons.map((button, index) => (
               <Link
                 key={index}
                 href={button.href}
@@ -135,6 +136,7 @@ export default function Hero({
               </Link>
             ))}
           </div>
+        )}
         </div>
       </div>
 

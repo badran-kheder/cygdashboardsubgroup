@@ -2,9 +2,11 @@
 
 import { useState } from 'react'
 import { EnvelopeIcon, PhoneIcon, MapPinIcon, ClockIcon } from '@heroicons/react/24/outline'
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
 import { ArrowRightIcon } from '@heroicons/react/24/solid'
+import Hero from '@/components/Hero'
+import IndustryPerspectivesHeading from '@/components/IndustryPerspectivesHeading'
+import IndustryPerspectivesCarousel from '@/components/IndustryPerspectivesCarousel'
+import CTA from '@/components/CTA'
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -31,19 +33,28 @@ export default function Contact() {
 
   return (
     <>
-      <Header />
-      <main className="min-h-screen bg-black text-primary-200 pt-40">
+      <main className="min-h-screen bg-black text-primary-200">
         {/* Hero Section */}
-        <section className="py-20 px-4 bg-primary-800">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-primary-200 mb-6">
-              Get in <span className="text-primary-500">Touch</span>
-            </h1>
-            <p className="text-xl text-primary-300 max-w-2xl mx-auto">
-              Ready to discuss your business needs? Let's have a conversation about how we can help you achieve your goals.
-            </p>
-          </div>
-        </section>
+        <Hero
+          backgroundImage="/images/hero-bg.png"
+          title="Let's Talk About Your"
+          titleAccent="Next Move"
+          description="Need help exploring strategic, sell-side, or buy-side advisory? Let us know, and one of our advisors will be in touch promptly."
+          buttons={[
+            {
+              text: "Explore Services",
+              href: "/services",
+              variant: "secondary",
+              icon: true,
+            },
+            {
+              text: "Get Started",
+              href: "/contact",
+              variant: "primary",
+            },
+          ]}
+          textAlign="center"
+        />
 
         {/* Contact Form and Info */}
         <section className="py-20 px-4">
@@ -248,8 +259,69 @@ export default function Contact() {
             </div>
           </div>
         </section>
+
+        {/* Industry Perspectives Section */}
+        <IndustryPerspectivesHeading
+          title="Industry"
+          titleAccent="Perspectives"
+          description="Discover curated insights: expert analyses, breakthrough trends, and thought leadership."
+        />
+        <IndustryPerspectivesCarousel
+          perspectives={[
+            {
+              imageSrc: "/images/slide.png",
+              title: "Cutting Through the Noise: The Long-Term Case for Data Centers The Connection",
+              category1: "Investment Strategy",
+              category2: "Business",
+              date: "June 3, 2025",
+            },
+            {
+              imageSrc: "/images/slide.png",
+              title: "Cutting Through the Noise: The Long-Term Case for Data Centers The Connection",
+              category1: "Investment Strategy",
+              category2: "Business",
+              date: "June 3, 2025",
+            },
+            {
+              imageSrc: "/images/slide.png",
+              title: "Cutting Through the Noise: The Long-Term Case for Data Centers The Connection",
+              category1: "Investment Strategy",
+              category2: "Business",
+              date: "June 3, 2025",
+            },
+            {
+              imageSrc: "/images/slide.png",
+              title: "Market Views: Opportunity Amid Uncertainty",
+              category1: "Investment Strategy",
+              category2: "Business",
+              date: "June 12, 2025",
+            },
+            {
+              imageSrc: "/images/slide.png",
+              title: "One-on-One with CYG Partners: All Eyes on Lebanon",
+              category1: "Investment Strategy",
+              category2: "Business",
+              date: "May 12, 2025",
+            },
+            {
+              imageSrc: "/images/slide.png",
+              title: "The Future of AI in Finance: A Deep Dive",
+              category1: "Technology",
+              category2: "Finance",
+              date: "July 1, 2025",
+            },
+          ]}
+        />
+
+        {/* CTA Component */}
+        <CTA
+          title="Ready to Start"
+          titleAccent="Your Journey"
+          buttonText="Get Started Today"
+          buttonHref="/contact"
+          backgroundPattern="default"
+        />
       </main>
-      <Footer />
     </>
   )
 }

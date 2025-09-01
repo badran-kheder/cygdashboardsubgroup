@@ -64,7 +64,8 @@ export default function ServicesPage() {
     specialServiceData: {
       title: "Explore",
       titleAccent: "Strategic Advisory",
-      description: "Position your business for the right exit. From valuation to buyer negotiation, we guide you through the entire sale process maximizing outcomes while minimizing disruption.",
+      description:
+        "Position your business for the right exit. From valuation to buyer negotiation, we guide you through the entire sale process maximizing outcomes while minimizing disruption.",
       buttonText: "Learn More",
       buttonHref: "/services/strategic-advisory",
       mainIcon: "/images/chess.png",
@@ -73,32 +74,48 @@ export default function ServicesPage() {
         {
           title: "Monthly & Quarterly Performance",
           icon: (
-            <svg className="w-8 h-8 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+            <svg
+              className="w-8 h-8 text-green-600"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
               <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           ),
-          backgroundColor: "green" as const
+          backgroundColor: "green" as const,
         },
         {
           title: "Financial & Operational Monitoring",
           icon: (
-            <svg className="w-8 h-8 text-gray-800" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4zm0 2h12v8H4V6z" clipRule="evenodd" />
+            <svg
+              className="w-8 h-8 text-gray-800"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fillRule="evenodd"
+                d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4zm0 2h12v8H4V6z"
+                clipRule="evenodd"
+              />
             </svg>
           ),
-          backgroundColor: "black" as const
+          backgroundColor: "black" as const,
         },
         {
           title: "Ad Hoc Strategic Advisory",
           icon: (
-            <svg className="w-8 h-8 text-gray-800" fill="currentColor" viewBox="0 0 20 20">
+            <svg
+              className="w-8 h-8 text-gray-800"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
               <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" />
             </svg>
           ),
-          backgroundColor: "black" as const
-        }
-      ]
-    }
+          backgroundColor: "black" as const,
+        },
+      ],
+    },
   };
 
   return (
@@ -109,13 +126,13 @@ export default function ServicesPage() {
       {/* Services Component */}
       <Services {...servicesData} />
 
-             {/* CTA Component */}
-       <CTA 
-         title="Choose smart. We'll guide the way."
-         titleAccent="smart"
-         buttonText="Book a Consultation"
-         buttonHref="/contact"
-       />
-     </main>
-   );
- }
+      {/* CTA Component */}
+      <CTA
+        title="Choose smart. We'll guide the way."
+        titleAccent="smart"
+        buttonText="Book a Consultation"
+        buttonHref="/contact"
+      />
+    </main>
+  );
+}

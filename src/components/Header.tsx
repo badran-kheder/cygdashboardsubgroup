@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   Bars3Icon,
   XMarkIcon,
@@ -13,6 +14,12 @@ export default function Header() {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [headerPadding, setHeaderPadding] = useState("2.5rem 10rem");
+  const pathname = usePathname();
+
+  // Helper functions to check if links are active
+  const isActive = (path: string) => pathname === path;
+  const isServicesActive = () => pathname.startsWith('/services');
+  const isServicesDetailActive = (servicePath: string) => pathname === servicePath;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -86,47 +93,68 @@ export default function Header() {
           <nav className="hidden md:flex items-center space-x-8">
             <Link
               href="/"
-              className="text-primary-200 hover:text-primary-500 transition-colors duration-200"
+              className={`transition-colors duration-200 ${
+                isActive('/') 
+                  ? 'text-primary-500 font-semibold' 
+                  : 'text-primary-200 hover:text-primary-500'
+              }`}
             >
               Home
             </Link>
 
-            <div className="relative group">
-              <button
-                className="flex items-center text-primary-200 hover:text-primary-500 transition-colors duration-200"
-                onMouseEnter={() => setIsServicesOpen(true)}
-                onMouseLeave={() => setIsServicesOpen(false)}
-              >
-                Services
-                <ChevronDownIcon className="ml-1 h-4 w-4" />
-              </button>
+                         <div 
+               className="relative"
+               onMouseEnter={() => setIsServicesOpen(true)}
+               onMouseLeave={() => setIsServicesOpen(false)}
+             >
+               <Link
+                 href="/services"
+                 className={`flex items-center transition-colors duration-200 ${
+                   isServicesActive() 
+                     ? 'text-primary-500 font-semibold' 
+                     : 'text-primary-200 hover:text-primary-500'
+                 }`}
+               >
+                 Services
+                 <ChevronDownIcon className="ml-1 h-4 w-4" />
+               </Link>
 
-              {/* Services Dropdown */}
-              <div
-                className={`absolute top-full left-0 mt-2 w-64 bg-primary-950 border border-primary-700 rounded-lg shadow-xl transition-all duration-200 ${
-                  isServicesOpen
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 -translate-y-2 pointer-events-none"
-                }`}
-                onMouseEnter={() => setIsServicesOpen(true)}
-                onMouseLeave={() => setIsServicesOpen(false)}
-              >
+               {/* Services Dropdown */}
+               <div
+                 className={`absolute top-full left-0 mt-0 w-64 bg-primary-950 border border-primary-700 rounded-lg shadow-xl transition-all duration-200 ${
+                   isServicesOpen
+                     ? "opacity-100 translate-y-0"
+                     : "opacity-0 -translate-y-2 pointer-events-none"
+                 }`}
+               >
                 <div className="py-2">
                   <Link
-                    href="/services/strategic"
-                    className="block px-4 py-3 text-primary-200 hover:bg-primary-700 transition-colors duration-200"
+                    href="/services/strategic-advisory"
+                    className={`block px-4 py-3 transition-colors duration-200 ${
+                      isServicesDetailActive('/services/strategic-advisory')
+                        ? 'text-primary-500 bg-primary-700 font-semibold'
+                        : 'text-primary-200 hover:bg-primary-700'
+                    }`}
                   >
                     Strategic Advisory
                   </Link>
                   <Link
-                    href="/services/sell-side"
-                    className="block px-4 py-3 text-primary-200 hover:bg-primary-700 transition-colors duration-200"
+                    href="/services/sell-side-advisory"
+                    className={`block px-4 py-3 transition-colors duration-200 ${
+                      isServicesDetailActive('/services/sell-side-advisory')
+                        ? 'text-primary-500 bg-primary-700 font-semibold'
+                        : 'text-primary-200 hover:bg-primary-700'
+                    }`}
                   >
                     Sell-Side Advisory
                   </Link>
                   <Link
-                    href="/services/buy-side"
-                    className="block px-4 py-3 text-primary-200 hover:bg-primary-700 transition-colors duration-200"
+                    href="/services/buy-side-advisory"
+                    className={`block px-4 py-3 transition-colors duration-200 ${
+                      isServicesDetailActive('/services/buy-side-advisory')
+                        ? 'text-primary-500 bg-primary-700 font-semibold'
+                        : 'text-primary-200 hover:bg-primary-700'
+                    }`}
                   >
                     Buy-Side Advisory
                   </Link>
@@ -136,19 +164,31 @@ export default function Header() {
 
             <Link
               href="/about"
-              className="text-primary-200 hover:text-primary-500 transition-colors duration-200"
+              className={`transition-colors duration-200 ${
+                isActive('/about') 
+                  ? 'text-primary-500 font-semibold' 
+                  : 'text-primary-200 hover:text-primary-500'
+              }`}
             >
               About Us
             </Link>
             <Link
               href="/clients"
-              className="text-primary-200 hover:text-primary-500 transition-colors duration-200"
+              className={`transition-colors duration-200 ${
+                isActive('/clients') 
+                  ? 'text-primary-500 font-semibold' 
+                  : 'text-primary-200 hover:text-primary-500'
+              }`}
             >
               Clients
             </Link>
             <Link
               href="/contact"
-              className="text-primary-200 hover:text-primary-500 transition-colors duration-200"
+              className={`transition-colors duration-200 ${
+                isActive('/contact') 
+                  ? 'text-primary-500 font-semibold' 
+                  : 'text-primary-200 hover:text-primary-500'
+              }`}
             >
               Contact Us
             </Link>
@@ -171,55 +211,83 @@ export default function Header() {
         {isMenuOpen && (
           <div className="md:hidden border-t border-primary-700">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              <Link
-                href="/"
-                className="block px-3 py-2 text-primary-200 hover:bg-primary-800 rounded-md transition-colors duration-200"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Home
-              </Link>
-              <Link
-                href="/services/strategic"
-                className="block px-3 py-2 text-primary-200 hover:bg-primary-800 rounded-md transition-colors duration-200"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Strategic Advisory
-              </Link>
-              <Link
-                href="/services/sell-side"
-                className="block px-3 py-2 text-primary-200 hover:bg-primary-800 rounded-md transition-colors duration-200"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Sell-Side Advisory
-              </Link>
-              <Link
-                href="/services/buy-side"
-                className="block px-3 py-2 text-primary-200 hover:bg-primary-800 rounded-md transition-colors duration-200"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Buy-Side Advisory
-              </Link>
-              <Link
-                href="/about"
-                className="block px-3 py-2 text-primary-200 hover:bg-primary-800 rounded-md transition-colors duration-200"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                About Us
-              </Link>
-              <Link
-                href="/clients"
-                className="block px-3 py-2 text-primary-200 hover:bg-primary-800 rounded-md transition-colors duration-200"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Clients
-              </Link>
-              <Link
-                href="/contact"
-                className="block px-3 py-2 text-primary-200 hover:bg-primary-800 rounded-md transition-colors duration-200"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Contact Us
-              </Link>
+                             <Link
+                 href="/"
+                 className={`block px-3 py-2 rounded-md transition-colors duration-200 ${
+                   isActive('/') 
+                     ? 'text-primary-500 bg-primary-800 font-semibold' 
+                     : 'text-primary-200 hover:bg-primary-800'
+                 }`}
+                 onClick={() => setIsMenuOpen(false)}
+               >
+                 Home
+               </Link>
+               <Link
+                 href="/services/strategic-advisory"
+                 className={`block px-3 py-2 rounded-md transition-colors duration-200 ${
+                   isServicesDetailActive('/services/strategic-advisory')
+                     ? 'text-primary-500 bg-primary-800 font-semibold' 
+                     : 'text-primary-200 hover:bg-primary-800'
+                 }`}
+                 onClick={() => setIsMenuOpen(false)}
+               >
+                 Strategic Advisory
+               </Link>
+               <Link
+                 href="/services/sell-side-advisory"
+                 className={`block px-3 py-2 rounded-md transition-colors duration-200 ${
+                   isServicesDetailActive('/services/sell-side-advisory')
+                     ? 'text-primary-500 bg-primary-800 font-semibold' 
+                     : 'text-primary-200 hover:bg-primary-800'
+                 }`}
+                 onClick={() => setIsMenuOpen(false)}
+               >
+                 Sell-Side Advisory
+               </Link>
+               <Link
+                 href="/services/buy-side-advisory"
+                 className={`block px-3 py-2 rounded-md transition-colors duration-200 ${
+                   isServicesDetailActive('/services/buy-side-advisory')
+                     ? 'text-primary-500 bg-primary-800 font-semibold' 
+                     : 'text-primary-200 hover:bg-primary-800'
+                 }`}
+                 onClick={() => setIsMenuOpen(false)}
+               >
+                 Buy-Side Advisory
+               </Link>
+               <Link
+                 href="/about"
+                 className={`block px-3 py-2 rounded-md transition-colors duration-200 ${
+                   isActive('/about') 
+                     ? 'text-primary-500 bg-primary-800 font-semibold' 
+                     : 'text-primary-200 hover:bg-primary-800'
+                 }`}
+                 onClick={() => setIsMenuOpen(false)}
+               >
+                 About Us
+               </Link>
+               <Link
+                 href="/clients"
+                 className={`block px-3 py-2 rounded-md transition-colors duration-200 ${
+                   isActive('/clients') 
+                     ? 'text-primary-500 bg-primary-800 font-semibold' 
+                     : 'text-primary-200 hover:bg-primary-800'
+                 }`}
+                 onClick={() => setIsMenuOpen(false)}
+               >
+                 Clients
+               </Link>
+               <Link
+                 href="/contact"
+                 className={`block px-3 py-2 rounded-md transition-colors duration-200 ${
+                   isActive('/contact') 
+                     ? 'text-primary-500 bg-primary-800 font-semibold' 
+                     : 'text-primary-200 hover:bg-primary-800'
+                 }`}
+                 onClick={() => setIsMenuOpen(false)}
+               >
+                 Contact Us
+               </Link>
             </div>
           </div>
         )}
