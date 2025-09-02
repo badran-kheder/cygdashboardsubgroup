@@ -42,12 +42,8 @@ export default function CTA({
           className="absolute inset-0 opacity-20"
           style={{
             backgroundImage: `
-              radial-gradient(circle at 1px 1px, rgba(34, 197, 94, 0.3) 1px, transparent 0),
-              radial-gradient(circle at 1px 1px, rgba(59, 130, 246, 0.2) 1px, transparent 0),
-              radial-gradient(circle at 1px 1px, rgba(239, 68, 68, 0.1) 1px, transparent 0)
+              url('/images/dotted.png')
             `,
-            backgroundSize: "20px 20px, 30px 30px, 40px 40px",
-            backgroundPosition: "0 0, 10px 10px, 20px 20px",
           }}
         />
       )}

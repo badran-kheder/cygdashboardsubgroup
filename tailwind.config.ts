@@ -188,7 +188,10 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('flyonui'),
+    require('@iconify/tailwind'),
+  ],
 }
 
 export default config

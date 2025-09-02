@@ -35,7 +35,7 @@ export default function SpecialServiceCard({
   subServicesOrder = 2,
 }: SpecialServiceCardProps) {
   return (
-    <section className="py-20 px-4">
+    <div className="py-20 px-4">
       <div
         className={`max-w-7xl mx-auto flex border border-white border-radius p-10 bg-black hover:border-primary-500 transition-all duration-200 hover:shadow-glow ${
           mainContentOrder === 2 ? "flex-col-reverse" : "flex-col"
@@ -120,6 +120,6 @@ export default function SpecialServiceCard({
           ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 }

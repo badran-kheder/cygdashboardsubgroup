@@ -3,8 +3,7 @@
 import Hero from "@/components/Hero";
 import SimpleHero from "@/components/SimpleHero";
 import Services from "@/components/Services";
-import IndustryPerspectivesHeading from "@/components/IndustryPerspectivesHeading";
-import IndustryPerspectivesCarousel from "@/components/IndustryPerspectivesCarousel";
+import FlyonCarousel from "@/components/FlyonCarousel";
 
 export default function AboutPage() {
   return (
@@ -82,57 +81,20 @@ From performance tracking to strategic decision-making, we guide you every step 
       />
 
       {/* Industry Perspectives Section */}
-      <IndustryPerspectivesHeading
-        title="Industry"
-        titleAccent="Perspectives"
-        description="Discover curated insights: expert analyses, breakthrough trends, and thought leadership."
-      />
-      <IndustryPerspectivesCarousel
-        perspectives={[
-          {
-            imageSrc: "/images/slide.png",
-            title: "Cutting Through the Noise: The Long-Term Case for Data Centers The Connection",
-            category1: "Investment Strategy",
-            category2: "Business",
-            date: "June 3, 2025",
-          },
-          {
-            imageSrc: "/images/slide.png",
-            title: "Cutting Through the Noise: The Long-Term Case for Data Centers The Connection",
-            category1: "Investment Strategy",
-            category2: "Business",
-            date: "June 3, 2025",
-          },
-          {
-            imageSrc: "/images/slide.png",
-            title: "Cutting Through the Noise: The Long-Term Case for Data Centers The Connection",
-            category1: "Investment Strategy",
-            category2: "Business",
-            date: "June 3, 2025",
-          },
-          {
-            imageSrc: "/images/slide.png",
-            title: "Market Views: Opportunity Amid Uncertainty",
-            category1: "Investment Strategy",
-            category2: "Business",
-            date: "June 12, 2025",
-          },
-          {
-            imageSrc: "/images/slide.png",
-            title: "One-on-One with CYG Partners: All Eyes on Lebanon",
-            category1: "Investment Strategy",
-            category2: "Business",
-            date: "May 12, 2025",
-          },
-          {
-            imageSrc: "/images/slide.png",
-            title: "The Future of AI in Finance: A Deep Dive",
-            category1: "Technology",
-            category2: "Finance",
-            date: "July 1, 2025",
-          },
-        ]}
-      />
+      <section className="py-16 px-4 bg-[#2C2C2C]">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+              Meet <span className="text-primary-500">CYG</span> Team
+            </h2>
+            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+              We provide end‑to‑end advisory—from capital raises and M&A to
+              long‑term strategy—empowering confident, growth‑driven decisions
+            </p>
+          </div>
+          <FlyonCarousel />
+        </div>
+      </section>
     </main>
   );
 }

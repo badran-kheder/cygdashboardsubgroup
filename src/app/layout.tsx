@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import FlyonUIScript from "@/components/FlyonUIScript";
 
 export const metadata: Metadata = {
   title: "CYG Partners - Strategic Financial Advisory",
@@ -30,6 +31,8 @@ export default function RootLayout({
         <Header />
         {children}
         <Footer />
+        <FlyonUIScript />
+        <script src="/flyonui.js" defer></script>
       </body>
     </html>
   );
