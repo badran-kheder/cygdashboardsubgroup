@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import Footer from "@/components/Footer";
 import CTA from "@/components/CTA";
+import AnimateOnScroll from "@/components/AnimateOnScroll";
 
 export default function ServicesPage() {
   const heroData = {
@@ -130,15 +131,19 @@ export default function ServicesPage() {
       <Hero {...heroData} />
 
       {/* Services Component */}
-      <Services {...servicesData} />
+      <AnimateOnScroll animation="fadeInUp" delay={200}>
+        <Services {...servicesData} />
+      </AnimateOnScroll>
 
       {/* CTA Component */}
-      <CTA
-        title="Choose smart. We'll guide the way."
-        titleAccent="smart"
-        buttonText="Book a Consultation"
-        buttonHref="/contact"
-      />
+      <AnimateOnScroll animation="fadeInUp" delay={200}>
+        <CTA
+          title="Choose smart. We'll guide the way."
+          titleAccent="smart"
+          buttonText="Book a Consultation"
+          buttonHref="/contact"
+        />
+      </AnimateOnScroll>
     </main>
   );
 }

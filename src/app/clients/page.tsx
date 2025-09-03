@@ -4,6 +4,7 @@ import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import Stock from "@/components/Stock";
 import HorizontalCarousel from "@/components/HorizontalCarousel";
+import AnimateOnScroll from "@/components/AnimateOnScroll";
 
 export default function ClientsPage() {
   return (
@@ -31,59 +32,65 @@ export default function ClientsPage() {
       />
 
       {/* Services Overview Section */}
-      <Services
-        title="Grow Boldly."
-        titleAccent="Think Strategically"
-        description="Strategic Advisory to overcome challenges, unlock growth, and reach long-term goals — with expert insights and practical support."
-        backgroundGradient="linear-gradient(180deg, #203829 0%, #979797 100.02%)"
-        services={[
-          {
-            title: "Strategic",
-            titleAccent: "Advisory",
-            description:
-              "Comprehensive strategic planning and advisory services to optimize your business operations and drive sustainable growth.",
-            image: "/images/hero-bg.png",
-            imageAlt: "Strategic Advisory",
-            buttonText: "",
-            buttonHref: "",
-          },
-          {
-            title: "Sell-Side",
-            titleAccent: "Advisory",
-            description:
-              "Expert guidance through the entire sell-side process, maximizing value and ensuring smooth transactions.",
-            image: "/images/stock.png",
-            imageAlt: "Sell-Side Advisory",
-            buttonText: "",
-            buttonHref: "",
-          },
-          {
-            title: "Buy-Side",
-            titleAccent: "Advisory",
-            description:
-              "Strategic acquisition support and due diligence to help you make informed investment decisions.",
-            image: "/images/t-stock.png",
-            imageAlt: "Buy-Side Advisory",
-            buttonText: "",
-            buttonHref: "",
-          },
-        ]}
-        showSpecialService={false}
-      />
+      <AnimateOnScroll animation="fadeInUp" delay={200}>
+        <Services
+          title="Grow Boldly."
+          titleAccent="Think Strategically"
+          description="Strategic Advisory to overcome challenges, unlock growth, and reach long-term goals — with expert insights and practical support."
+          backgroundGradient="linear-gradient(180deg, #203829 0%, #979797 100.02%)"
+          services={[
+            {
+              title: "Strategic",
+              titleAccent: "Advisory",
+              description:
+                "Comprehensive strategic planning and advisory services to optimize your business operations and drive sustainable growth.",
+              image: "/images/hero-bg.png",
+              imageAlt: "Strategic Advisory",
+              buttonText: "",
+              buttonHref: "",
+            },
+            {
+              title: "Sell-Side",
+              titleAccent: "Advisory",
+              description:
+                "Expert guidance through the entire sell-side process, maximizing value and ensuring smooth transactions.",
+              image: "/images/stock.png",
+              imageAlt: "Sell-Side Advisory",
+              buttonText: "",
+              buttonHref: "",
+            },
+            {
+              title: "Buy-Side",
+              titleAccent: "Advisory",
+              description:
+                "Strategic acquisition support and due diligence to help you make informed investment decisions.",
+              image: "/images/t-stock.png",
+              imageAlt: "Buy-Side Advisory",
+              buttonText: "",
+              buttonHref: "",
+            },
+          ]}
+          showSpecialService={false}
+        />
+      </AnimateOnScroll>
 
       {/* Stock Section */}
-      <Stock
-        title="We Specialize in"
-        titleAccent="Specialization!"
-        description="We apply tailored financial and operational expertise across diverse industries."
-        backgroundImage="/images/t-stock.png"
-        backgroundImageAlt="Stock chart background"
-      />
+      <AnimateOnScroll animation="fadeInUp" delay={200}>
+        <Stock
+          title="We Specialize in"
+          titleAccent="Specialization!"
+          description="We apply tailored financial and operational expertise across diverse industries."
+          backgroundImage="/images/t-stock.png"
+          backgroundImageAlt="Stock chart background"
+        />
+      </AnimateOnScroll>
 
       {/* Team Carousel Section */}
-      <div id="team-carousel">
-        <HorizontalCarousel />
-      </div>
+      <AnimateOnScroll animation="fadeInUp" delay={200}>
+        <div id="team-carousel">
+          <HorizontalCarousel />
+        </div>
+      </AnimateOnScroll>
     </main>
   );
 }

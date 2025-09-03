@@ -12,6 +12,7 @@ import Hero from "@/components/Hero";
 import IndustryPerspectivesHeading from "@/components/IndustryPerspectivesHeading";
 import IndustryPerspectivesCarousel from "@/components/IndustryPerspectivesCarousel";
 import CTA from "@/components/CTA";
+import AnimateOnScroll from "@/components/AnimateOnScroll";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -66,14 +67,16 @@ export default function Contact() {
         />
 
         {/* Contact Form and Info */}
-        <section className="py-20 px-4">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-16">
-              {/* Contact Form */}
-              <div>
-                <h2 className="text-3xl font-bold text-white mb-8">
-                  Send us a Message
-                </h2>
+        <AnimateOnScroll animation="fadeInUp" delay={200}>
+          <section className="py-20 px-4">
+            <div className="max-w-7xl mx-auto">
+              <div className="grid lg:grid-cols-2 gap-16">
+                {/* Contact Form */}
+                <AnimateOnScroll animation="fadeInLeft" delay={400}>
+                  <div>
+                    <h2 className="text-3xl font-bold text-white mb-8">
+                      Send us a Message
+                    </h2>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
@@ -200,13 +203,15 @@ export default function Contact() {
                     <ArrowRightIcon className="ml-2 h-5 w-5" />
                   </button>
                 </form>
-              </div>
+                  </div>
+                </AnimateOnScroll>
 
-              {/* Contact Information */}
-              <div>
-                <h2 className="text-3xl font-bold text-white mb-8">
-                  Contact Information
-                </h2>
+                {/* Contact Information */}
+                <AnimateOnScroll animation="fadeInRight" delay={600}>
+                  <div>
+                    <h2 className="text-3xl font-bold text-white mb-8">
+                      Contact Information
+                    </h2>
                 <div className="space-y-8">
                   <div className="flex items-start space-x-4">
                     <div className="w-12 h-12 bg-primary-500/10 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -295,53 +300,61 @@ export default function Contact() {
                     </li>
                   </ul>
                 </div>
+                  </div>
+                </AnimateOnScroll>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </AnimateOnScroll>
 
         {/* Our Offices Section */}
-        <IndustryPerspectivesHeading
-          title="Our"
-          titleAccent="Offices"
-          description="Get in touch with us at any of our offices. We're always ready to support your next step — wherever you are."
-        />
-        <IndustryPerspectivesCarousel
-          perspectives={[
-            {
-              imageSrc: "/images/slide.png",
-              title: "Dubai, UAE",
-              category1: "info@cygpartners.com",
-              category2: "+971 50 358 2464",
-              date: "Main Office",
-              href: "https://maps.google.com/?q=Dubai+UAE",
-            },
-            {
-              imageSrc: "/images/hero-bg.png",
-              title: "Beirut, Lebanon",
-              category1: "info@cygpartners.com",
-              category2: "+961 1 234 567",
-              date: "Regional Office",
-              href: "https://maps.google.com/?q=Beirut+Lebanon",
-            },
-            {
-              imageSrc: "/images/services.png",
-              title: "Coming Soon",
-              category1: "info@cygpartners.com",
-              category2: "Global Reach",
-              date: "Expanding Soon",
-            },
-          ]}
-        />
+        <AnimateOnScroll animation="fadeInUp" delay={200}>
+          <IndustryPerspectivesHeading
+            title="Our"
+            titleAccent="Offices"
+            description="Get in touch with us at any of our offices. We're always ready to support your next step — wherever you are."
+          />
+        </AnimateOnScroll>
+        <AnimateOnScroll animation="fadeInUp" delay={400}>
+          <IndustryPerspectivesCarousel
+            perspectives={[
+              {
+                imageSrc: "/images/slide.png",
+                title: "Dubai, UAE",
+                category1: "info@cygpartners.com",
+                category2: "+971 50 358 2464",
+                date: "Main Office",
+                href: "https://maps.google.com/?q=Dubai+UAE",
+              },
+              {
+                imageSrc: "/images/hero-bg.png",
+                title: "Beirut, Lebanon",
+                category1: "info@cygpartners.com",
+                category2: "+961 1 234 567",
+                date: "Regional Office",
+                href: "https://maps.google.com/?q=Beirut+Lebanon",
+              },
+              {
+                imageSrc: "/images/services.png",
+                title: "Coming Soon",
+                category1: "info@cygpartners.com",
+                category2: "Global Reach",
+                date: "Expanding Soon",
+              },
+            ]}
+          />
+        </AnimateOnScroll>
 
         {/* CTA Component */}
-        <CTA
-          title="Ready to Start"
-          titleAccent="Your Journey"
-          buttonText="Get Started Today"
-          buttonHref="/contact"
-          backgroundPattern="default"
-        />
+        <AnimateOnScroll animation="fadeInUp" delay={200}>
+          <CTA
+            title="Ready to Start"
+            titleAccent="Your Journey"
+            buttonText="Get Started Today"
+            buttonHref="/contact"
+            backgroundPattern="default"
+          />
+        </AnimateOnScroll>
       </main>
     </>
   );
