@@ -15,6 +15,7 @@ interface Perspective {
   category1: string;
   category2: string;
   date: string;
+  href?: string;
 }
 
 interface IndustryPerspectivesCarouselProps {
@@ -60,6 +61,7 @@ export default function IndustryPerspectivesCarousel({
               category1={perspective.category1}
               category2={perspective.category2}
               date={perspective.date}
+              href={perspective.href}
             />
           </SwiperSlide>
         ))}

@@ -1,35 +1,44 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { EnvelopeIcon, PhoneIcon, MapPinIcon, ClockIcon } from '@heroicons/react/24/outline'
-import { ArrowRightIcon } from '@heroicons/react/24/solid'
-import Hero from '@/components/Hero'
-import IndustryPerspectivesHeading from '@/components/IndustryPerspectivesHeading'
-import IndustryPerspectivesCarousel from '@/components/IndustryPerspectivesCarousel'
-import CTA from '@/components/CTA'
+import { useState } from "react";
+import {
+  EnvelopeIcon,
+  PhoneIcon,
+  MapPinIcon,
+  ClockIcon,
+} from "@heroicons/react/24/outline";
+import { ArrowRightIcon } from "@heroicons/react/24/solid";
+import Hero from "@/components/Hero";
+import IndustryPerspectivesHeading from "@/components/IndustryPerspectivesHeading";
+import IndustryPerspectivesCarousel from "@/components/IndustryPerspectivesCarousel";
+import CTA from "@/components/CTA";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    phone: '',
-    service: '',
-    message: ''
-  })
+    name: "",
+    email: "",
+    company: "",
+    phone: "",
+    service: "",
+    message: "",
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     // Handle form submission here
-    console.log('Form submitted:', formData)
-  }
+    console.log("Form submitted:", formData);
+  };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
-    })
-  }
+      [e.target.name]: e.target.value,
+    });
+  };
 
   return (
     <>
@@ -62,11 +71,16 @@ export default function Contact() {
             <div className="grid lg:grid-cols-2 gap-16">
               {/* Contact Form */}
               <div>
-                <h2 className="text-3xl font-bold text-white mb-8">Send us a Message</h2>
+                <h2 className="text-3xl font-bold text-white mb-8">
+                  Send us a Message
+                </h2>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
+                      <label
+                        htmlFor="name"
+                        className="block text-sm font-medium text-gray-300 mb-2"
+                      >
                         Full Name *
                       </label>
                       <input
@@ -76,12 +90,15 @@ export default function Contact() {
                         required
                         value={formData.name}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-colors duration-200"
+                        className="w-full px-4 py-3 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-colors duration-200"
                         placeholder="Enter your full name"
                       />
                     </div>
                     <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+                      <label
+                        htmlFor="email"
+                        className="block text-sm font-medium text-gray-300 mb-2"
+                      >
                         Email Address *
                       </label>
                       <input
@@ -91,15 +108,18 @@ export default function Contact() {
                         required
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-colors duration-200"
+                        className="w-full px-4 py-3 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-colors duration-200"
                         placeholder="Enter your email"
                       />
                     </div>
                   </div>
-                  
+
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="company" className="block text-sm font-medium text-gray-300 mb-2">
+                      <label
+                        htmlFor="company"
+                        className="block text-sm font-medium text-gray-300 mb-2"
+                      >
                         Company Name
                       </label>
                       <input
@@ -108,12 +128,15 @@ export default function Contact() {
                         name="company"
                         value={formData.company}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-colors duration-200"
+                        className="w-full px-4 py-3 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-colors duration-200"
                         placeholder="Enter company name"
                       />
                     </div>
                     <div>
-                      <label htmlFor="phone" className="block text-sm font-medium text-gray-300 mb-2">
+                      <label
+                        htmlFor="phone"
+                        className="block text-sm font-medium text-gray-300 mb-2"
+                      >
                         Phone Number
                       </label>
                       <input
@@ -122,14 +145,17 @@ export default function Contact() {
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-colors duration-200"
+                        className="w-full px-4 py-3 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-colors duration-200"
                         placeholder="Enter phone number"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label htmlFor="service" className="block text-sm font-medium text-gray-300 mb-2">
+                    <label
+                      htmlFor="service"
+                      className="block text-sm font-medium text-gray-300 mb-2"
+                    >
                       Service of Interest
                     </label>
                     <select
@@ -137,7 +163,7 @@ export default function Contact() {
                       name="service"
                       value={formData.service}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-colors duration-200"
+                      className="w-full px-4 py-3 border border-gray-700 rounded-lg text-white focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-colors duration-200"
                     >
                       <option value="">Select a service</option>
                       <option value="strategic">Strategic Advisory</option>
@@ -148,7 +174,10 @@ export default function Contact() {
                   </div>
 
                   <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
+                    <label
+                      htmlFor="message"
+                      className="block text-sm font-medium text-gray-300 mb-2"
+                    >
                       Message *
                     </label>
                     <textarea
@@ -158,7 +187,7 @@ export default function Contact() {
                       rows={6}
                       value={formData.message}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-colors duration-200"
+                      className="w-full px-4 py-3 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-colors duration-200"
                       placeholder="Tell us about your business needs and how we can help..."
                     />
                   </div>
@@ -175,16 +204,20 @@ export default function Contact() {
 
               {/* Contact Information */}
               <div>
-                <h2 className="text-3xl font-bold text-white mb-8">Contact Information</h2>
+                <h2 className="text-3xl font-bold text-white mb-8">
+                  Contact Information
+                </h2>
                 <div className="space-y-8">
                   <div className="flex items-start space-x-4">
                     <div className="w-12 h-12 bg-primary-500/10 rounded-lg flex items-center justify-center flex-shrink-0">
                       <EnvelopeIcon className="w-6 h-6 text-primary-500" />
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold text-white mb-2">Email</h3>
-                      <a 
-                        href="mailto:info@CYGPartners.com" 
+                      <h3 className="text-lg font-semibold text-white mb-2">
+                        Email
+                      </h3>
+                      <a
+                        href="mailto:info@CYGPartners.com"
                         className="text-gray-300 hover:text-primary-500 transition-colors duration-200"
                       >
                         info@CYGPartners.com
@@ -197,9 +230,11 @@ export default function Contact() {
                       <PhoneIcon className="w-6 h-6 text-primary-500" />
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold text-white mb-2">Phone</h3>
-                      <a 
-                        href="tel:+971563221025" 
+                      <h3 className="text-lg font-semibold text-white mb-2">
+                        Phone
+                      </h3>
+                      <a
+                        href="tel:+971563221025"
                         className="text-gray-300 hover:text-primary-500 transition-colors duration-200"
                       >
                         +971 56 322 1025
@@ -212,10 +247,10 @@ export default function Contact() {
                       <MapPinIcon className="w-6 h-6 text-primary-500" />
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold text-white mb-2">Office</h3>
-                      <p className="text-gray-300">
-                        Boulevard, Dubai, UAE
-                      </p>
+                      <h3 className="text-lg font-semibold text-white mb-2">
+                        Office
+                      </h3>
+                      <p className="text-gray-300">Boulevard, Dubai, UAE</p>
                     </div>
                   </div>
 
@@ -224,9 +259,12 @@ export default function Contact() {
                       <ClockIcon className="w-6 h-6 text-primary-500" />
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold text-white mb-2">Business Hours</h3>
+                      <h3 className="text-lg font-semibold text-white mb-2">
+                        Business Hours
+                      </h3>
                       <p className="text-gray-300">
-                        Sunday - Thursday: 9:00 AM - 6:00 PM<br />
+                        Sunday - Thursday: 9:00 AM - 6:00 PM
+                        <br />
                         Friday - Saturday: Closed
                       </p>
                     </div>
@@ -234,8 +272,10 @@ export default function Contact() {
                 </div>
 
                 {/* Additional Info */}
-                <div className="mt-12 p-6 bg-gray-800 border border-gray-700 rounded-lg">
-                  <h3 className="text-xl font-semibold text-white mb-4">Why Choose CYG Partners?</h3>
+                <div className="mt-12 p-6 border border-gray-700 rounded-lg">
+                  <h3 className="text-xl font-semibold text-white mb-4">
+                    Why Choose CYG Partners?
+                  </h3>
                   <ul className="space-y-3 text-gray-300">
                     <li className="flex items-start space-x-3">
                       <span className="w-2 h-2 bg-primary-500 rounded-full mt-2 flex-shrink-0"></span>
@@ -260,55 +300,36 @@ export default function Contact() {
           </div>
         </section>
 
-        {/* Industry Perspectives Section */}
+        {/* Our Offices Section */}
         <IndustryPerspectivesHeading
-          title="Industry"
-          titleAccent="Perspectives"
-          description="Discover curated insights: expert analyses, breakthrough trends, and thought leadership."
+          title="Our"
+          titleAccent="Offices"
+          description="Get in touch with us at any of our offices. We're always ready to support your next step — wherever you are."
         />
         <IndustryPerspectivesCarousel
           perspectives={[
             {
               imageSrc: "/images/slide.png",
-              title: "Cutting Through the Noise: The Long-Term Case for Data Centers The Connection",
-              category1: "Investment Strategy",
-              category2: "Business",
-              date: "June 3, 2025",
+              title: "Dubai, UAE",
+              category1: "info@cygpartners.com",
+              category2: "+971 50 358 2464",
+              date: "Main Office",
+              href: "https://maps.google.com/?q=Dubai+UAE",
             },
             {
-              imageSrc: "/images/slide.png",
-              title: "Cutting Through the Noise: The Long-Term Case for Data Centers The Connection",
-              category1: "Investment Strategy",
-              category2: "Business",
-              date: "June 3, 2025",
+              imageSrc: "/images/hero-bg.png",
+              title: "Beirut, Lebanon",
+              category1: "info@cygpartners.com",
+              category2: "+961 1 234 567",
+              date: "Regional Office",
+              href: "https://maps.google.com/?q=Beirut+Lebanon",
             },
             {
-              imageSrc: "/images/slide.png",
-              title: "Cutting Through the Noise: The Long-Term Case for Data Centers The Connection",
-              category1: "Investment Strategy",
-              category2: "Business",
-              date: "June 3, 2025",
-            },
-            {
-              imageSrc: "/images/slide.png",
-              title: "Market Views: Opportunity Amid Uncertainty",
-              category1: "Investment Strategy",
-              category2: "Business",
-              date: "June 12, 2025",
-            },
-            {
-              imageSrc: "/images/slide.png",
-              title: "One-on-One with CYG Partners: All Eyes on Lebanon",
-              category1: "Investment Strategy",
-              category2: "Business",
-              date: "May 12, 2025",
-            },
-            {
-              imageSrc: "/images/slide.png",
-              title: "The Future of AI in Finance: A Deep Dive",
-              category1: "Technology",
-              category2: "Finance",
-              date: "July 1, 2025",
+              imageSrc: "/images/services.png",
+              title: "Coming Soon",
+              category1: "info@cygpartners.com",
+              category2: "Global Reach",
+              date: "Expanding Soon",
             },
           ]}
         />
@@ -323,5 +344,5 @@ export default function Contact() {
         />
       </main>
     </>
-  )
+  );
 }

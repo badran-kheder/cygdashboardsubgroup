@@ -38,6 +38,7 @@ export default function ServicesPage() {
         imageAlt: "Strategic Advisory",
         buttonText: "Learn More",
         buttonHref: "/services/strategic-advisory",
+        serviceKey: "strategic",
       },
       {
         title: "Sell-Side",
@@ -48,6 +49,7 @@ export default function ServicesPage() {
         imageAlt: "Sell-Side Advisory",
         buttonText: "Learn More",
         buttonHref: "/services/sell-side-advisory",
+        serviceKey: "sell-side",
       },
       {
         title: "Buy-Side",
@@ -58,6 +60,7 @@ export default function ServicesPage() {
         imageAlt: "Buy-Side Advisory",
         buttonText: "Learn More",
         buttonHref: "/services/buy-side-advisory",
+        serviceKey: "buy-side",
       },
     ],
     showSpecialService: true,
@@ -83,6 +86,7 @@ export default function ServicesPage() {
             </svg>
           ),
           backgroundColor: "green" as const,
+          href: "/services/strategic-advisory/monthly-quarterly-performance",
         },
         {
           title: "Financial & Operational Monitoring",
@@ -100,6 +104,7 @@ export default function ServicesPage() {
             </svg>
           ),
           backgroundColor: "black" as const,
+          href: "/services/strategic-advisory/financial-operational-monitoring",
         },
         {
           title: "Ad Hoc Strategic Advisory",
@@ -113,6 +118,7 @@ export default function ServicesPage() {
             </svg>
           ),
           backgroundColor: "black" as const,
+          href: "/services/strategic-advisory/ad-hoc-strategic-advisory",
         },
       ],
     },

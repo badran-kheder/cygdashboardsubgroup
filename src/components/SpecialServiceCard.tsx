@@ -7,6 +7,7 @@ interface SubService {
   title: string;
   icon: React.ReactNode;
   backgroundColor: "green" | "black";
+  href?: string;
 }
 
 interface SpecialServiceCardProps {
@@ -90,7 +91,7 @@ export default function SpecialServiceCard({
             </div>
           </div>
         </div>
-              
+
         {/* Sub-services Grid */}
         <div
           className={`grid md:grid-cols-3 ${
@@ -98,25 +99,18 @@ export default function SpecialServiceCard({
           }`}
         >
           {subServices.map((service, index) => (
-            <div
+            <Link
               key={index}
-              className={`p-6 text-center ${
-                service.backgroundColor === "green"
-                  ? "bg-green-600"
-                  : "bg-black border border-gray-700"
-              }`}
+              href={service.href || "#"}
+              className="p-6 text-center transition-all duration-300 hover:scale-105 hover:shadow-lg bg-black border border-gray-700 hover:border-primary-500 hover:bg-primary-500"
             >
-              <div
-                className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 ${
-                  service.backgroundColor === "green" ? "bg-white" : "bg-white"
-                }`}
-              >
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 bg-white">
                 {service.icon}
               </div>
               <h3 className="text-white font-semibold text-lg">
                 {service.title}
               </h3>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

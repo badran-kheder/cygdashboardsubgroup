@@ -6,6 +6,7 @@ interface PerspectiveCardProps {
   category1: string;
   category2: string;
   date: string;
+  href?: string;
 }
 
 export default function PerspectiveCard({
@@ -14,6 +15,7 @@ export default function PerspectiveCard({
   category1,
   category2,
   date,
+  href,
 }: PerspectiveCardProps) {
   return (
     <div
@@ -28,9 +30,20 @@ export default function PerspectiveCard({
             alt={title}
             className="w-full h-full object-cover filter grayscale"
           />
-          <button className="absolute top-4 right-4 bg-black bg-opacity-60 text-white text-sm px-3 py-1 rounded-full flex items-center">
-            Read More <span className="ml-1 text-lg leading-none">+</span>
-          </button>
+          {href ? (
+            <a
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="absolute top-4 right-4 bg-black bg-opacity-60 text-white text-sm px-3 py-1 rounded-full flex items-center hover:bg-opacity-80 transition-all duration-200"
+            >
+              Directions <span className="ml-1 text-lg leading-none">→</span>
+            </a>
+          ) : (
+            <button className="absolute top-4 right-4 bg-black bg-opacity-60 text-white text-sm px-3 py-1 rounded-full flex items-center">
+              Read More <span className="ml-1 text-lg leading-none">+</span>
+            </button>
+          )}
           <div className="overlay"></div>
         </div>
 

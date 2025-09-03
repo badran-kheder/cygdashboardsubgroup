@@ -1,12 +1,61 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 export default function FlyonCarousel() {
   const [isClient, setIsClient] = useState(false);
+  const carouselRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setIsClient(true);
+    
+    // Initialize FlyonUI carousel after component mounts
+    const initCarousel = () => {
+      if (typeof window !== 'undefined' && (window as any).HSStaticMethods) {
+        // Use the correct FlyonUI initialization method
+        (window as any).HSStaticMethods.autoInit();
+        console.log('FlyonUI carousel initialized');
+      } else {
+        // Retry if FlyonUI is not loaded yet
+        setTimeout(initCarousel, 100);
+      }
+    };
+    
+    // Wait for the script to load and DOM to be ready
+    const timeoutId = setTimeout(initCarousel, 300);
+    
+    // Also listen for when the script loads
+    const handleScriptLoad = () => {
+      setTimeout(initCarousel, 100);
+    };
+    
+    // Check if script is already loaded
+    const script = document.querySelector('script[src="/flyonui.js"]');
+    if (script) {
+      script.addEventListener('load', handleScriptLoad);
+    }
+    
+    // Also try to initialize when the component becomes visible
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setTimeout(initCarousel, 100);
+        }
+      });
+    });
+    
+    if (carouselRef.current) {
+      observer.observe(carouselRef.current);
+    }
+    
+    // Cleanup function
+    return () => {
+      clearTimeout(timeoutId);
+      observer.disconnect();
+      if (script) {
+        script.removeEventListener('load', handleScriptLoad);
+      }
+    };
   }, []);
 
   if (!isClient) {
@@ -70,6 +119,7 @@ export default function FlyonCarousel() {
 
   return (
     <div
+      ref={carouselRef}
       id="vertical-thumbnails"
       data-carousel='{ "loadingClasses": "opacity-0" }'
       className="relative w-full h-[70vh]  bg-black p-8"

@@ -602,7 +602,8 @@ From performance tracking to strategic decision-making, we guide you every step 
                   />
                 </svg>
               ),
-              backgroundColor: "green",
+              backgroundColor: "green" as const,
+              href: `/services/${slug}/free-initial-consultation`,
             },
             {
               title: "Custom Strategy Development",
@@ -621,7 +622,8 @@ From performance tracking to strategic decision-making, we guide you every step 
                   />
                 </svg>
               ),
-              backgroundColor: "black",
+              backgroundColor: "black" as const,
+              href: `/services/${slug}/custom-strategy-development`,
             },
             {
               title: "Ongoing Support & Guidance",
@@ -640,9 +642,15 @@ From performance tracking to strategic decision-making, we guide you every step 
                   />
                 </svg>
               ),
-              backgroundColor: "green",
+              backgroundColor: "green" as const,
+              href: `/services/${slug}/ongoing-support-guidance`,
             },
-          ],
+          ] as Array<{
+            title: string;
+            icon: React.ReactNode;
+            backgroundColor: "green" | "black";
+            href: string;
+          }>,
         }}
       />
     </main>
