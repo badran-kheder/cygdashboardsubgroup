@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { ArrowRightIcon } from '@heroicons/react/24/solid'
+import { useState, useEffect } from 'react'
 
 interface HeroButton {
   text: string
@@ -36,6 +37,47 @@ export default function Hero({
   footerLogos = [],
   reviewsLink = '/clients#team-carousel'
 }: HeroProps) {
+  const [displayedTitle, setDisplayedTitle] = useState('')
+  const [displayedAccent, setDisplayedAccent] = useState('')
+  const [isTypingComplete, setIsTypingComplete] = useState(false)
+
+  useEffect(() => {
+    let titleIndex = 0
+    let accentIndex = 0
+    let titleTimeout: NodeJS.Timeout
+    let accentTimeout: NodeJS.Timeout
+
+    // Start typing the main title
+    const typeTitle = () => {
+      if (titleIndex < title.length) {
+        setDisplayedTitle(title.slice(0, titleIndex + 1))
+        titleIndex++
+        titleTimeout = setTimeout(typeTitle, 100) // Adjust speed here
+      } else {
+        // Start typing the accent after a short delay
+        setTimeout(() => {
+          const typeAccent = () => {
+            if (titleAccent && accentIndex < titleAccent.length) {
+              setDisplayedAccent(titleAccent.slice(0, accentIndex + 1))
+              accentIndex++
+              accentTimeout = setTimeout(typeAccent, 100) // Adjust speed here
+            } else {
+              setIsTypingComplete(true)
+            }
+          }
+          typeAccent()
+        }, 300)
+      }
+    }
+
+    typeTitle()
+
+    // Cleanup timeouts
+    return () => {
+      clearTimeout(titleTimeout)
+      clearTimeout(accentTimeout)
+    }
+  }, [title, titleAccent])
   const getTextAlignment = () => {
     if (textAlign === 'center') {
       return 'text-center justify-center'
@@ -79,18 +121,21 @@ export default function Hero({
       <div className={`relative z-10 px-4 max-w-7xl mx-auto ${getContentMargin()}`}>
         <div className={`flex flex-col ${getTextAlignment()}`}>
           <h1 className="hero-headline mb-4 sm:mb-6">
-            <span>{title}</span>
+            <span>{displayedTitle}</span>
             {titleAccent && (
-              <span className="hero-headline-accent"> {titleAccent}</span>
+              <span className="hero-headline-accent"> {displayedAccent}</span>
             )}
+            <span className="inline-block w-0.5 h-8 bg-white ml-1 animate-pulse">
+              {!isTypingComplete && '|'}
+            </span>
           </h1>
-          <p className="hero-description mb-6 sm:mb-8">
+          <p className={`hero-description mb-6 sm:mb-8 transition-opacity duration-1000 ${isTypingComplete ? 'opacity-100' : 'opacity-0'}`}>
             {description}
           </p>
 
           {/* CTA Buttons */}
           {buttons && buttons.length > 0 && (
-            <div className={`flex flex-col sm:flex-row gap-3 sm:gap-4 ${getButtonAlignment()} items-start`}>
+            <div className={`flex flex-col sm:flex-row gap-3 sm:gap-4 ${getButtonAlignment()} items-start transition-opacity duration-1000 delay-500 ${isTypingComplete ? 'opacity-100' : 'opacity-0'}`}>
               {buttons.map((button, index) => (
               <Link
                 key={index}
