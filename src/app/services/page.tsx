@@ -72,7 +72,7 @@ export default function ServicesPage() {
         "Position your business for the right exit. From valuation to buyer negotiation, we guide you through the entire sale process maximizing outcomes while minimizing disruption.",
       buttonText: "Learn More",
       buttonHref: "/services/strategic-advisory",
-      mainIcon: "/images/chess.png",
+      mainIcon: "/images/spec-ico.png",
       mainIconAlt: "Strategic Advisory",
       subServices: [
         {

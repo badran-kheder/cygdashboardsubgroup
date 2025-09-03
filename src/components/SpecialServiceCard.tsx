@@ -81,12 +81,12 @@ export default function SpecialServiceCard({
             </Link>
           </div>
 
-          <div className="flex justify-center">
-            <div className="w-64 h-64 bg-gray-800 rounded-lg flex items-center justify-center">
+          <div className="flex justify-end">
+            <div className="w-64 h-64 flex items-center justify-center">
               <img
                 src={mainIcon}
                 alt={mainIconAlt}
-                className="w-32 h-32 object-contain"
+                className="w-full h-full object-contain"
               />
             </div>
           </div>
@@ -104,7 +104,7 @@ export default function SpecialServiceCard({
               href={service.href || "#"}
               className="p-6 text-center transition-all duration-300 hover:scale-105 hover:shadow-lg bg-black border border-gray-700 hover:border-primary-500 hover:bg-primary-500"
             >
-              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 bg-white">
+              <div className="w-48 h-48 rounded-full flex items-center justify-center mx-auto mb-4">
                 {service.icon}
               </div>
               <h3 className="text-white font-semibold text-lg">
