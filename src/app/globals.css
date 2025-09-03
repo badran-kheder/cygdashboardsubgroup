@@ -455,6 +455,9 @@
 section {
   position: relative;
 }
+.overlay {
+  pointer-events: none;
+}
 section::after {
   pointer-events: none;
   display: block;
@@ -484,4 +487,30 @@ section::after {
 [data-carousel] .carousel-pagination-item.carousel-active {
   filter: grayscale(0%) !important;
   opacity: 1 !important;
+}
+
+/* Infinite horizontal scrolling animation */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 20s linear infinite;
+  width: max-content;
+  display: flex;
+}
+
+.animate-scroll:hover {
+  animation-play-state: paused;
+}
+
+/* Ensure the container has proper overflow handling */
+.overflow-hidden {
+  overflow: hidden;
+  position: relative;
 }

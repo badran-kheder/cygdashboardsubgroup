@@ -34,7 +34,7 @@ export default function Hero({
   textAlign = 'left',
   showFooter = false,
   footerLogos = [],
-  reviewsLink = '/reviews'
+  reviewsLink = '/clients#team-carousel'
 }: HeroProps) {
   const getTextAlignment = () => {
     if (textAlign === 'center') {
@@ -143,39 +143,55 @@ export default function Hero({
       {/* Footer Section with Brand Logos */}
       {showFooter && (
         <div
-          className="absolute bottom-0 left-0 right-0 py-6 px-4"
+          className="absolute bottom-8 left-0 right-0 h-[10vh] px-4"
           style={{
             backgroundColor: "#00000069",
             borderTop: "1px solid rgba(255, 255, 255, 0.1)",
           }}
         >
-          <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center">
-            {/* Brand Logos */}
-            <div className="flex items-center space-x-8 mb-4 sm:mb-0">
-              {footerLogos.map((logo, index) => (
-                <div key={index} className="flex items-center space-x-2">
-                  <div
-                    className="text-white font-bold text-lg"
-                    style={{ fontFamily: "Georgia, serif" }}
-                  >
-                    {logo.brand}
+          <div className="mx-auto flex flex-col h-full sm:flex-row justify-between items-center">
+            {/* Brand Logos - Infinite Scrolling */}
+            <div className="flex-1 mb-4 sm:mb-0 overflow-hidden">
+              <div className="flex items-center space-x-8 animate-scroll">
+                {/* First set of logos */}
+                {footerLogos.map((logo, index) => (
+                  <div key={`first-${index}`} className="flex items-center space-x-2 whitespace-nowrap">
+                    <div
+                      className="text-white font-bold text-lg"
+                      style={{ fontFamily: "Georgia, serif" }}
+                    >
+                      {logo.brand}
+                    </div>
+                    <span className="text-white text-sm">
+                      "{logo.quote}"
+                    </span>
                   </div>
-                  <span className="text-white text-sm">
-                    "{logo.quote}"
-                  </span>
-                </div>
-              ))}
+                ))}
+                {/* Duplicate set for seamless loop */}
+                {footerLogos.map((logo, index) => (
+                  <div key={`second-${index}`} className="flex items-center space-x-2 whitespace-nowrap">
+                    <div
+                      className="text-white font-bold text-lg"
+                      style={{ fontFamily: "Georgia, serif" }}
+                    >
+                      {logo.brand}
+                    </div>
+                    <span className="text-white text-sm">
+                      "{logo.quote}"
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
 
             {/* View All Reviews Button */}
             <Link
               href={reviewsLink}
-              className="inline-flex items-center justify-center font-semibold hover:scale-105"
+              className="h-full inline-flex items-center justify-center font-semibold hover:scale-105"
               style={{
                 padding: "0.75rem 1.5rem",
                 backgroundColor: "transparent",
-                borderRadius: "2rem",
-                border: "1px solid white",
+                borderLeft: "1px solid white",
                 color: "white",
                 textDecoration: "none",
                 transition: "all 0.3s ease",

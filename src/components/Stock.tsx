@@ -1,13 +1,13 @@
-'use client'
+"use client";
 
-import IndustriesGrid from "./IndustriesGrid"
+import IndustriesGrid from "./IndustriesGrid";
 
 interface StockProps {
-  title: string
-  titleAccent: string
-  description: string
-  backgroundImage: string
-  backgroundImageAlt: string
+  title: string;
+  titleAccent: string;
+  description: string;
+  backgroundImage: string;
+  backgroundImageAlt: string;
 }
 
 export default function Stock({
@@ -15,7 +15,7 @@ export default function Stock({
   titleAccent,
   description,
   backgroundImage,
-  backgroundImageAlt
+  backgroundImageAlt,
 }: StockProps) {
   return (
     <section>
@@ -28,8 +28,7 @@ export default function Stock({
         {/* Content */}
         <div className="relative z-10 p-4">
           <h1 className="text-4xl sm:text-5xl font-bold leading-tight">
-            {title}{" "}
-            <span style={{ color: "#77EB8A" }}>{titleAccent}</span>
+            {title} <span style={{ color: "#77EB8A" }}>{titleAccent}</span>
           </h1>
           <p className="mt-4 text-sm sm:text-base text-gray-300 max-w-lg mx-auto text-center">
             {description}
@@ -37,8 +36,8 @@ export default function Stock({
         </div>
       </div>
       <div className="px-40 bg-black pb-20">
-          <IndustriesGrid />
-        </div>
+        <IndustriesGrid />
+      </div>
     </section>
-  )
+  );
 }

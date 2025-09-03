@@ -1,5 +1,6 @@
 // src/components/IndustriesGrid.tsx
 import React from "react";
+import Link from "next/link";
 import {
   MdCode,
   MdFavorite,
@@ -14,38 +15,31 @@ import {
 interface IndustryCardProps {
   icon: React.ReactNode;
   title: string;
-  isFeatured?: boolean;
+  href: string;
 }
 
-const IndustryCard: React.FC<IndustryCardProps> = ({
-  icon,
-  title,
-  isFeatured = false,
-}) => {
-  const baseClasses =
-    "flex flex-col items-center justify-center p-6 border border-gray-700 text-center transition-all duration-300 p-20";
-  const featuredClasses = isFeatured
-    ? "bg-primary-500 text-white"
-    : "bg-black text-white hover:bg-gray-800";
-
+const IndustryCard: React.FC<IndustryCardProps> = ({ icon, title, href }) => {
   return (
-    <div className={`${baseClasses} ${featuredClasses}`}>
+    <Link
+      href={href}
+      className="flex flex-col items-center justify-center p-6 border border-gray-700 text-center transition-all duration-300 p-20 bg-black text-white hover:bg-primary-500"
+    >
       <div className="text-4xl mb-2">{icon}</div>
       <p className="text-base font-medium">{title}</p>
-    </div>
+    </Link>
   );
 };
 
 const IndustriesGrid: React.FC = () => {
   const industries = [
-    { title: "Technology", icon: <MdCode />, isFeatured: true },
-    { title: "Healthcare", icon: <MdFavorite /> },
-    { title: "Hospitality", icon: <MdLocalHotel /> },
-    { title: "E-commerce", icon: <MdShoppingCart /> },
-    { title: "Real Estate", icon: <MdApartment /> },
-    { title: "Manufacturing", icon: <MdEngineering /> },
-    { title: "Education", icon: <MdSchool /> },
-    { title: "Professional Services", icon: <MdWork /> },
+    { title: "Technology", icon: <MdCode />, href: "/services" },
+    { title: "Healthcare", icon: <MdFavorite />, href: "/services" },
+    { title: "Hospitality", icon: <MdLocalHotel />, href: "/services" },
+    { title: "E-commerce", icon: <MdShoppingCart />, href: "/services" },
+    { title: "Real Estate", icon: <MdApartment />, href: "/services" },
+    { title: "Manufacturing", icon: <MdEngineering />, href: "/services" },
+    { title: "Education", icon: <MdSchool />, href: "/services" },
+    { title: "Professional Services", icon: <MdWork />, href: "/services" },
   ];
 
   return (
@@ -55,7 +49,7 @@ const IndustriesGrid: React.FC = () => {
           key={index}
           icon={industry.icon}
           title={industry.title}
-          isFeatured={industry.isFeatured}
+          href={industry.href}
         />
       ))}
     </div>

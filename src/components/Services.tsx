@@ -50,10 +50,10 @@ export default function Services({
 }: ServicesProps) {
   return (
     <section
-      className="py-20 px-4"
-      style={{
-        background: backgroundGradient,
-      }}
+      className="py-20 px-4 bg-black"
+      // style={{
+      //   background: backgroundGradient,
+      // }}
     >
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">

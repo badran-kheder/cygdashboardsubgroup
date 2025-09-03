@@ -42,15 +42,39 @@ export default function Home() {
               quote: "Incredibly reliable financial plan!",
             },
             {
-              brand: "Forbes",
+              brand: "Bloomberg",
               quote: "Best in the business!",
             },
+            {
+              brand: "Reuters",
+              quote: "Outstanding financial guidance!",
+            },
+            {
+              brand: "Wall Street Journal",
+              quote: "Exceptional advisory services!",
+            },
+            {
+              brand: "Financial Times",
+              quote: "Top-tier expertise!",
+            },
+            {
+              brand: "CNBC",
+              quote: "Reliable and professional!",
+            },
           ]}
-          reviewsLink="/reviews"
+          reviewsLink="/clients#team-carousel"
         />
 
         {/* Strategic Growth Section */}
-        <section className="py-20 px-4 pr-0 bg-black">
+        <section
+          className="py-20 px-4 pr-0 bg-black"
+          style={{
+            backgroundImage: "url('/images/chess.png')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+          }}
+        >
           <div className="max-container">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               {/* Left Side - Content */}
@@ -110,20 +134,6 @@ export default function Home() {
                   Learn More
                 </Link>
               </div>
-
-              {/* Right Side - Chess Piece Visual */}
-              <div className="relative flex justify-center pt-50">
-                {/* Chess Queen Image */}
-                <img
-                  src="/images/chess.png"
-                  alt="Chess Queen - Strategic Thinking"
-                  className="object-contain w-full h-full"
-                  style={{
-                    filter: "brightness(1.1) contrast(1.2)",
-                    transform: "scale(1) translate(12%, 10px)",
-                  }}
-                />
-              </div>
             </div>
           </div>
         </section>
@@ -176,7 +186,7 @@ export default function Home() {
           backgroundImage="/images/t-stock.png"
           backgroundImageAlt="Stock chart background"
         />
-        
+
         {/* Industry Perspectives Section */}
         <IndustryPerspectivesHeading
           title="Industry"
@@ -187,21 +197,24 @@ export default function Home() {
           perspectives={[
             {
               imageSrc: "/images/slide.png",
-              title: "Cutting Through the Noise: The Long-Term Case for Data Centers The Connection",
+              title:
+                "Cutting Through the Noise: The Long-Term Case for Data Centers The Connection",
               category1: "Investment Strategy",
               category2: "Business",
               date: "June 3, 2025",
             },
             {
               imageSrc: "/images/slide.png",
-              title: "Cutting Through the Noise: The Long-Term Case for Data Centers The Connection",
+              title:
+                "Cutting Through the Noise: The Long-Term Case for Data Centers The Connection",
               category1: "Investment Strategy",
               category2: "Business",
               date: "June 3, 2025",
             },
             {
               imageSrc: "/images/slide.png",
-              title: "Cutting Through the Noise: The Long-Term Case for Data Centers The Connection",
+              title:
+                "Cutting Through the Noise: The Long-Term Case for Data Centers The Connection",
               category1: "Investment Strategy",
               category2: "Business",
               date: "June 3, 2025",
