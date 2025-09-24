@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "footer_logos",
+  "info": {
+    "singularName": "footer-logo",
+    "pluralName": "footer-logos",
+    "displayName": "Footer Logo"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "brands": {
+      "type": "string"
+    },
+    "quote": {
+      "type": "text"
+    }
+  }
+}

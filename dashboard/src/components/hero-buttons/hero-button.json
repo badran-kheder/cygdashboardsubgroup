@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_hero_buttons_hero_buttons",
+  "info": {
+    "displayName": "Hero Button"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string"
+    },
+    "href": {
+      "type": "string"
+    },
+    "Options": {
+      "type": "enumeration",
+      "enum": [
+        "Primary",
+        "Secondary"
+      ]
+    },
+    "icon": {
+      "type": "boolean"
+    }
+  },
+  "config": {}
+}

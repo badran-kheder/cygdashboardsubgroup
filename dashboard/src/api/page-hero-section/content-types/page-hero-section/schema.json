@@ -1,0 +1,55 @@
+{
+  "kind": "collectionType",
+  "collectionName": "page_hero_sections",
+  "info": {
+    "singularName": "page-hero-section",
+    "pluralName": "page-hero-sections",
+    "displayName": "Page Hero Section"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "backgroundImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "titleAccent": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "HeroButton": {
+      "type": "component",
+      "component": "hero-buttons.hero-button",
+      "repeatable": true
+    },
+    "textAlign": {
+      "type": "enumeration",
+      "enum": [
+        "left",
+        "center"
+      ]
+    },
+    "showFooter": {
+      "type": "boolean"
+    },
+    "reviewLink": {
+      "type": "string"
+    },
+    "pageName": {
+      "type": "string"
+    }
+  }
+}

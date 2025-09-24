@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "page_service_sections",
+  "info": {
+    "singularName": "page-service-section",
+    "pluralName": "page-service-sections",
+    "displayName": "Page Service Section"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "pageName": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "titleAccent": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "backgroundGradient": {
+      "type": "string"
+    },
+    "showSpecialService": {
+      "type": "boolean"
+    },
+    "clickableCards": {
+      "type": "boolean"
+    },
+    "services": {
+      "type": "component",
+      "component": "services.services",
+      "repeatable": true
+    }
+  }
+}

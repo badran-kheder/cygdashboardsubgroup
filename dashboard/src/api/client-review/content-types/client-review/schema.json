@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "client_reviews",
+  "info": {
+    "singularName": "client-review",
+    "pluralName": "client-reviews",
+    "displayName": "Client Review"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "clientName": {
+      "type": "string"
+    },
+    "company": {
+      "type": "string"
+    },
+    "review": {
+      "type": "text"
+    },
+    "alt": {
+      "type": "string"
+    },
+    "rating": {
+      "type": "integer"
+    }
+  }
+}
