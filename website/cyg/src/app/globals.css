@@ -3,47 +3,46 @@
 @tailwind utilities;
 
 /* Local Font Definitions */
-@font-face {
+/* @font-face {
   font-family: 'Grift';
   src: url('/Grift/Grift-Light.otf') format('opentype');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
-}
+} */
 
 @font-face {
   font-family: 'Grift';
   src: url('/Grift/Grift-Regular.otf') format('opentype');
-  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
-@font-face {
+/* @font-face {
   font-family: 'Grift';
   src: url('/Grift/Grift-Medium.otf') format('opentype');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
-}
+} */
 
-@font-face {
+/* @font-face {
   font-family: 'Grift';
   src: url('/Grift/Grift-SemiBold.otf') format('opentype');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
-}
+} */
 
-@font-face {
+/* @font-face {
   font-family: 'Grift';
   src: url('/Grift/Grift-Bold.otf') format('opentype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
-}
+} */
 
-@font-face {
+/* @font-face {
   font-family: 'Grift';
   src: url('/Grift/Grift-ExtraBold.otf') format('opentype');
   font-weight: 800;
@@ -65,21 +64,19 @@
   font-weight: 400;
   font-style: italic;
   font-display: swap;
-}
+} */
 
-@font-face {
+/* @font-face {
   font-family: 'Grift';
   src: url('/Grift/Grift-BoldItalic.otf') format('opentype');
   font-weight: 700;
   font-style: italic;
   font-display: swap;
-}
+} */
 
 @font-face {
   font-family: 'Helvetica';
   src: url('/Helvetica/Helvetica.ttc') format('truetype-collection');
-  font-weight: normal;
-  font-style: normal;
   font-display: swap;
 }
 
@@ -238,6 +235,7 @@
 
   /* Responsive button sizing */
   @media (max-width: 1024px) and (min-width: 641px) {
+
     .btn-primary,
     .btn-secondary,
     .btn-large,
@@ -253,6 +251,7 @@
   }
 
   @media (max-width: 640px) {
+
     .btn-primary,
     .btn-secondary,
     .btn-large,
@@ -280,6 +279,7 @@
       font-size: 28px !important;
       line-height: 36px !important;
     }
+
     .btn-secondary {
       width: 21.5625rem !important;
       height: 4.75rem !important;
@@ -287,6 +287,7 @@
       font-size: 28px !important;
       line-height: 36px !important;
     }
+
     .btn-primary-outline {
       width: 17.125rem !important;
       height: 4.75rem !important;
@@ -294,6 +295,7 @@
       font-size: 28px !important;
       line-height: 36px !important;
     }
+
     .btn-large {
       width: 21.5625rem !important;
       height: 4.75rem !important;
@@ -301,6 +303,7 @@
       font-size: 28px !important;
       line-height: 36px !important;
     }
+
     .btn-service {
       width: 17.125rem !important;
       height: 4.75rem !important;
@@ -535,11 +538,9 @@
   /* Reusable Typography Styles */
   .hero-headline {
     font-family: 'Helvetica', Arial, sans-serif;
-    font-weight: 300;
-    font-style: normal;
+    font-weight: lighter;
     font-size: 110px;
     line-height: 110px;
-    letter-spacing: 0%;
     color: white;
   }
 
@@ -585,7 +586,6 @@
     font-style: normal;
     font-size: 32px;
     line-height: 40px;
-    letter-spacing: 0%;
     color: white;
   }
 
@@ -831,6 +831,22 @@ section {
   position: relative;
 }
 
-:root, [data-theme] {
+:root,
+[data-theme] {
   background-color: black;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 70px;
+}
+
+p,
+span,
+button {
+  line-height: 40px;
 }

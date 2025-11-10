@@ -90,11 +90,7 @@ export default function Footer() {
               className="mb-1 sm:mb-2"
             style={{
                 fontFamily: "SF Pro Display, Arial, sans-serif",
-                fontWeight: 400,
-                fontStyle: "normal",
                 fontSize: "clamp(0.625rem, 1.5vw, 0.875rem)",
-                lineHeight: "1.25rem",
-                letterSpacing: "0%",
                 textAlign: "inherit",
                 color: "white",
                 margin: 0,
@@ -107,11 +103,7 @@ export default function Footer() {
               className="hover:text-primary-500 transition-colors duration-200 break-all block"
               style={{
                 fontFamily: "Grift, Arial, sans-serif",
-                fontWeight: 400,
-                fontStyle: "normal",
                 fontSize: "clamp(0.875rem, 2.5vw, 2rem)",
-                lineHeight: "clamp(1.125rem, 3vw, 2.5rem)",
-                letterSpacing: "0%",
                 color: "white",
                 textDecoration: "none",
               }}
@@ -124,11 +116,7 @@ export default function Footer() {
               className="mb-1 sm:mb-2"
               style={{
                 fontFamily: "SF Pro Display, Arial, sans-serif",
-                fontWeight: 400,
-                fontStyle: "normal",
                 fontSize: "clamp(0.625rem, 1.5vw, 0.875rem)",
-                lineHeight: "1.25rem",
-                letterSpacing: "0%",
                 textAlign: "inherit",
                 color: "white",
                 margin: 0,
@@ -141,11 +129,7 @@ export default function Footer() {
               className="hover:text-primary-500 transition-colors duration-200 block"
               style={{
                 fontFamily: "Grift, Arial, sans-serif",
-                fontWeight: 400,
-                fontStyle: "normal",
                 fontSize: "clamp(0.875rem, 2.5vw, 2rem)",
-                lineHeight: "clamp(1.125rem, 3vw, 2.5rem)",
-                letterSpacing: "0%",
                 color: "white",
                 textDecoration: "none",
               }}
@@ -158,11 +142,7 @@ export default function Footer() {
               className="mb-1 sm:mb-2"
               style={{
                 fontFamily: "SF Pro Display, Arial, sans-serif",
-                fontWeight: 400,
-                fontStyle: "normal",
                 fontSize: "clamp(0.625rem, 1.5vw, 0.875rem)",
-                lineHeight: "1.25rem",
-                letterSpacing: "0%",
                 textAlign: "inherit",
                 color: "white",
                 margin: 0,
@@ -173,11 +153,7 @@ export default function Footer() {
             <p
               style={{
                 fontFamily: "Grift, Arial, sans-serif",
-                fontWeight: 400,
-                fontStyle: "normal",
                 fontSize: "clamp(0.875rem, 2.5vw, 2rem)",
-                lineHeight: "clamp(1.125rem, 3vw, 2.5rem)",
-                letterSpacing: "0%",
                 color: "white",
                 margin: 0,
               }}
@@ -193,11 +169,7 @@ export default function Footer() {
             className="text-center px-4"
           style={{
               fontFamily: "Grift, Arial, sans-serif",
-              fontWeight: 400,
-              fontStyle: "normal",
               fontSize: "clamp(0.625rem, 1.2vw, 0.875rem)",
-              lineHeight: "clamp(0.875rem, 1.8vw, 1.5rem)",
-              letterSpacing: "0%",
               textAlign: "center",
               color: "white",
               margin: 0,

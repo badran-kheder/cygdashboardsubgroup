@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_service_detail_benefits",
+  "info": {
+    "displayName": "Service Benefit"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "config": {}
+}
+

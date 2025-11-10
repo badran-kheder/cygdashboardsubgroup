@@ -52,11 +52,7 @@ export default function SpecialServiceCard({
               className="mb-4 sm:mb-5 md:mb-6 special-service-card-title text-center md:text-left"
               style={{
                 fontFamily: "Helvetica, Arial, sans-serif",
-                fontWeight: 300,
-                fontStyle: "normal",
                 fontSize: "clamp(1.5rem, 4vw, 4.375rem)",
-                lineHeight: "clamp(1.5rem, 4vw, 4.375rem)",
-                letterSpacing: "0%",
                 margin: 0,
               }}
             >
@@ -68,11 +64,7 @@ export default function SpecialServiceCard({
               className="text-white my-4 sm:my-6 md:my-8 special-service-card-description text-center md:text-left"
               style={{
                 fontFamily: "Grift, Arial, sans-serif",
-                fontWeight: 400,
-                fontStyle: "normal",
                 fontSize: "clamp(0.875rem, 2vw, 1.75rem)",
-                lineHeight: "clamp(1.25rem, 2.5vh, 2.25rem)",
-                letterSpacing: "0%",
               }}
             >
               {description}
@@ -83,9 +75,6 @@ export default function SpecialServiceCard({
               style={{
                 width: "fit-content",
                 height: "clamp(48px, 6vh, 68px)",
-                borderLeftWidth: "3px",
-                borderLeftStyle: "solid",
-                borderLeftColor: "transparent",
                 paddingTop: "clamp(10px, 1.5vh, 16px)",
                 paddingRight: "clamp(24px, 5vw, 64px)",
                 paddingBottom: "clamp(10px, 1.5vh, 16px)",
@@ -96,8 +85,6 @@ export default function SpecialServiceCard({
                 color: "#ffffff",
                 textDecoration: "none",
                 cursor: "pointer",
-                opacity: 1,
-                transform: "rotate(0deg)",
                 boxShadow: "0 4px 15px rgba(119, 235, 138, 0.3)",
                 display: "flex",
               }}
@@ -118,11 +105,7 @@ export default function SpecialServiceCard({
                 className="special-service-card-button-text"
                 style={{
                   fontFamily: "Grift, Arial, sans-serif",
-                  fontWeight: 500,
-                  fontStyle: "normal",
                   fontSize: "clamp(1rem, 2vw, 1.75rem)",
-                  lineHeight: "clamp(1.25rem, 2.5vh, 2.25rem)",
-                  letterSpacing: "0%",
                 }}
               >
                 {buttonText}
@@ -170,8 +153,6 @@ export default function SpecialServiceCard({
                 height: "clamp(220px, 35vh, 343px)",
                 gap: "10px",
                 borderRadius: "0px",
-                opacity: 1,
-                transform: "rotate(0deg)",
                 borderWidth: "1px",
                 borderStyle: "solid",
                 borderColor: "#454545",
@@ -220,11 +201,7 @@ export default function SpecialServiceCard({
                 className="special-service-sub-title"
                 style={{
                   fontFamily: "Grift, Arial, sans-serif",
-                  fontWeight: 300,
-                  fontStyle: "normal",
                   fontSize: "clamp(1rem, 2.5vw, 2rem)",
-                  lineHeight: "clamp(1.25rem, 3vh, 2.5rem)",
-                  letterSpacing: "0%",
                   textAlign: "center",
                   color: "#FFFFFF",
                   margin: 0,

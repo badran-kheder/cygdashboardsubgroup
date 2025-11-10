@@ -20,7 +20,10 @@ export default function Stock({
 }: StockProps) {
   return (
     <section className="stock-section">
-      <div className="relative w-full stock-hero-container flex items-center justify-center text-center overflow-hidden bg-black" style={{ minHeight: "clamp(400px, 60vh, 800px)" }}>
+      <div
+        className="relative w-full stock-hero-container flex items-center justify-center text-center overflow-hidden bg-black"
+        style={{ minHeight: "clamp(400px, 100vh, 800px)" }}
+      >
         {/* Background Image Overlay */}
         <div className="absolute z-5 opacity-60 w-full h-full">
           <Image
@@ -45,21 +48,17 @@ export default function Stock({
           }}
         ></div>
         {/* Content */}
-        <div className="relative z-10 p-4 sm:p-6 md:p-8 stock-content">
+        <div className="relative z-10 p-4 sm:p-6 md:p-8 stock-content flex flex-col items-center justify-center">
           <h1
             className="stock-title w-full md:w-auto"
             style={{
-              width: "100%",
-              maxWidth: "100%",
+              width: "50%",
+              maxWidth: "50%",
               minHeight: "clamp(80px, 12vh, 140px)",
               opacity: 1,
               transform: "rotate(0deg)",
               fontFamily: "Helvetica, Arial, sans-serif",
-              fontWeight: 300,
-              fontStyle: "normal",
               fontSize: "clamp(2rem, 5vw, 4.375rem)",
-              lineHeight: "clamp(2rem, 5vw, 4.375rem)",
-              letterSpacing: "0%",
               textAlign: "center",
               margin: 0,
             }}
@@ -67,22 +66,15 @@ export default function Stock({
             {title} <span style={{ color: "#77EB8A" }}>{titleAccent}</span>
           </h1>
           <p
-            className="stock-description w-full md:w-auto"
+            className="stock-description w-full md:w-auto mt-10"
             style={{
-              width: "100%",
-              maxWidth: "100%",
+              width: "60%",
+              maxWidth: "60%",
               minHeight: "clamp(60px, 8vh, 80px)",
-              opacity: 1,
-              transform: "rotate(0deg)",
               fontFamily: "Grift, Arial, sans-serif",
-              fontWeight: 500,
-              fontStyle: "normal",
               fontSize: "clamp(1rem, 2.5vw, 2rem)",
-              lineHeight: "clamp(1.25rem, 3vh, 2.5rem)",
-              letterSpacing: "0%",
               textAlign: "center",
               color: "#DBDBDB",
-              margin: "clamp(10px, 2vh, 15px) 0",
             }}
           >
             {description}

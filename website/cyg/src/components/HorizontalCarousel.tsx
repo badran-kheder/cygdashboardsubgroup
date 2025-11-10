@@ -1,9 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { getClientReviewsForCarousel } from "@/lib/strapi";
+import { transformClientReview } from "@/lib/transform";
+import { ClientReview } from "@/types/strapi";
 
 interface SlideData {
   id: number;
@@ -52,26 +55,35 @@ export default function HorizontalCarousel({}: HorizontalCarouselProps = {}) {
       image: "/images/slide-1.png",
       alt: "Jennifer Lee - CFO",
     },
-    {
-      id: 5,
-      title: "Robert Chen",
-      description:
-        "CYG Partners delivered exceptional results on our international expansion. Their cross-border expertise and local market knowledge made all the difference.",
-      image: "/images/slide-2.png",
-      alt: "Robert Chen - CEO",
-    },
-    {
-      id: 6,
-      title: "Sarah Williams",
-      description:
-        "The strategic planning sessions were transformative for our business. CYG helped us restructure and optimize operations, leading to 60% growth in the first year.",
-      image: "/images/slide.png",
-      alt: "Sarah Williams - President",
-    },
   ];
 
-  // Use fallback data by default
-  const slides = fallbackSlides;
+  const [slides, setSlides] = useState<SlideData[]>(fallbackSlides);
+
+  useEffect(() => {
+    const fetchCarouselData = async () => {
+      try {
+        const clientReviews = await getClientReviewsForCarousel();
+        if (clientReviews && clientReviews.length > 0) {
+          const transformedReviews = clientReviews.map((review: ClientReview) => {
+            const transformed = transformClientReview(review);
+            return {
+              id: transformed.id,
+              title: transformed.title,
+              description: transformed.description,
+              image: transformed.image,
+              alt: transformed.alt,
+            };
+          });
+          setSlides(transformedReviews);
+        }
+      } catch (error) {
+        console.error("Error fetching carousel data:", error);
+        // Keep fallback data on error
+      }
+    };
+
+    fetchCarouselData();
+  }, []);
 
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -88,7 +100,7 @@ export default function HorizontalCarousel({}: HorizontalCarouselProps = {}) {
 
     if (diff === 0) {
       return {
-        width: "50%",
+        width: "70%",
         opacity: 1,
         zIndex: 30,
         transform: "translateX(0)",
@@ -192,11 +204,7 @@ export default function HorizontalCarousel({}: HorizontalCarouselProps = {}) {
                           className="text-primary-500 mb-2 horizontal-carousel-name"
                           style={{
                             fontFamily: "Helvetica, Arial, sans-serif",
-                            fontWeight: 300,
-                            fontStyle: "normal",
-                            fontSize: "clamp(2rem, 5vw, 4.375rem)",
-                            lineHeight: "clamp(2rem, 5vw, 4.375rem)",
-                            letterSpacing: "0%",
+                            fontSize: "clamp(1.5rem, 5vw, 3.75rem)",
                             margin: 0,
                           }}
                         >
@@ -216,11 +224,7 @@ export default function HorizontalCarousel({}: HorizontalCarouselProps = {}) {
                                 className="text-white mb-3 sm:mb-4 horizontal-carousel-description"
                                 style={{
                                   fontFamily: "Grift, Arial, sans-serif",
-                                  fontWeight: 400,
-                                  fontStyle: "normal",
                                   fontSize: "clamp(0.875rem, 1.5vw, 1.25rem)",
-                                  lineHeight: "clamp(1.125rem, 2vh, 1.75rem)",
-                                  letterSpacing: "0%",
                                   margin: 0,
                                 }}
                               >

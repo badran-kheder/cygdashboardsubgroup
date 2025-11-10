@@ -12,7 +12,8 @@
   "pluginOptions": {},
   "attributes": {
     "pageName": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "title": {
       "type": "string"

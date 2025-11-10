@@ -12,16 +12,16 @@ export const getStrapiMediaURL = (url: string) => {
   return getStrapiURL(url);
 };
 
-// API functions
+// Home Hero Section API functions (renamed from hero-section)
 export const getHeroSections = async () => {
   try {
     const response = await fetch(
-      `${getStrapiURL()}/api/hero-sections?populate=*`
+      `${getStrapiURL()}/api/home-hero-sections?populate=*`
     );
     const data = await response.json();
     return data.data || [];
   } catch (error) {
-    console.error("Error fetching hero sections:", error);
+    console.error("Error fetching home hero sections:", error);
     return [];
   }
 };
@@ -29,12 +29,12 @@ export const getHeroSections = async () => {
 export const getHeroSection = async (id: number) => {
   try {
     const response = await fetch(
-      `${getStrapiURL()}/api/hero-sections/${id}?populate=*`
+      `${getStrapiURL()}/api/home-hero-sections/${id}?populate=*`
     );
     const data = await response.json();
     return data.data || null;
   } catch (error) {
-    console.error("Error fetching hero section:", error);
+    console.error("Error fetching home hero section:", error);
     return null;
   }
 };
@@ -66,15 +66,16 @@ export const getService = async (id: number) => {
   }
 };
 
+// Home Industry Perspectives API functions (renamed from industry-perspective)
 export const getIndustryPerspectives = async () => {
   try {
     const response = await fetch(
-      `${getStrapiURL()}/api/industry-perspectives?populate=*`
+      `${getStrapiURL()}/api/home-industry-perspectives?populate=*`
     );
     const data = await response.json();
     return data.data || [];
   } catch (error) {
-    console.error("Error fetching industry perspectives:", error);
+    console.error("Error fetching home industry perspectives:", error);
     return [];
   }
 };
@@ -82,25 +83,26 @@ export const getIndustryPerspectives = async () => {
 export const getIndustryPerspective = async (id: number) => {
   try {
     const response = await fetch(
-      `${getStrapiURL()}/api/industry-perspectives/${id}?populate=*`
+      `${getStrapiURL()}/api/home-industry-perspectives/${id}?populate=*`
     );
     const data = await response.json();
     return data.data || null;
   } catch (error) {
-    console.error("Error fetching industry perspective:", error);
+    console.error("Error fetching home industry perspective:", error);
     return null;
   }
 };
 
+// Home Strategic Growth API functions (renamed from strategic-growth)
 export const getStrategicGrowth = async () => {
   try {
     const response = await fetch(
-      `${getStrapiURL()}/api/strategic-growths?populate=*`
+      `${getStrapiURL()}/api/home-strategic-growths?populate=*`
     );
     const data = await response.json();
     return data.data || [];
   } catch (error) {
-    console.error("Error fetching strategic growth:", error);
+    console.error("Error fetching home strategic growth:", error);
     return [];
   }
 };
@@ -108,23 +110,24 @@ export const getStrategicGrowth = async () => {
 export const getStrategicGrowthById = async (id: number) => {
   try {
     const response = await fetch(
-      `${getStrapiURL()}/api/strategic-growths/${id}?populate=*`
+      `${getStrapiURL()}/api/home-strategic-growths/${id}?populate=*`
     );
     const data = await response.json();
     return data.data || null;
   } catch (error) {
-    console.error("Error fetching strategic growth:", error);
+    console.error("Error fetching home strategic growth:", error);
     return null;
   }
 };
 
+// Home Stock Section API functions (renamed from stock)
 export const getStock = async () => {
   try {
-    const response = await fetch(`${getStrapiURL()}/api/stocks?populate=*`);
+    const response = await fetch(`${getStrapiURL()}/api/home-stock-sections?populate=*`);
     const data = await response.json();
     return data.data || [];
   } catch (error) {
-    console.error("Error fetching stock:", error);
+    console.error("Error fetching home stock section:", error);
     return [];
   }
 };
@@ -132,25 +135,26 @@ export const getStock = async () => {
 export const getStockById = async (id: number) => {
   try {
     const response = await fetch(
-      `${getStrapiURL()}/api/stocks/${id}?populate=*`
+      `${getStrapiURL()}/api/home-stock-sections/${id}?populate=*`
     );
     const data = await response.json();
     return data.data || null;
   } catch (error) {
-    console.error("Error fetching stock:", error);
+    console.error("Error fetching home stock section:", error);
     return null;
   }
 };
 
+// Home Hero Footer Logos API functions (renamed from footer-logo)
 export const getFooterLogos = async () => {
   try {
     const response = await fetch(
-      `${getStrapiURL()}/api/footer-logos?populate=*`
+      `${getStrapiURL()}/api/home-hero-footer-logos?populate=*`
     );
     const data = await response.json();
     return data.data || [];
   } catch (error) {
-    console.error("Error fetching footer logos:", error);
+    console.error("Error fetching home hero footer logos:", error);
     return [];
   }
 };
@@ -158,12 +162,12 @@ export const getFooterLogos = async () => {
 export const getFooterLogoById = async (id: number) => {
   try {
     const response = await fetch(
-      `${getStrapiURL()}/api/footer-logos/${id}?populate=*`
+      `${getStrapiURL()}/api/home-hero-footer-logos/${id}?populate=*`
     );
     const data = await response.json();
     return data.data || null;
   } catch (error) {
-    console.error("Error fetching footer logo:", error);
+    console.error("Error fetching home hero footer logo:", error);
     return null;
   }
 };
@@ -242,6 +246,20 @@ export const getClientReviews = async () => {
     return data.data || [];
   } catch (error) {
     console.error("Error fetching client reviews:", error);
+    return [];
+  }
+};
+
+// Get client reviews for carousel (filtered by displayInCarousel)
+export const getClientReviewsForCarousel = async () => {
+  try {
+    const response = await fetch(
+      `${getStrapiURL()}/api/client-reviews?filters[displayInCarousel][$eq]=true&populate=*`
+    );
+    const data = await response.json();
+    return data.data || [];
+  } catch (error) {
+    console.error("Error fetching client reviews for carousel:", error);
     return [];
   }
 };
@@ -450,6 +468,59 @@ export const getIndustryById = async (id: number) => {
     return data.data || null;
   } catch (error) {
     console.error("Error fetching industry:", error);
+    return null;
+  }
+};
+
+// Service Detail API functions
+export const getServiceDetailByServiceKey = async (serviceKey: string) => {
+  try {
+    // First, get the service by serviceKey
+    const serviceResponse = await fetch(
+      `${getStrapiURL()}/api/services?filters[serviceKey][$eq]=${serviceKey}&populate=*`
+    );
+    const serviceData = await serviceResponse.json();
+    const service = serviceData.data && serviceData.data.length > 0 ? serviceData.data[0] : null;
+    
+    if (!service) {
+      return null;
+    }
+    
+    // Then, get the service detail by service relation
+    const response = await fetch(
+      `${getStrapiURL()}/api/service-details?filters[service][id][$eq]=${service.id}&populate[0]=service&populate[1]=benefits&populate[2]=process&populate[3]=features`
+    );
+    const data = await response.json();
+    return data.data && data.data.length > 0 ? data.data[0] : null;
+  } catch (error) {
+    console.error("Error fetching service detail:", error);
+    return null;
+  }
+};
+
+export const getServiceDetailById = async (id: number) => {
+  try {
+    const response = await fetch(
+      `${getStrapiURL()}/api/service-details/${id}?populate[0]=service&populate[1]=benefits&populate[2]=process&populate[3]=features`
+    );
+    const data = await response.json();
+    return data.data || null;
+  } catch (error) {
+    console.error("Error fetching service detail:", error);
+    return null;
+  }
+};
+
+// About Team Section API functions
+export const getAboutTeamSection = async () => {
+  try {
+    const response = await fetch(
+      `${getStrapiURL()}/api/about-team-section?populate=*`
+    );
+    const data = await response.json();
+    return data.data || null;
+  } catch (error) {
+    console.error("Error fetching about team section:", error);
     return null;
   }
 };

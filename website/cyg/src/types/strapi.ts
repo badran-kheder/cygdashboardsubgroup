@@ -271,6 +271,7 @@ export interface ClientReview {
   image: StrapiMedia;
   alt: string;
   rating?: number;
+  displayInCarousel?: boolean;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
@@ -449,4 +450,81 @@ export interface IndustryData {
   icon: string;
   href: string;
   order: number;
+}
+
+// Service Detail types
+export interface ServiceDetailBenefit {
+  id: number;
+  text: string;
+}
+
+export interface ServiceDetailProcessStep {
+  id: number;
+  step: number;
+  title: string;
+  description: string;
+  iconName?: string;
+}
+
+export interface ServiceDetailFeature {
+  id: number;
+  title: string;
+  description: string;
+  iconName?: string;
+}
+
+export interface ServiceDetail {
+  id: number;
+  documentId: string;
+  service: Service;
+  overview: string;
+  benefits: ServiceDetailBenefit[];
+  process: ServiceDetailProcessStep[];
+  features: ServiceDetailFeature[];
+  ctaTitle?: string;
+  ctaTitleAccent?: string;
+  ctaButtonText?: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+}
+
+export interface ServiceDetailData {
+  id: number;
+  serviceKey: string;
+  overview: string;
+  benefits: string[];
+  process: {
+    step: number;
+    title: string;
+    description: string;
+    iconName?: string;
+  }[];
+  features: {
+    title: string;
+    description: string;
+    iconName?: string;
+  }[];
+  ctaTitle?: string;
+  ctaTitleAccent?: string;
+  ctaButtonText?: string;
+}
+
+// About Team Section types
+export interface AboutTeamSection {
+  id: number;
+  documentId: string;
+  title: string;
+  titleAccent: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+}
+
+export interface AboutTeamSectionData {
+  id: number;
+  title: string;
+  titleAccent: string;
+  description: string;
 }

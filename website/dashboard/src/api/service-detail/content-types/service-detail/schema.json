@@ -1,0 +1,50 @@
+{
+  "kind": "collectionType",
+  "collectionName": "service_details",
+  "info": {
+    "singularName": "service-detail",
+    "pluralName": "service-details",
+    "displayName": "Service Detail",
+    "group": "Service"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "service": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::service.service"
+    },
+    "overview": {
+      "type": "text",
+      "required": true
+    },
+    "benefits": {
+      "type": "component",
+      "component": "service-detail.benefit",
+      "repeatable": true
+    },
+    "process": {
+      "type": "component",
+      "component": "service-detail.process-step",
+      "repeatable": true
+    },
+    "features": {
+      "type": "component",
+      "component": "service-detail.feature",
+      "repeatable": true
+    },
+    "ctaTitle": {
+      "type": "string"
+    },
+    "ctaTitleAccent": {
+      "type": "string"
+    },
+    "ctaButtonText": {
+      "type": "string"
+    }
+  }
+}
+

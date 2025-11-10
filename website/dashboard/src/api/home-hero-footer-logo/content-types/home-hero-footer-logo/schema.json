@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "home_hero_footer_logos",
+  "info": {
+    "singularName": "home-hero-footer-logo",
+    "pluralName": "home-hero-footer-logos",
+    "displayName": "Home Hero Footer Logos",
+    "group": "Home"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "brands": {
+      "type": "string"
+    },
+    "quote": {
+      "type": "text"
+    }
+  }
+}

@@ -12,13 +12,15 @@ import {
   getPageSectionBySectionId,
   getPageServicesSectionByPageName,
   getPageHeroSectionByPageName,
+  getServiceDetailByServiceKey,
 } from "@/lib/strapi";
 import {
   transformPageSection,
   transformPageServicesSection,
   transformPageHeroSection,
+  transformServiceDetail,
 } from "@/lib/transform";
-import { PageSectionData, PageServicesSectionData, PageHeroSectionData } from "@/types/strapi";
+import { PageSectionData, PageServicesSectionData, PageHeroSectionData, ServiceDetailData } from "@/types/strapi";
 
 // Interface for the hard-coded service data
 interface ServiceDetail {
@@ -59,6 +61,7 @@ export default function ServiceDetailPage() {
   const [selectedService, setSelectedService] = useState<ServiceData | null>(
     null
   );
+  const [serviceDetailData, setServiceDetailData] = useState<ServiceDetailData | null>(null);
 
   // useEffect to fetch data when the slug changes
   useEffect(() => {
@@ -91,8 +94,16 @@ export default function ServiceDetailPage() {
           );
           if (found) {
             setSelectedService(transformService(found));
+            // Fetch service detail data
+            const serviceDetail = await getServiceDetailByServiceKey(found.serviceKey || targetKey);
+            if (serviceDetail) {
+              setServiceDetailData(transformServiceDetail(serviceDetail));
+            } else {
+              setServiceDetailData(null);
+            }
           } else {
             setSelectedService(null);
+            setServiceDetailData(null);
           }
         }
 
@@ -568,15 +579,43 @@ export default function ServiceDetailPage() {
     return services[slug] || services["strategic-advisory"];
   };
 
-  const serviceData = getServiceData(slug);
+  // Use service detail data from Strapi if available, otherwise fallback to hardcoded
+  const getServiceDataFallback = (slug: string): ServiceDetail => {
+    return getServiceData(slug);
+  };
 
+  const serviceDataFallback = getServiceDataFallback(slug);
   
+  // Determine which data to use - prefer Strapi data, fallback to hardcoded
+  const serviceData = serviceDetailData ? {
+    title: selectedService?.title || serviceDataFallback.title,
+    titleAccent: selectedService?.titleAccent || serviceDataFallback.titleAccent,
+    description: selectedService?.description || serviceDataFallback.description,
+    heroBackground: heroData?.backgroundImage || serviceDataFallback.heroBackground,
+    heroDescription: heroData?.description || serviceDataFallback.heroDescription,
+    overview: serviceDetailData.overview,
+    benefits: serviceDetailData.benefits,
+    process: serviceDetailData.process.map((step) => ({
+      step: step.step,
+      title: step.title,
+      description: step.description,
+      icon: <div className="w-8 h-8 text-green-500" />, // Placeholder - icons would need to be mapped from iconName
+    })),
+    features: serviceDetailData.features.map((feature) => ({
+      title: feature.title,
+      description: feature.description,
+      icon: <div className="w-6 h-6 text-green-500" />, // Placeholder - icons would need to be mapped from iconName
+    })),
+    ctaTitle: serviceDetailData.ctaTitle || serviceDataFallback.ctaTitle,
+    ctaTitleAccent: serviceDetailData.ctaTitleAccent || serviceDataFallback.ctaTitleAccent,
+    ctaButtonText: serviceDetailData.ctaButtonText || serviceDataFallback.ctaButtonText,
+  } : serviceDataFallback;
 
   const fallbackHeroData = {
-    backgroundImage: serviceData.heroBackground,
-    title: serviceData.title,
-    titleAccent: serviceData.titleAccent,
-    description: serviceData.heroDescription,
+    backgroundImage: heroData?.backgroundImage || serviceData.heroBackground,
+    title: heroData?.title || serviceData.title,
+    titleAccent: heroData?.titleAccent || serviceData.titleAccent,
+    description: heroData?.description || serviceData.heroDescription,
     buttons: [
       {
         text: "Let's Talk",

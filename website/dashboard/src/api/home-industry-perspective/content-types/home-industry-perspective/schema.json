@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "home_industry_perspectives",
+  "info": {
+    "singularName": "home-industry-perspective",
+    "pluralName": "home-industry-perspectives",
+    "displayName": "Home Industry Perspectives",
+    "group": "Home"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "imageSrc": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "category1": {
+      "type": "string"
+    },
+    "category2": {
+      "type": "string"
+    },
+    "date": {
+      "type": "date"
+    },
+    "href": {
+      "type": "string"
+    }
+  }
+}

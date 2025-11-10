@@ -37,6 +37,41 @@ export interface LinksNavLink extends Struct.ComponentSchema {
   };
 }
 
+export interface ServiceDetailBenefit extends Struct.ComponentSchema {
+  collectionName: 'components_service_detail_benefits';
+  info: {
+    displayName: 'Service Benefit';
+  };
+  attributes: {
+    text: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ServiceDetailFeature extends Struct.ComponentSchema {
+  collectionName: 'components_service_detail_features';
+  info: {
+    displayName: 'Service Feature';
+  };
+  attributes: {
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    iconName: Schema.Attribute.String & Schema.Attribute.DefaultTo<'search'>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ServiceDetailProcessStep extends Struct.ComponentSchema {
+  collectionName: 'components_service_detail_process_steps';
+  info: {
+    displayName: 'Process Step';
+  };
+  attributes: {
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    iconName: Schema.Attribute.String & Schema.Attribute.DefaultTo<'clipboard'>;
+    step: Schema.Attribute.Integer & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface ServiceSubServices extends Struct.ComponentSchema {
   collectionName: 'components_service_sub_services';
   info: {
@@ -72,6 +107,9 @@ declare module '@strapi/strapi' {
       'buttons.hero-button': ButtonsHeroButton;
       'hero-buttons.hero-button': HeroButtonsHeroButton;
       'links.nav-link': LinksNavLink;
+      'service-detail.benefit': ServiceDetailBenefit;
+      'service-detail.feature': ServiceDetailFeature;
+      'service-detail.process-step': ServiceDetailProcessStep;
       'service.sub-services': ServiceSubServices;
       'services.services': ServicesServices;
     }

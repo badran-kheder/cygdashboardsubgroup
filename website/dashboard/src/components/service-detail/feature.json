@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_service_detail_features",
+  "info": {
+    "displayName": "Service Feature"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "iconName": {
+      "type": "string",
+      "default": "search"
+    }
+  },
+  "config": {}
+}
+

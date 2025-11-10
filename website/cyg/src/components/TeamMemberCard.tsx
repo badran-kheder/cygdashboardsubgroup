@@ -42,11 +42,7 @@ export default function TeamMemberCard({
               className="text-primary-500 mb-2 team-member-card-name"
               style={{
                 fontFamily: "Helvetica, Arial, sans-serif",
-                fontWeight: 300,
-                fontStyle: "normal",
                 fontSize: "clamp(2rem, 5vw, 4.375rem)",
-                lineHeight: "clamp(2rem, 5vw, 4.375rem)",
-                letterSpacing: "0%",
                 margin: 0,
               }}
             >
@@ -56,11 +52,8 @@ export default function TeamMemberCard({
               className="text-white mb-4 mt-5 team-member-card-position"
               style={{
                 fontFamily: "Grift, Arial, sans-serif",
-                fontWeight: 400,
                 fontStyle: "italic",
                 fontSize: "clamp(1rem, 2.5vw, 2rem)",
-                lineHeight: "clamp(1.25rem, 3vh, 2.5rem)",
-                letterSpacing: "0%",
               }}
             >
               {position}
@@ -74,11 +67,7 @@ export default function TeamMemberCard({
                 className="text-white mb-3 sm:mb-4 team-member-card-description"
                 style={{
                   fontFamily: "Grift, Arial, sans-serif",
-                  fontWeight: 400,
-                  fontStyle: "normal",
                   fontSize: "clamp(0.875rem, 1.5vw, 1.25rem)",
-                  lineHeight: "clamp(2rem, 2vh, 1.75rem)",
-                  letterSpacing: "0%",
                   margin: 0,
                 }}
               >

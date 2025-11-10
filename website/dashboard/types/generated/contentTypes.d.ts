@@ -373,6 +373,37 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiAboutTeamSectionAboutTeamSection
+  extends Struct.SingleTypeSchema {
+  collectionName: 'about_team_sections';
+  info: {
+    displayName: 'About Team Section';
+    pluralName: 'about-team-sections';
+    singularName: 'about-team-section';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::about-team-section.about-team-section'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    titleAccent: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiClientReviewClientReview
   extends Struct.CollectionTypeSchema {
   collectionName: 'client_reviews';
@@ -391,6 +422,8 @@ export interface ApiClientReviewClientReview
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    displayInCarousel: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -441,35 +474,6 @@ export interface ApiContactFormSubmissionContactFormSubmission
   };
 }
 
-export interface ApiFooterLogoFooterLogo extends Struct.CollectionTypeSchema {
-  collectionName: 'footer_logos';
-  info: {
-    displayName: 'Footer Logo';
-    pluralName: 'footer-logos';
-    singularName: 'footer-logo';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    brands: Schema.Attribute.String;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::footer-logo.footer-logo'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    quote: Schema.Attribute.Text;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface ApiFooterFooter extends Struct.SingleTypeSchema {
   collectionName: 'footers';
   info: {
@@ -502,12 +506,45 @@ export interface ApiFooterFooter extends Struct.SingleTypeSchema {
   };
 }
 
-export interface ApiHeroSectionHeroSection extends Struct.CollectionTypeSchema {
-  collectionName: 'hero_sections';
+export interface ApiHomeHeroFooterLogoHomeHeroFooterLogo
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'home_hero_footer_logos';
   info: {
-    displayName: 'Hero Section';
-    pluralName: 'hero-sections';
-    singularName: 'hero-section';
+    displayName: 'Home Hero Footer Logos';
+    group: 'Home';
+    pluralName: 'home-hero-footer-logos';
+    singularName: 'home-hero-footer-logo';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    brands: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::home-hero-footer-logo.home-hero-footer-logo'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    quote: Schema.Attribute.Text;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiHomeHeroSectionHomeHeroSection
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'home_hero_sections';
+  info: {
+    displayName: 'Home Hero Section';
+    group: 'Home';
+    pluralName: 'home-hero-sections';
+    singularName: 'home-hero-section';
   };
   options: {
     draftAndPublish: true;
@@ -524,7 +561,7 @@ export interface ApiHeroSectionHeroSection extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::hero-section.hero-section'
+      'api::home-hero-section.home-hero-section'
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
@@ -539,13 +576,14 @@ export interface ApiHeroSectionHeroSection extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiIndustryPerspectiveIndustryPerspective
+export interface ApiHomeIndustryPerspectiveHomeIndustryPerspective
   extends Struct.CollectionTypeSchema {
-  collectionName: 'industry_perspectives';
+  collectionName: 'home_industry_perspectives';
   info: {
-    displayName: 'Industry Perspective';
-    pluralName: 'industry-perspectives';
-    singularName: 'industry-perspective';
+    displayName: 'Home Industry Perspectives';
+    group: 'Home';
+    pluralName: 'home-industry-perspectives';
+    singularName: 'home-industry-perspective';
   };
   options: {
     draftAndPublish: true;
@@ -562,11 +600,84 @@ export interface ApiIndustryPerspectiveIndustryPerspective
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::industry-perspective.industry-perspective'
+      'api::home-industry-perspective.home-industry-perspective'
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
     title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiHomeStockSectionHomeStockSection
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'home_stock_sections';
+  info: {
+    displayName: 'Home Stock Section';
+    group: 'Home';
+    pluralName: 'home-stock-sections';
+    singularName: 'home-stock-section';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    backgroundImage: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    backgroundImageAlt: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::home-stock-section.home-stock-section'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String;
+    titleAccent: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiHomeStrategicGrowthHomeStrategicGrowth
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'home_strategic_growths';
+  info: {
+    displayName: 'Home Strategic Growth';
+    group: 'Home';
+    pluralName: 'home-strategic-growths';
+    singularName: 'home-strategic-growth';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    backgroundImage: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    buttonHref: Schema.Attribute.String;
+    buttonText: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::home-strategic-growth.home-strategic-growth'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String;
+    titleAccent: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -731,7 +842,7 @@ export interface ApiPageSectionPageSection extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    sectionId: Schema.Attribute.String;
+    sectionId: Schema.Attribute.String & Schema.Attribute.Required;
     title: Schema.Attribute.String;
     titleAccent: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
@@ -764,7 +875,7 @@ export interface ApiPageServiceSectionPageServiceSection
       'api::page-service-section.page-service-section'
     > &
       Schema.Attribute.Private;
-    pageName: Schema.Attribute.String;
+    pageName: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     services: Schema.Attribute.Component<'services.services', true>;
     showSpecialService: Schema.Attribute.Boolean;
@@ -776,10 +887,48 @@ export interface ApiPageServiceSectionPageServiceSection
   };
 }
 
+export interface ApiServiceDetailServiceDetail
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'service_details';
+  info: {
+    displayName: 'Service Detail';
+    group: 'Service';
+    pluralName: 'service-details';
+    singularName: 'service-detail';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    benefits: Schema.Attribute.Component<'service-detail.benefit', true>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    ctaButtonText: Schema.Attribute.String;
+    ctaTitle: Schema.Attribute.String;
+    ctaTitleAccent: Schema.Attribute.String;
+    features: Schema.Attribute.Component<'service-detail.feature', true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::service-detail.service-detail'
+    > &
+      Schema.Attribute.Private;
+    overview: Schema.Attribute.Text & Schema.Attribute.Required;
+    process: Schema.Attribute.Component<'service-detail.process-step', true>;
+    publishedAt: Schema.Attribute.DateTime;
+    service: Schema.Attribute.Relation<'oneToOne', 'api::service.service'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiServiceService extends Struct.CollectionTypeSchema {
   collectionName: 'services';
   info: {
     displayName: 'Service';
+    group: 'Service';
     pluralName: 'services';
     singularName: 'service';
   };
@@ -804,73 +953,6 @@ export interface ApiServiceService extends Struct.CollectionTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     serviceKey: Schema.Attribute.String;
     SubServices: Schema.Attribute.Component<'service.sub-services', true>;
-    title: Schema.Attribute.String;
-    titleAccent: Schema.Attribute.String;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiStockStock extends Struct.CollectionTypeSchema {
-  collectionName: 'stocks';
-  info: {
-    displayName: 'Stock';
-    pluralName: 'stocks';
-    singularName: 'stock';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    backgroundImage: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios'
-    >;
-    backgroundImageAlt: Schema.Attribute.String;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    description: Schema.Attribute.Text;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::stock.stock'> &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    title: Schema.Attribute.String;
-    titleAccent: Schema.Attribute.String;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiStrategicGrowthStrategicGrowth
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'strategic_growths';
-  info: {
-    displayName: 'Strategic Growth';
-    pluralName: 'strategic-growths';
-    singularName: 'strategic-growth';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    backgroundImage: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios'
-    >;
-    buttonHref: Schema.Attribute.String;
-    buttonText: Schema.Attribute.String;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    description: Schema.Attribute.Text;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::strategic-growth.strategic-growth'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
     title: Schema.Attribute.String;
     titleAccent: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
@@ -1420,21 +1502,23 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::about-team-section.about-team-section': ApiAboutTeamSectionAboutTeamSection;
       'api::client-review.client-review': ApiClientReviewClientReview;
       'api::contact-form-submission.contact-form-submission': ApiContactFormSubmissionContactFormSubmission;
-      'api::footer-logo.footer-logo': ApiFooterLogoFooterLogo;
       'api::footer.footer': ApiFooterFooter;
-      'api::hero-section.hero-section': ApiHeroSectionHeroSection;
-      'api::industry-perspective.industry-perspective': ApiIndustryPerspectiveIndustryPerspective;
+      'api::home-hero-footer-logo.home-hero-footer-logo': ApiHomeHeroFooterLogoHomeHeroFooterLogo;
+      'api::home-hero-section.home-hero-section': ApiHomeHeroSectionHomeHeroSection;
+      'api::home-industry-perspective.home-industry-perspective': ApiHomeIndustryPerspectiveHomeIndustryPerspective;
+      'api::home-stock-section.home-stock-section': ApiHomeStockSectionHomeStockSection;
+      'api::home-strategic-growth.home-strategic-growth': ApiHomeStrategicGrowthHomeStrategicGrowth;
       'api::industry.industry': ApiIndustryIndustry;
       'api::navigation.navigation': ApiNavigationNavigation;
       'api::office-location.office-location': ApiOfficeLocationOfficeLocation;
       'api::page-hero-section.page-hero-section': ApiPageHeroSectionPageHeroSection;
       'api::page-section.page-section': ApiPageSectionPageSection;
       'api::page-service-section.page-service-section': ApiPageServiceSectionPageServiceSection;
+      'api::service-detail.service-detail': ApiServiceDetailServiceDetail;
       'api::service.service': ApiServiceService;
-      'api::stock.stock': ApiStockStock;
-      'api::strategic-growth.strategic-growth': ApiStrategicGrowthStrategicGrowth;
       'api::team-member.team-member': ApiTeamMemberTeamMember;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

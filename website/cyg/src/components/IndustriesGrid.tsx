@@ -77,18 +77,9 @@ const IndustryCard: React.FC<IndustryCardProps> = ({ icon, title, href, isLastIn
         <p
           className="industry-card-text"
           style={{
-            width: "clamp(150px, 20vw, 199px)",
-            maxWidth: "100%",
             minHeight: "clamp(30px, 5vh, 40px)",
-            opacity: 1,
-            transform: "rotate(0deg)",
             fontFamily: "Grift, Arial, sans-serif",
-            fontWeight: 300,
-            fontStyle: "normal",
             fontSize: "clamp(1.25rem, 3vw, 2.5rem)",
-            lineHeight: "clamp(1.25rem, 3vw, 2.5rem)",
-            letterSpacing: "0%",
-            margin: 0,
             textAlign: "center",
           }}
         >

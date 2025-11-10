@@ -12,12 +12,14 @@ import {
   getTeamMembers,
   getPageServicesSectionByPageName,
   getPageSectionBySectionId,
+  getAboutTeamSection,
 } from "@/lib/strapi";
 import {
   transformPageHeroSection,
   transformTeamMember,
   transformPageServicesSection,
   transformPageSection,
+  transformAboutTeamSection,
 } from "@/lib/transform";
 import {
   PageHeroSectionData,
@@ -25,6 +27,7 @@ import {
   TeamMemberData,
   PageServicesSectionData,
   PageSectionData,
+  AboutTeamSectionData,
 } from "@/types/strapi";
 
 export default function AboutPage() {
@@ -36,6 +39,7 @@ export default function AboutPage() {
   const [simpleHeroData, setSimpleHeroData] = useState<PageSectionData | null>(
     null
   );
+  const [teamSectionData, setTeamSectionData] = useState<AboutTeamSectionData | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -69,6 +73,12 @@ export default function AboutPage() {
         );
         if (simpleHeroSection) {
           setSimpleHeroData(transformPageSection(simpleHeroSection));
+        }
+
+        // Fetch team section heading data
+        const teamSection = await getAboutTeamSection();
+        if (teamSection) {
+          setTeamSectionData(transformAboutTeamSection(teamSection));
         }
       } catch (error) {
         console.error("Error fetching about page data:", error);
@@ -256,7 +266,16 @@ export default function AboutPage() {
                 margin: 0,
               }}
             >
-              Meet <span className="text-primary-500">CYG</span> Team
+              {teamSectionData ? (
+                <>
+                  {teamSectionData.title}{" "}
+                  <span className="text-primary-500">{teamSectionData.titleAccent}</span>
+                </>
+              ) : (
+                <>
+                  Meet <span className="text-primary-500">CYG</span> Team
+                </>
+              )}
             </h2>
             <p
               className="text-gray-300 mt-10 mx-auto about-team-description"
@@ -270,8 +289,8 @@ export default function AboutPage() {
                 textAlign: "center",
               }}
             >
-              We provide end‑to‑end advisory—from capital raises and M&A to
-              long‑term strategy—empowering confident, growth‑driven decisions
+              {teamSectionData?.description || 
+                "We provide end‑to‑end advisory—from capital raises and M&A to long‑term strategy—empowering confident, growth‑driven decisions"}
             </p>
           </div>
           {/* Mobile: TeamMemberCarousel */}

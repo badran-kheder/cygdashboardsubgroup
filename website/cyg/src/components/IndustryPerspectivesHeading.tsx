@@ -17,21 +17,17 @@ export default function IndustryPerspectivesHeading({
         className="text-center text-white industry-perspectives-heading"
         style={{
           backgroundColor: "#262626",
-          paddingTop: "clamp(2rem, 5vh, 3rem)",
+          paddingTop: "clamp(4rem, 10vh, 6rem)",
           paddingBottom: "clamp(2rem, 5vh, 4rem)",
-          paddingLeft: "clamp(1rem, 4vw, 1rem)",
-          paddingRight: "clamp(1rem, 4vw, 1rem)",
+          paddingLeft: "clamp(2rem, 10vw, 2rem)",
+          paddingRight: "clamp(2rem, 10vw, 2rem)",
         }}
       >
         <h2
           className="industry-perspectives-heading-title"
           style={{
             fontFamily: "Helvetica, Arial, sans-serif",
-            fontWeight: 300,
-            fontStyle: "normal",
             fontSize: "clamp(2rem, 5vw, 4.375rem)",
-            lineHeight: "clamp(2rem, 5vw, 4.375rem)",
-            letterSpacing: "0%",
             textAlign: "center",
             margin: 0,
             marginBottom: "clamp(0.75rem, 2vh, 1.25rem)",
@@ -44,17 +40,11 @@ export default function IndustryPerspectivesHeading({
           className="industry-perspectives-heading-description"
           style={{
             fontFamily: "Grift, Arial, sans-serif",
-            fontWeight: 500,
-            fontStyle: "normal",
             fontSize: "clamp(1rem, 2.5vw, 2rem)",
-            lineHeight: "clamp(1.25rem, 3vh, 2.5rem)",
-            letterSpacing: "0%",
             textAlign: "center",
-            width: "clamp(100%, 41vw, 659px)",
-            maxWidth: "100%",
+            width: "clamp(40%, 50vw, 659px)",
+            maxWidth: "50%",
             minHeight: "clamp(60px, 8vh, 80px)",
-            opacity: 1,
-            transform: "rotate(0deg)",
             margin: "0 auto",
             color: "white",
           }}

@@ -84,7 +84,9 @@ export default function Services({
     // If a defaultServiceKey is provided, prefer it
     if (defaultServiceKey) {
       const idx = services.findIndex(
-        (svc) => (svc.serviceKey || "").toLowerCase() === defaultServiceKey.toLowerCase()
+        (svc) =>
+          (svc.serviceKey || "").toLowerCase() ===
+          defaultServiceKey.toLowerCase()
       );
       if (idx !== -1) {
         setActiveServiceIndex(idx);
@@ -92,7 +94,11 @@ export default function Services({
       }
     }
     // Else use provided index, else fallback to first card
-    if (typeof defaultActiveIndex === "number" && defaultActiveIndex >= 0 && defaultActiveIndex < services.length) {
+    if (
+      typeof defaultActiveIndex === "number" &&
+      defaultActiveIndex >= 0 &&
+      defaultActiveIndex < services.length
+    ) {
       setActiveServiceIndex(defaultActiveIndex);
       return;
     }
@@ -217,14 +223,9 @@ export default function Services({
                 maxWidth: "100%",
                 minHeight: "clamp(80px, 12vh, 140px)",
                 fontFamily: "Helvetica, Arial, sans-serif",
-                fontWeight: 300,
-                fontStyle: "normal",
                 fontSize: "clamp(2rem, 5vw, 4.375rem)",
-                lineHeight: "clamp(2rem, 5vw, 4.375rem)",
-                letterSpacing: "0%",
                 textAlign: "center",
-                opacity: 1,
-                transform: "rotate(0deg)",
+                lineHeight: "70px",
                 margin: 0,
               }}
             >
@@ -236,17 +237,10 @@ export default function Services({
               className="text-xl text-white services-description"
               style={{
                 width: "clamp(100%, 54vw, 1032px)",
-                maxWidth: "100%",
-                minHeight: "clamp(60px, 8vh, 80px)",
+                maxWidth: "60%",
                 fontFamily: "Grift, Arial, sans-serif",
-                fontWeight: 500,
-                fontStyle: "normal",
                 fontSize: "clamp(1rem, 2.5vw, 2rem)",
-                lineHeight: "clamp(1.25rem, 3vh, 2.5rem)",
-                letterSpacing: "0%",
                 textAlign: "center",
-                opacity: 1,
-                transform: "rotate(0deg)",
                 margin: 0,
               }}
             >
@@ -266,296 +260,250 @@ export default function Services({
               paddingTop: "clamp(1.5rem, 3vh, 40px)",
               paddingBottom: "clamp(1.5rem, 3vh, 40px)",
               gap: "clamp(24px, 4vh, 48px)",
-              opacity: 1,
-              transform: "rotate(0deg)",
               borderRadius: "0px",
               display: "flex",
               justifyContent: "center",
               alignItems: "flex-start",
             }}
           >
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8" style={{ width: "100%", maxWidth: "100%" }}>
-            {services.map((service, index) => (
-              <div
-                key={index}
-                className={`transition-all duration-200 service-card w-full md:w-auto ${
-                  clickableCards ? "cursor-pointer" : ""
-                }`}
-                style={{
-                  width: "100%",
-                  maxWidth: "100%",
-                  minHeight: "clamp(500px, 65vh, 651px)",
-                  gap: "clamp(24px, 4vh, 48px)",
-                  borderRadius: "20px",
-                  border: "1px solid #D3D3D3",
-                  padding: "clamp(1.5rem, 3vw, 40px)",
-                  backgroundColor: "#000000",
-                  opacity: 1,
-                  transform: "rotate(0deg)",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-                onClick={() => handleCardClick(service, index)}
-              >
-                {/* Content box inside card */}
+            <div
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8"
+              style={{ width: "100%", maxWidth: "100%" }}
+            >
+              {services.map((service, index) => (
                 <div
-                  className="w-full service-card-content"
+                  key={index}
+                  className={`transition-all duration-200 service-card w-full md:w-auto ${
+                    clickableCards ? "cursor-pointer" : ""
+                  }`}
                   style={{
-                    minHeight: "clamp(400px, 55vh, 571px)",
+                    width: "100%",
+                    maxWidth: "100%",
+                    minHeight: "clamp(500px, 65vh, 651px)",
+                    gap: "clamp(24px, 4vh, 48px)",
+                    borderRadius: "20px",
+                    border: "1px solid #D3D3D3",
+                    padding: "clamp(1.5rem, 3vw, 40px)",
+                    backgroundColor: "#000000",
                     display: "flex",
                     flexDirection: "column",
-                    justifyContent: "space-between",
-                    opacity: 1,
-                    transform: "rotate(0deg)",
                   }}
+                  onClick={() => handleCardClick(service, index)}
                 >
-                  {/* h3 title box */}
+                  {/* Content box inside card */}
                   <div
-                    className="w-full"
+                    className="w-full service-card-content"
                     style={{
-                      minHeight: "clamp(80px, 12vh, 110px)",
-                      paddingTop: "0px",
-                      paddingBottom: "0px",
-                      opacity: 1,
-                      transform: "rotate(0deg)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <h3
-                      className="service-card-title"
-                      style={{
-                        width: "clamp(150px, 20vw, 200px)",
-                        maxWidth: "100%",
-                        minHeight: "clamp(80px, 12vh, 110px)",
-                        fontFamily: "Helvetica, Arial, sans-serif",
-                        fontWeight: 300,
-                        fontStyle: "normal",
-                        fontSize: "clamp(1.5rem, 3.5vw, 3rem)",
-                        lineHeight: "clamp(2rem, 4vh, 3.4375rem)",
-                        letterSpacing: "0%",
-                        textAlign: "center",
-                        color: "white",
-                        opacity: 1,
-                        transform: "rotate(0deg)",
-                        margin: 0,
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <span>{service.title || "Explore "}</span>
-                      <span style={{ color: "#77EB8A" }}>
-                        {service.titleAccent}
-                      </span>
-                    </h3>
-                  </div>
-
-                  {/* p description */}
-                  <div
-                    className="w-full"
-                    style={{
-                      minHeight: "clamp(80px, 10vh, 108px)",
-                      gap: "clamp(12px, 2vh, 24px)",
-                      opacity: 1,
-                      transform: "rotate(0deg)",
+                      minHeight: "clamp(400px, 55vh, 571px)",
                       display: "flex",
                       flexDirection: "column",
+                      justifyContent: "space-between",
                     }}
                   >
-                    <p
-                      className="service-card-description"
-                      style={{
-                        width: "100%",
-                        minHeight: "clamp(80px, 10vh, 108px)",
-                        fontFamily: "Grift, Arial, sans-serif",
-                        fontWeight: 400,
-                        fontStyle: "normal",
-                        fontSize: "clamp(0.875rem, 2vw, 1.75rem)",
-                        lineHeight: "clamp(1.125rem, 2.5vh, 2.25rem)",
-                        letterSpacing: "0%",
-                        textAlign: "center",
-                        color: "white",
-                        opacity: 1,
-                        transform: "rotate(0deg)",
-                        margin: 0,
-                      }}
-                    >
-                      {service.description}
-                    </p>
-                  </div>
-
-                  {/* Image */}
-                  <div
-                    className="service-card-image"
-                    style={{
-                      width: "clamp(100px, 12vw, 150px)",
-                      height: "clamp(114px, 15vh, 171.43px)",
-                      opacity: 1,
-                      transform: "rotate(0deg)",
-                      position: "relative",
-                      margin: "0 auto",
-                    }}
-                  >
-                    <Image
-                      src={service.image}
-                      alt={service.imageAlt}
-                      fill
-                      sizes="(max-width: 640px) 100px, (max-width: 1024px) 120px, 150px"
-                      className="object-contain"
-                      onError={(e) => {
-                        const target = e.currentTarget as HTMLImageElement;
-                        const fallback = target.nextElementSibling as HTMLElement;
-                        if (target && fallback) {
-                          target.style.display = "none";
-                          fallback.style.display = "block";
-                        }
-                      }}
-                    />
+                    {/* h3 title box */}
                     <div
-                      className="w-8 h-8 bg-gray-600 rounded flex items-center justify-center text-white text-xs font-bold absolute inset-0 m-auto"
-                      style={{ display: "none" }}
-                    >
-                      {service.titleAccent.charAt(0)}
-                    </div>
-                  </div>
-
-                  {/* Button */}
-                  {service.buttonText && (
-                    <div
-                      className="service-card-button"
+                      className="w-full"
                       style={{
-                        width: "clamp(200px, 20vw, 275px)",
-                        maxWidth: "100%",
-                        height: "clamp(56px, 7vh, 68px)",
-                        paddingTop: "clamp(12px, 1.5vh, 16px)",
-                        paddingRight: "clamp(32px, 5vw, 64px)",
-                        paddingBottom: "clamp(12px, 1.5vh, 16px)",
-                        paddingLeft: "clamp(32px, 5vw, 64px)",
-                        gap: "0px",
-                        borderRadius: "80px",
-                        backgroundColor: "#52B162",
-                        opacity: 1,
-                        transform: "rotate(0deg)",
+                        minHeight: "clamp(80px, 12vh, 110px)",
+                        paddingTop: "0px",
+                        paddingBottom: "0px",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        cursor: "pointer",
-                        transition: "all 0.3s ease",
-                        margin: "0 auto",
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = "#4FD1C5";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = "#52B162";
                       }}
                     >
-                      {isServicesPage && showSpecialService ? (
-                        <button
-                          onClick={() => handleServiceClick(index)}
-                          className="service-card-button-text"
-                          style={{
-                            fontFamily: "Grift, Arial, sans-serif",
-                            fontWeight: 500,
-                            fontStyle: "normal",
-                            fontSize: "clamp(1rem, 2vw, 1.75rem)",
-                            lineHeight: "clamp(1.25rem, 2.5vh, 2.25rem)",
-                            letterSpacing: "0%",
-                            color: "#FAFAFA",
-                            backgroundColor: "transparent",
-                            border: "none",
-                            cursor: "pointer",
-                            opacity: 1,
-                            transform: "rotate(0deg)",
-                            padding: 0,
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            textAlign: "center",
-                          }}
-                        >
-                          {service.buttonText}
-                        </button>
-                      ) : showSpecialService && clickableCards ? (
-                        <Link
-                          href={service.buttonHref}
-                          className="service-card-button-text"
-                          style={{
-                            fontFamily: "Grift, Arial, sans-serif",
-                            fontWeight: 500,
-                            fontStyle: "normal",
-                            fontSize: "clamp(1rem, 2vw, 1.75rem)",
-                            lineHeight: "clamp(1.25rem, 2.5vh, 2.25rem)",
-                            letterSpacing: "0%",
-                            color: "#FAFAFA",
-                            textDecoration: "none",
-                            opacity: 1,
-                            transform: "rotate(0deg)",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            textAlign: "center",
-                          }}
-                        >
-                          {service.buttonText}
-                        </Link>
-                      ) : showSpecialService ? (
-                        <button
-                          onClick={() => handleServiceClick(index)}
-                          className="service-card-button-text"
-                          style={{
-                            fontFamily: "Grift, Arial, sans-serif",
-                            fontWeight: 500,
-                            fontStyle: "normal",
-                            fontSize: "clamp(1rem, 2vw, 1.75rem)",
-                            lineHeight: "clamp(1.25rem, 2.5vh, 2.25rem)",
-                            letterSpacing: "0%",
-                            color: "#FAFAFA",
-                            backgroundColor: "transparent",
-                            border: "none",
-                            cursor: "pointer",
-                            opacity: 1,
-                            transform: "rotate(0deg)",
-                            padding: 0,
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            textAlign: "center",
-                          }}
-                        >
-                          {service.buttonText}
-                        </button>
-                      ) : (
-                        <Link
-                          href={service.buttonHref}
-                          className="service-card-button-text"
-                          style={{
-                            fontFamily: "Grift, Arial, sans-serif",
-                            fontWeight: 500,
-                            fontStyle: "normal",
-                            fontSize: "clamp(1rem, 2vw, 1.75rem)",
-                            lineHeight: "clamp(1.25rem, 2.5vh, 2.25rem)",
-                            letterSpacing: "0%",
-                            color: "#FAFAFA",
-                            textDecoration: "none",
-                            opacity: 1,
-                            transform: "rotate(0deg)",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            textAlign: "center",
-                          }}
-                        >
-                          {service.buttonText}
-                        </Link>
-                      )}
+                      <h3
+                        className="service-card-title"
+                        style={{
+                          width: "clamp(150px, 20vw, 200px)",
+                          maxWidth: "100%",
+                          minHeight: "clamp(80px, 12vh, 110px)",
+                          fontFamily: "Helvetica, Arial, sans-serif",
+                          fontSize: "clamp(1.5rem, 3.5vw, 3rem)",
+                          textAlign: "center",
+                          color: "white",
+                          margin: 0,
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "center",
+                        }}
+                      >
+                        Explore
+                        <span style={{ color: "#77EB8A" }}>
+                          {service.titleAccent}
+                        </span>
+                      </h3>
                     </div>
-                  )}
+
+                    {/* p description */}
+                    <div
+                      className="w-full"
+                      style={{
+                        minHeight: "clamp(80px, 10vh, 108px)",
+                        gap: "clamp(12px, 2vh, 24px)",
+                        display: "flex",
+                        flexDirection: "column",
+                      }}
+                    >
+                      <p
+                        className="service-card-description"
+                        style={{
+                          width: "100%",
+                          minHeight: "clamp(80px, 10vh, 108px)",
+                          fontFamily: "Grift, Arial, sans-serif",
+                          fontSize: "clamp(0.875rem, 2vw, 1.75rem)",
+                          textAlign: "center",
+                          color: "white",
+                          margin: 0,
+                        }}
+                      >
+                        {service.description}
+                      </p>
+                    </div>
+
+                    {/* Image */}
+                    <div
+                      className="service-card-image"
+                      style={{
+                        width: "clamp(100px, 12vw, 150px)",
+                        height: "clamp(114px, 15vh, 171.43px)",
+                        position: "relative",
+                        margin: "0 auto",
+                      }}
+                    >
+                      <Image
+                        src={service.image}
+                        alt={service.imageAlt}
+                        fill
+                        sizes="(max-width: 640px) 100px, (max-width: 1024px) 120px, 150px"
+                        className="object-contain"
+                        onError={(e) => {
+                          const target = e.currentTarget as HTMLImageElement;
+                          const fallback =
+                            target.nextElementSibling as HTMLElement;
+                          if (target && fallback) {
+                            target.style.display = "none";
+                            fallback.style.display = "block";
+                          }
+                        }}
+                      />
+                      <div
+                        className="w-8 h-8 bg-gray-600 rounded flex items-center justify-center text-white text-xs font-bold absolute inset-0 m-auto"
+                        style={{ display: "none" }}
+                      >
+                        {service.titleAccent.charAt(0)}
+                      </div>
+                    </div>
+
+                    {/* Button */}
+                    {service.buttonText && (
+                      <div
+                        className="service-card-button"
+                        style={{
+                          width: "clamp(200px, 20vw, 275px)",
+                          maxWidth: "100%",
+                          height: "clamp(56px, 7vh, 68px)",
+                          paddingTop: "clamp(12px, 1.5vh, 16px)",
+                          paddingRight: "clamp(32px, 5vw, 64px)",
+                          paddingBottom: "clamp(12px, 1.5vh, 16px)",
+                          paddingLeft: "clamp(32px, 5vw, 64px)",
+                          gap: "0px",
+                          borderRadius: "80px",
+                          backgroundColor: "#52B162",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          cursor: "pointer",
+                          transition: "all 0.3s ease",
+                          margin: "0 auto",
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = "#4FD1C5";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = "#52B162";
+                        }}
+                      >
+                        {isServicesPage && showSpecialService ? (
+                          <button
+                            onClick={() => handleServiceClick(index)}
+                            className="service-card-button-text"
+                            style={{
+                              fontFamily: "Grift, Arial, sans-serif",
+                              fontSize: "clamp(1rem, 2vw, 1.75rem)",
+                              color: "#FAFAFA",
+                              backgroundColor: "transparent",
+                              border: "none",
+                              cursor: "pointer",
+                              padding: 0,
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              textAlign: "center",
+                            }}
+                          >
+                            {service.buttonText}
+                          </button>
+                        ) : showSpecialService && clickableCards ? (
+                          <Link
+                            href={service.buttonHref}
+                            className="service-card-button-text"
+                            style={{
+                              fontFamily: "Grift, Arial, sans-serif",
+                              fontSize: "clamp(1rem, 2vw, 1.75rem)",
+                              color: "#FAFAFA",
+                              textDecoration: "none",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              textAlign: "center",
+                            }}
+                          >
+                            {service.buttonText}
+                          </Link>
+                        ) : showSpecialService ? (
+                          <button
+                            onClick={() => handleServiceClick(index)}
+                            className="service-card-button-text"
+                            style={{
+                              fontFamily: "Grift, Arial, sans-serif",
+                              fontSize: "clamp(1rem, 2vw, 1.75rem)",
+                              color: "#FAFAFA",
+                              backgroundColor: "transparent",
+                              border: "none",
+                              cursor: "pointer",
+                              padding: 0,
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              textAlign: "center",
+                            }}
+                          >
+                            {service.buttonText}
+                          </button>
+                        ) : (
+                          <Link
+                            href={service.buttonHref}
+                            className="service-card-button-text"
+                            style={{
+                              fontFamily: "Grift, Arial, sans-serif",
+                              fontSize: "clamp(1rem, 2vw, 1.75rem)",
+                              color: "#FAFAFA",
+                              textDecoration: "none",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              textAlign: "center",
+                            }}
+                          >
+                            {service.buttonText}
+                          </Link>
+                        )}
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
             </div>
           </div>
         )}

@@ -366,8 +366,6 @@ export default function Home() {
                     className="strategic-growth-title"
                     style={{
                       fontFamily: "Helvetica, Arial, sans-serif",
-                      fontWeight: 300,
-                      fontStyle: "normal",
                       fontSize: "clamp(2rem, 5vw, 4.375rem)",
                       lineHeight: "clamp(2rem, 5vw, 4.375rem)",
                       letterSpacing: "0%",
@@ -387,18 +385,12 @@ export default function Home() {
                   <p
                     className="max-w-full strategic-growth-description"
                     style={{
-                      width: "clamp(100%, 41vw, 659px)",
+                      width: "clamp(45%, 41vw, 659px)",
                       maxWidth: "100%",
                       minHeight: "clamp(60px, 8vh, 80px)",
                       fontFamily: "Grift, Arial, sans-serif",
-                      fontWeight: 500,
-                      fontStyle: "normal",
                       fontSize: "clamp(1rem, 2.5vw, 2rem)",
-                      lineHeight: "clamp(1.25rem, 3vh, 2.5rem)",
-                      letterSpacing: "0%",
                       color: "#DBDBDB",
-                      opacity: 1,
-                      transform: "rotate(0deg)",
                       margin: 0,
                     }}
                   >
@@ -410,11 +402,8 @@ export default function Home() {
                   <div className="flex justify-center md:justify-start">
                     <Link
                       href={currentStrategicGrowthData.buttonHref}
-                      className="inline-flex items-center justify-center font-semibold hover:scale-105 strategic-growth-button"
+                      className="inline-flex items-center justify-center mt-8 hover:scale-105 strategic-growth-button"
                       style={{
-                        borderLeftWidth: "3px",
-                        borderLeftColor: "#38A169",
-                        borderLeftStyle: "solid",
                         padding: "clamp(12px, 1.5vh, 16px) clamp(32px, 5vw, 64px)",
                         gap: "0px",
                         borderRadius: "80px",
@@ -446,8 +435,6 @@ export default function Home() {
                         style={{
                           height: "clamp(28px, 4vh, 36px)",
                           gap: "0px",
-                          opacity: 1,
-                          transform: "rotate(0deg)",
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
@@ -457,14 +444,8 @@ export default function Home() {
                           className="strategic-growth-button-text"
                           style={{
                             fontFamily: "Grift, Arial, sans-serif",
-                            fontWeight: 500,
-                            fontStyle: "normal",
                             fontSize: "clamp(1rem, 2vw, 1.75rem)",
-                            lineHeight: "clamp(1.25rem, 2.5vh, 2.25rem)",
-                            letterSpacing: "0%",
                             color: "#0A0A0A",
-                            opacity: 1,
-                            transform: "rotate(0deg)",
                           }}
                         >
                           {currentStrategicGrowthData.buttonText}

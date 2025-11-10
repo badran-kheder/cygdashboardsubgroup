@@ -1,0 +1,53 @@
+{
+  "kind": "collectionType",
+  "collectionName": "home_hero_sections",
+  "info": {
+    "singularName": "home-hero-section",
+    "pluralName": "home-hero-sections",
+    "displayName": "Home Hero Section",
+    "group": "Home"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "titleAccent": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "backgroundImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "buttons": {
+      "type": "component",
+      "component": "buttons.hero-button",
+      "repeatable": true
+    },
+    "textAlign": {
+      "type": "enumeration",
+      "enum": [
+        "left",
+        "center"
+      ]
+    },
+    "showFooter": {
+      "type": "boolean"
+    },
+    "reviewsLink": {
+      "type": "string"
+    }
+  }
+}

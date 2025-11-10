@@ -18,7 +18,7 @@ export default function SimpleHero({
 }: SimpleHeroProps) {
   return (
     <section
-      className="relative min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat [background-attachment:fixed] sm:[background-attachment:scroll]"
+      className="relative min-h-screen pt-8 flex items-baseline justify-center bg-cover bg-center bg-no-repeat [background-attachment:fixed] sm:[background-attachment:scroll]"
       style={{
         backgroundImage: `url('${backgroundImage}')`,
       }}
@@ -43,9 +43,6 @@ export default function SimpleHero({
           className="mb-4 md:mb-6"
           style={{
             fontFamily: "Helvetica",
-            fontWeight: 300,
-            fontStyle: "normal",
-            letterSpacing: "0%",
             textAlign: "center",
             color: "white",
           }}
@@ -62,9 +59,6 @@ export default function SimpleHero({
           className="max-w-4xl mx-auto text-lg sm:text-xl md:text-2xl leading-relaxed"
           style={{
             fontFamily: "Grift",
-            fontWeight: 500,
-            fontStyle: "normal",
-            letterSpacing: "0%",
             textAlign: "center",
             color: "white",
           }}

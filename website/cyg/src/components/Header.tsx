@@ -235,10 +235,7 @@ export default function Header() {
                 }`}
                 style={{
                   fontFamily: 'Grift',
-                  fontWeight: isActive(link.url) ? 700 : 400,
                   fontSize: 'clamp(0.875rem, 1.5vw, 1.25rem)',
-                  lineHeight: 'clamp(1.25rem, 2vw, 1.75rem)',
-                  letterSpacing: '0%',
                 }}
               >
                 {link.label}
@@ -260,10 +257,7 @@ export default function Header() {
                 }`}
                 style={{
                   fontFamily: 'Grift',
-                  fontWeight: isServicesActive() ? 700 : 400,
                   fontSize: 'clamp(0.875rem, 1.5vw, 1.25rem)',
-                  lineHeight: 'clamp(1.25rem, 2vw, 1.75rem)',
-                  letterSpacing: '0%',
                 }}
               >
                 Services
@@ -289,10 +283,7 @@ export default function Header() {
                       }`}
                       style={{
                         fontFamily: 'Grift',
-                        fontWeight: isServicesDetailActive(service.buttonHref) ? 700 : 400,
                         fontSize: 'clamp(0.875rem, 1.5vw, 1.25rem)',
-                        lineHeight: 'clamp(1.25rem, 2vw, 1.75rem)',
-                        letterSpacing: '0%',
                       }}
                     >
                       {service.title} {service.titleAccent}
@@ -312,10 +303,7 @@ export default function Header() {
                 }`}
                 style={{
                   fontFamily: 'Grift',
-                  fontWeight: isActive(contactLink.url) ? 700 : 400,
                   fontSize: 'clamp(0.875rem, 1.5vw, 1.25rem)',
-                  lineHeight: 'clamp(1.25rem, 2vw, 1.75rem)',
-                  letterSpacing: '0%',
                 }}
               >
                 {contactLink.label}
@@ -352,10 +340,7 @@ export default function Header() {
                   }`}
                   style={{
                     fontFamily: 'Grift',
-                    fontWeight: isActive(link.url) ? 700 : 400,
                     fontSize: 'clamp(0.875rem, 2vw, 1.125rem)',
-                    lineHeight: 'clamp(1.25rem, 2.5vw, 1.5rem)',
-                    letterSpacing: '0%',
                   }}
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -375,10 +360,7 @@ export default function Header() {
                   }`}
                   style={{
                     fontFamily: 'Grift',
-                    fontWeight: isServicesDetailActive(service.buttonHref) ? 700 : 400,
                     fontSize: 'clamp(0.875rem, 2vw, 1.125rem)',
-                    lineHeight: 'clamp(1.25rem, 2.5vw, 1.5rem)',
-                    letterSpacing: '0%',
                   }}
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -397,10 +379,7 @@ export default function Header() {
                   }`}
                   style={{
                     fontFamily: 'Grift',
-                    fontWeight: isActive(contactLink.url) ? 700 : 400,
                     fontSize: 'clamp(0.875rem, 2vw, 1.125rem)',
-                    lineHeight: 'clamp(1.25rem, 2.5vw, 1.5rem)',
-                    letterSpacing: '0%',
                   }}
                   onClick={() => setIsMenuOpen(false)}
                 >

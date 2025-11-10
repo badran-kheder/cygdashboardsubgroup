@@ -29,6 +29,10 @@ import {
   PageSection,
   Industry,
   IndustryData,
+  ServiceDetail,
+  ServiceDetailData,
+  AboutTeamSection,
+  AboutTeamSectionData,
 } from "@/types/strapi";
 import { getStrapiMediaURL } from "./strapi";
 
@@ -300,5 +304,43 @@ export const transformIndustry = (strapiData: Industry): IndustryData => {
       : "/images/cpu.png", // Fallback icon
     href: strapiData.href || "/services",
     order: strapiData.order || 0,
+  };
+};
+
+// Transform Service Detail data
+export const transformServiceDetail = (
+  strapiData: ServiceDetail
+): ServiceDetailData => {
+  return {
+    id: strapiData.id,
+    serviceKey: strapiData.service?.serviceKey || "",
+    overview: strapiData.overview,
+    benefits: strapiData.benefits.map((benefit) => benefit.text),
+    process: strapiData.process.map((step) => ({
+      step: step.step,
+      title: step.title,
+      description: step.description,
+      iconName: step.iconName,
+    })),
+    features: strapiData.features.map((feature) => ({
+      title: feature.title,
+      description: feature.description,
+      iconName: feature.iconName,
+    })),
+    ctaTitle: strapiData.ctaTitle,
+    ctaTitleAccent: strapiData.ctaTitleAccent,
+    ctaButtonText: strapiData.ctaButtonText,
+  };
+};
+
+// Transform About Team Section data
+export const transformAboutTeamSection = (
+  strapiData: AboutTeamSection
+): AboutTeamSectionData => {
+  return {
+    id: strapiData.id,
+    title: strapiData.title,
+    titleAccent: strapiData.titleAccent,
+    description: strapiData.description,
   };
 };

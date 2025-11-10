@@ -52,11 +52,7 @@ export default function CTA({
           className="mb-6 md:mb-8 text-white cta-title"
           style={{
             fontFamily: "Helvetica, Arial, sans-serif",
-            fontWeight: 300,
-            fontStyle: "normal",
             fontSize: "clamp(2rem, 5vw, 4.375rem)",
-            lineHeight: "clamp(2rem, 5vw, 4.375rem)",
-            letterSpacing: "0%",
             textAlign: "center",
             margin: 0,
           }}
@@ -106,11 +102,7 @@ export default function CTA({
             className="cta-button-text"
             style={{
               fontFamily: "Grift, Arial, sans-serif",
-              fontWeight: 500,
-              fontStyle: "normal",
               fontSize: "clamp(1rem, 2vw, 1.75rem)",
-              lineHeight: "clamp(1.25rem, 2.5vh, 2.25rem)",
-              letterSpacing: "0%",
             }}
           >
             {buttonText}

@@ -1,0 +1,28 @@
+{
+  "kind": "singleType",
+  "collectionName": "about_team_sections",
+  "info": {
+    "singularName": "about-team-section",
+    "pluralName": "about-team-sections",
+    "displayName": "About Team Section"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "titleAccent": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    }
+  }
+}
+

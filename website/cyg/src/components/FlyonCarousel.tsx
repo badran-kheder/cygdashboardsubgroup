@@ -178,11 +178,7 @@ export default function FlyonCarousel({ teamMembers: propTeamMembers }: FlyonCar
                         className="text-primary-500 mb-2 flyon-carousel-name"
                         style={{
                           fontFamily: "Helvetica, Arial, sans-serif",
-                          fontWeight: 300,
-                          fontStyle: "normal",
                           fontSize: "clamp(2rem, 5vw, 4.375rem)",
-                          lineHeight: "clamp(2rem, 5vw, 4.375rem)",
-                          letterSpacing: "0%",
                           margin: 0,
                         }}
                       >
@@ -192,11 +188,8 @@ export default function FlyonCarousel({ teamMembers: propTeamMembers }: FlyonCar
                         className="text-white mb-4 mt-5 flyon-carousel-title"
                         style={{
                           fontFamily: "Grift, Arial, sans-serif",
-                          fontWeight: 400,
                           fontStyle: "italic",
                           fontSize: "clamp(1rem, 2.5vw, 2rem)",
-                          lineHeight: "clamp(1.25rem, 3vh, 2.5rem)",
-                          letterSpacing: "0%",
                         }}
                       >
                         {slide.title}
@@ -210,11 +203,7 @@ export default function FlyonCarousel({ teamMembers: propTeamMembers }: FlyonCar
                           className="text-white mb-3 sm:mb-4 flyon-carousel-description"
                           style={{
                             fontFamily: "Grift, Arial, sans-serif",
-                            fontWeight: 400,
-                            fontStyle: "normal",
                             fontSize: "clamp(0.875rem, 1.5vw, 1.25rem)",
-                            lineHeight: "clamp(2rem, 2vh, 1.75rem)",
-                            letterSpacing: "0%",
                             margin: 0,
                           }}
                         >

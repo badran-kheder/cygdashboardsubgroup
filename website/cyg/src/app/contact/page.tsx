@@ -238,7 +238,7 @@ export default function Contact() {
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-8">
-                  <div className="relative mb-8">
+                  <div className="relative mb-8 border-b border-white focus-within:border-green-400 transition duration-300">
                     <label
                       htmlFor="name"
                       className="absolute left-0 -top-3 text-white text-sm"
@@ -251,12 +251,12 @@ export default function Contact() {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full bg-transparent border-b border-white focus:border-green-400 outline-none transition duration-300 py-2 text-white mt-1"
+                      className="w-full bg-transparent border-none outline-none transition duration-300 py-2 text-white mt-1"
                       required
                     />
                   </div>
 
-                  <div className="relative mb-8">
+                  <div className="relative mb-8 border-b border-white focus-within:border-green-400 transition duration-300">
                     <label
                       htmlFor="companyName"
                       className="absolute left-0 -top-3 text-white text-sm"
@@ -269,12 +269,12 @@ export default function Contact() {
                       name="companyName"
                       value={formData.companyName}
                       onChange={handleChange}
-                      className="w-full bg-transparent border-b border-white focus:border-green-400 outline-none transition duration-300 py-2 text-white mt-1"
+                      className="w-full bg-transparent border-none outline-none transition duration-300 py-2 text-white mt-1"
                       required
                     />
                   </div>
 
-                  <div className="relative mb-8">
+                  <div className="relative mb-8 border-b border-white focus-within:border-green-400 transition duration-300">
                     <label
                       htmlFor="email"
                       className="absolute left-0 -top-3 text-white text-sm"
@@ -287,12 +287,12 @@ export default function Contact() {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full bg-transparent border-b border-white focus:border-green-400 outline-none transition duration-300 py-2 text-white mt-1"
+                      className="w-full bg-transparent border-none outline-none transition duration-300 py-2 text-white mt-1"
                       required
                     />
                   </div>
 
-                  <div className="relative mb-8">
+                  <div className="relative mb-8 border-b border-white focus-within:border-green-400 transition duration-300">
                     <label
                       htmlFor="phone"
                       className="absolute left-0 -top-3 text-white text-sm"
@@ -310,7 +310,7 @@ export default function Contact() {
                     </div>
                   </div>
 
-                  <div className="relative mb-8">
+                  <div className="relative mb-8 border-b border-white focus-within:border-green-400 transition duration-300">
                     <label
                       htmlFor="service"
                       className="absolute left-0 -top-3 text-white text-sm"
@@ -321,9 +321,9 @@ export default function Contact() {
                     <select
                       id="service"
                       name="service"
-                      value={formData.service}
+                      value={formData.service || ""}
                       onChange={handleChange}
-                      className="w-full bg-transparent border-b border-white focus:border-green-400 outline-none transition duration-300 py-2 appearance-none text-white mt-1"
+                      className="w-full bg-transparent border-none outline-none transition duration-300 py-2 appearance-none text-white mt-1"
                       required
                     >
                       <option
@@ -331,7 +331,6 @@ export default function Contact() {
                         disabled
                         className="bg-gray-800 text-white"
                       >
-                        Select a service
                       </option>
                       <option
                         value="strategic"
@@ -357,14 +356,14 @@ export default function Contact() {
                     </select>
                   </div>
 
-                  <div className="relative mb-8">
+                  <div className="relative mb-8 border-b border-white focus-within:border-green-400 transition duration-300">
                     <textarea
                       id="message"
                       name="message"
                       value={formData.message}
                       onChange={handleChange}
                       rows={3}
-                      className="w-full bg-transparent border-b border-white focus:border-green-400 outline-none transition duration-300 py-2 resize-none text-white placeholder-gray-300"
+                      className="w-full bg-transparent border-none outline-none transition duration-300 py-2 resize-none text-white placeholder-gray-300"
                       placeholder="Message box"
                     />
                   </div>
@@ -409,15 +408,10 @@ export default function Contact() {
             .contact-phone-input .PhoneInputInput {
               background: transparent !important;
               border: none !important;
-              border-bottom: 1px solid white !important;
               color: white !important;
               outline: none !important;
               padding: 0.5rem 0 !important;
               font-size: 1rem !important;
-              transition: border-color 0.3s !important;
-            }
-            .contact-phone-input .PhoneInputInput:focus {
-              border-bottom-color: #77EB8A !important;
             }
             .contact-phone-input .PhoneInputCountry {
               margin-right: 0.5rem;
@@ -430,17 +424,12 @@ export default function Contact() {
             .contact-phone-input .PhoneInputCountrySelect {
               background: transparent !important;
               border: none !important;
-              border-bottom: 1px solid white !important;
               color: white !important;
               outline: none !important;
               padding: 0.5rem 0.5rem 0.5rem 0 !important;
               font-size: 1rem !important;
               margin-right: 0.5rem;
               appearance: none !important;
-              transition: border-color 0.3s !important;
-            }
-            .contact-phone-input .PhoneInputCountrySelect:focus {
-              border-bottom-color: #77EB8A !important;
             }
             .contact-phone-input .PhoneInputCountrySelectArrow {
               opacity: 0.7;

@@ -172,6 +172,7 @@ export default function Hero({
                       }
                     : {
                         // Secondary button (explore service) styles
+                        width: "clamp(274px, 30vw, 345px)",
                         height: "clamp(56px, 8vh, 76px)",
                         padding: "clamp(12px, 2vw, 20px) clamp(24px, 4vw, 40px)",
                         gap: "0px",
