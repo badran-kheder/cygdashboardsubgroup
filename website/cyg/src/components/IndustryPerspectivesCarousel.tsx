@@ -2,6 +2,8 @@
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import { useEffect, useRef } from "react";
+import type { Swiper as SwiperType } from "swiper";
 import PerspectiveCard from "./PerspectiveCard";
 
 // Import Swiper styles
@@ -25,32 +27,73 @@ interface IndustryPerspectivesCarouselProps {
 export default function IndustryPerspectivesCarousel({
   perspectives,
 }: IndustryPerspectivesCarouselProps) {
+  const swiperRef = useRef<SwiperType | null>(null);
+
+  useEffect(() => {
+    if (swiperRef.current) {
+      // Force update to ensure navigation is enabled
+      swiperRef.current.update();
+      swiperRef.current.updateSlides();
+      swiperRef.current.updateSlidesClasses();
+    }
+  }, [perspectives]);
+
   return (
-    <div className="py-8" style={{ backgroundColor: "#262626" }}>
+    <div className="py-8 pb-16" style={{ backgroundColor: "#262626" }}>
       <Swiper
+        onSwiper={(swiper) => {
+          swiperRef.current = swiper;
+          // Ensure navigation is enabled after initialization
+          setTimeout(() => {
+            swiper.update();
+            swiper.updateSlides();
+            swiper.updateSlidesClasses();
+            // Manually enable navigation buttons
+            if (swiper.navigation) {
+              swiper.navigation.init();
+              swiper.navigation.update();
+            }
+          }, 100);
+        }}
+        onSlideChange={(swiper) => {
+          // Update navigation on slide change
+          if (swiper.navigation) {
+            swiper.navigation.update();
+          }
+        }}
         modules={[Navigation, Pagination, Autoplay]}
         spaceBetween={30}
-        slidesPerView={2}
         navigation={true}
         pagination={{ clickable: true }}
         allowSlideNext={true}
         allowSlidePrev={true}
+        watchOverflow={false}
+        allowTouchMove={true}
+        resistance={true}
+        resistanceRatio={0}
         // autoplay={{
         //   delay: 5000,
         //   disableOnInteraction: false,
         // }}
         breakpoints={{
           640: {
-            slidesPerView: 2,
+            slidesPerView: 1,
             spaceBetween: 20,
           },
           768: {
-            slidesPerView: 2,
+            slidesPerView: 1,
             spaceBetween: 30,
           },
           1024: {
             slidesPerView: 2.9,
             spaceBetween: 30,
+            allowTouchMove: true,
+            watchOverflow: false,
+            resistance: true,
+            resistanceRatio: 0,
+            centeredSlides: false,
+            slidesOffsetAfter: 200,
+            loop: false,
           },
         }}
         className="industry-perspectives-swiper"
@@ -106,6 +149,17 @@ export default function IndustryPerspectivesCarousel({
 
         .industry-perspectives-swiper .swiper-pagination {
           bottom: 5%;
+        }
+
+        .industry-perspectives-swiper .swiper-button-next.swiper-button-disabled,
+        .industry-perspectives-swiper .swiper-button-prev.swiper-button-disabled {
+          opacity: 0.35;
+          cursor: pointer;
+          pointer-events: auto;
+        }
+
+        .industry-perspectives-swiper .swiper-wrapper {
+          transition-timing-function: linear;
         }
       `}</style>
     </div>

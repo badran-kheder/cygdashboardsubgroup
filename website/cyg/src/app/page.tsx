@@ -6,10 +6,25 @@ import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import Stock from "@/components/Stock";
 import IndustryPerspectivesHeading from "@/components/IndustryPerspectivesHeading";
-import IndustryPerspectivesCarousel from "@/components/IndustryPerspectivesCarousel";
+// import IndustryPerspectivesCarousel from "@/components/IndustryPerspectivesCarousel";
+import IndustryPerspectivesCarouselEmbla from "@/components/IndustryPerspectivesCarouselEmbla";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
-import { getHeroSections, getServices, getIndustryPerspectives, getStrategicGrowth, getStock, getFooterLogos } from "@/lib/strapi";
-import { transformHeroSection, transformService, transformIndustryPerspective, transformStrategicGrowth, transformStock, transformFooterLogo } from "@/lib/transform";
+import {
+  getHeroSections,
+  getServices,
+  getIndustryPerspectives,
+  getStrategicGrowth,
+  getStock,
+  getFooterLogos,
+} from "@/lib/strapi";
+import {
+  transformHeroSection,
+  transformService,
+  transformIndustryPerspective,
+  transformStrategicGrowth,
+  transformStock,
+  transformFooterLogo,
+} from "@/lib/transform";
 import {
   HeroSectionData,
   Service,
@@ -25,8 +40,11 @@ import {
 export default function Home() {
   const [heroData, setHeroData] = useState<HeroSectionData | null>(null);
   const [servicesData, setServicesData] = useState<ServiceData[]>([]);
-  const [industryPerspectivesData, setIndustryPerspectivesData] = useState<IndustryPerspectiveData[]>([]);
-  const [strategicGrowthData, setStrategicGrowthData] = useState<StrategicGrowthData | null>(null);
+  const [industryPerspectivesData, setIndustryPerspectivesData] = useState<
+    IndustryPerspectiveData[]
+  >([]);
+  const [strategicGrowthData, setStrategicGrowthData] =
+    useState<StrategicGrowthData | null>(null);
   const [stockData, setStockData] = useState<StockData | null>(null);
   const [footerLogosData, setFooterLogosData] = useState<FooterLogoData[]>([]);
 
@@ -55,10 +73,14 @@ export default function Home() {
         const industryPerspectives = await getIndustryPerspectives();
         console.log("Industry Perspectives from Strapi:", industryPerspectives);
         if (industryPerspectives && industryPerspectives.length > 0) {
-          const transformedIndustryPerspectivesData = industryPerspectives.map((perspective: IndustryPerspective) =>
-            transformIndustryPerspective(perspective)
+          const transformedIndustryPerspectivesData = industryPerspectives.map(
+            (perspective: IndustryPerspective) =>
+              transformIndustryPerspective(perspective)
           );
-          console.log("Transformed industry perspectives data:", transformedIndustryPerspectivesData);
+          console.log(
+            "Transformed industry perspectives data:",
+            transformedIndustryPerspectivesData
+          );
           setIndustryPerspectivesData(transformedIndustryPerspectivesData);
         }
 
@@ -66,8 +88,13 @@ export default function Home() {
         const strategicGrowths = await getStrategicGrowth();
         console.log("Strategic Growth from Strapi:", strategicGrowths);
         if (strategicGrowths && strategicGrowths.length > 0) {
-          const transformedStrategicGrowthData = transformStrategicGrowth(strategicGrowths[0]);
-          console.log("Transformed strategic growth data:", transformedStrategicGrowthData);
+          const transformedStrategicGrowthData = transformStrategicGrowth(
+            strategicGrowths[0]
+          );
+          console.log(
+            "Transformed strategic growth data:",
+            transformedStrategicGrowthData
+          );
           setStrategicGrowthData(transformedStrategicGrowthData);
         }
 
@@ -84,10 +111,13 @@ export default function Home() {
         const footerLogos = await getFooterLogos();
         console.log("Footer Logos from Strapi:", footerLogos);
         if (footerLogos && footerLogos.length > 0) {
-          const transformedFooterLogosData = footerLogos.map((logo: FooterLogo) =>
-            transformFooterLogo(logo)
+          const transformedFooterLogosData = footerLogos.map(
+            (logo: FooterLogo) => transformFooterLogo(logo)
           );
-          console.log("Transformed footer logos data:", transformedFooterLogosData);
+          console.log(
+            "Transformed footer logos data:",
+            transformedFooterLogosData
+          );
           setFooterLogosData(transformedFooterLogosData);
         }
       } catch (error) {
@@ -160,7 +190,8 @@ export default function Home() {
   ];
 
   const currentHeroData = heroData || fallbackHeroData;
-  const currentFooterLogosData = footerLogosData.length > 0 ? footerLogosData : fallbackFooterLogosData;
+  const currentFooterLogosData =
+    footerLogosData.length > 0 ? footerLogosData : fallbackFooterLogosData;
 
   // Fallback services data
   const fallbackServicesData = [
@@ -216,7 +247,8 @@ export default function Home() {
     {
       id: 1,
       imageSrc: "/images/slide.png",
-      title: "Cutting Through the Noise: The Long-Term Case for Data Centers The Connection",
+      title:
+        "Cutting Through the Noise: The Long-Term Case for Data Centers The Connection",
       category1: "Investment Strategy",
       category2: "Business",
       date: "June 3, 2025",
@@ -240,27 +272,32 @@ export default function Home() {
   ];
 
   const currentIndustryPerspectivesData =
-    industryPerspectivesData.length > 0 ? industryPerspectivesData : fallbackIndustryPerspectivesData;
+    industryPerspectivesData.length > 0
+      ? industryPerspectivesData
+      : fallbackIndustryPerspectivesData;
 
   // Fallback strategic growth data
   const fallbackStrategicGrowthData = {
     id: 1,
     title: "Empowering Strategic",
     titleAccent: "Growth",
-    description: "Tailored financial advisory from Dubai and Lebanon, driving growth and lasting value.",
+    description:
+      "Tailored financial advisory from Dubai and Lebanon, driving growth and lasting value.",
     buttonText: "Learn More",
     buttonHref: "/services",
     backgroundImage: "/images/chess.png",
   };
 
-  const currentStrategicGrowthData = strategicGrowthData || fallbackStrategicGrowthData;
+  const currentStrategicGrowthData =
+    strategicGrowthData || fallbackStrategicGrowthData;
 
   // Fallback stock data
   const fallbackStockData = {
     id: 1,
     title: "We Specialize in",
     titleAccent: "Specialization!",
-    description: "We apply tailored financial and operational expertise across diverse industries.",
+    description:
+      "We apply tailored financial and operational expertise across diverse industries.",
     backgroundImage: "/images/t-stock.png",
     backgroundImageAlt: "Stock chart background",
   };
@@ -286,80 +323,206 @@ export default function Home() {
         {/* Strategic Growth Section */}
         <AnimateOnScroll animation="fadeInUp" delay={200}>
           <section
-            className="py-20 px-4 pr-0 bg-black"
+            className="bg-black flex items-center justify-center strategic-growth-section"
             style={{
               backgroundImage: `url('${currentStrategicGrowthData.backgroundImage}')`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
+              minHeight: "100vh",
             }}
           >
-            <div className="max-container">
-              <div className="grid lg:grid-cols-2 gap-12 items-center">
-                {/* Left Side - Content */}
-                <div className="space-y-8">
-                  <AnimateOnScroll animation="fadeInLeft" delay={400}>
-                    <h2
-                      className="text-5xl md:text-6xl font-bold leading-tight"
-                      style={{
-                        fontFamily: "Helvetica, Arial, sans-serif",
-                        fontWeight: 300,
-                        color: "white",
-                      }}
-                    >
-                      <span>{currentStrategicGrowthData.title}</span>
-                      <br />
-                      <span style={{ color: "#77EB8A" }}>{currentStrategicGrowthData.titleAccent}</span>
-                    </h2>
-                  </AnimateOnScroll>
+            {/* First content box */}
+            <div
+              className="w-full max-w-[1920px] px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-40 strategic-growth-container justify-center md:justify-start"
+              style={{
+                width: "1920px",
+                maxWidth: "100%",
+                minHeight: "clamp(400px, 60vh, 648px)",
+                paddingTop: "clamp(3rem, 10vh, 128px)",
+                paddingBottom: "clamp(3rem, 10vh, 128px)",
+                gap: "0px",
+                opacity: 1,
+                transform: "rotate(0deg)",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <div
+                className="w-full strategic-growth-content text-center md:text-left"
+                style={{
+                  width: "clamp(100%, 45vw, 862px)",
+                  maxWidth: "100%",
+                  minHeight: "clamp(200px, 30vh, 260px)",
+                  gap: "clamp(20px, 3vh, 40px)",
+                  opacity: 1,
+                  transform: "rotate(0deg)",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <AnimateOnScroll animation="fadeInLeft" delay={400}>
+                  <h2
+                    className="strategic-growth-title"
+                    style={{
+                      fontFamily: "Helvetica, Arial, sans-serif",
+                      fontWeight: 300,
+                      fontStyle: "normal",
+                      fontSize: "clamp(2rem, 5vw, 4.375rem)",
+                      lineHeight: "clamp(2rem, 5vw, 4.375rem)",
+                      letterSpacing: "0%",
+                      color: "white",
+                      margin: 0,
+                    }}
+                  >
+                    <span>{currentStrategicGrowthData.title}</span>
+                    <br />
+                    <span style={{ color: "#77EB8A" }}>
+                      {currentStrategicGrowthData.titleAccent}
+                    </span>
+                  </h2>
+                </AnimateOnScroll>
 
-                  <AnimateOnScroll animation="fadeInUp" delay={600}>
-                    <p
-                      className="text-xl md:text-2xl leading-relaxed"
-                      style={{
-                        fontFamily: "Grift, Arial, sans-serif",
-                        fontWeight: 500,
-                        color: "white",
-                        lineHeight: "1.6",
-                      }}
-                    >
-                      {currentStrategicGrowthData.description}
-                    </p>
-                  </AnimateOnScroll>
+                <AnimateOnScroll animation="fadeInUp" delay={600}>
+                  <p
+                    className="max-w-full strategic-growth-description"
+                    style={{
+                      width: "clamp(100%, 41vw, 659px)",
+                      maxWidth: "100%",
+                      minHeight: "clamp(60px, 8vh, 80px)",
+                      fontFamily: "Grift, Arial, sans-serif",
+                      fontWeight: 500,
+                      fontStyle: "normal",
+                      fontSize: "clamp(1rem, 2.5vw, 2rem)",
+                      lineHeight: "clamp(1.25rem, 3vh, 2.5rem)",
+                      letterSpacing: "0%",
+                      color: "#DBDBDB",
+                      opacity: 1,
+                      transform: "rotate(0deg)",
+                      margin: 0,
+                    }}
+                  >
+                    {currentStrategicGrowthData.description}
+                  </p>
+                </AnimateOnScroll>
 
-                  <AnimateOnScroll animation="scaleIn" delay={800}>
+                <AnimateOnScroll animation="scaleIn" delay={800}>
+                  <div className="flex justify-center md:justify-start">
                     <Link
                       href={currentStrategicGrowthData.buttonHref}
-                      className="inline-flex items-center justify-center font-semibold hover:scale-105"
+                      className="inline-flex items-center justify-center font-semibold hover:scale-105 strategic-growth-button"
                       style={{
-                        padding: "1rem 2.5rem",
-                        minHeight: "3.5rem",
-                        backgroundColor: "#38A169",
-                        borderRadius: "5rem",
-                        border: "none",
-                        color: "#0B1F3A",
+                        width: "clamp(200px, 20vw, 268px)",
+                        height: "clamp(56px, 7vh, 68px)",
+                        borderLeftWidth: "3px",
+                        borderLeftColor: "#38A169",
+                        borderLeftStyle: "solid",
+                        padding: "clamp(12px, 1.5vh, 16px) clamp(32px, 5vw, 64px)",
+                        gap: "0px",
+                        borderRadius: "80px",
+                        backgroundColor: "#9DD8A7",
                         textDecoration: "none",
                         transition: "all 0.3s ease",
                         cursor: "pointer",
+                        opacity: 1,
+                        transform: "rotate(0deg)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.backgroundColor = "#4FD1C5";
                         e.currentTarget.style.transform = "translateY(-2px)";
                         e.currentTarget.style.boxShadow =
                           "0 8px 25px rgba(56, 161, 105, 0.3)";
+                        // Text color stays #0A0A0A on hover
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = "#38A169";
+                        e.currentTarget.style.backgroundColor = "#9DD8A7";
                         e.currentTarget.style.transform = "translateY(0)";
                         e.currentTarget.style.boxShadow = "none";
                       }}
                     >
-                      {currentStrategicGrowthData.buttonText}
+                      <div
+                        className="w-full"
+                        style={{
+                          height: "clamp(28px, 4vh, 36px)",
+                          gap: "0px",
+                          opacity: 1,
+                          transform: "rotate(0deg)",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <span
+                          className="strategic-growth-button-text"
+                          style={{
+                            fontFamily: "Grift, Arial, sans-serif",
+                            fontWeight: 500,
+                            fontStyle: "normal",
+                            fontSize: "clamp(1rem, 2vw, 1.75rem)",
+                            lineHeight: "clamp(1.25rem, 2.5vh, 2.25rem)",
+                            letterSpacing: "0%",
+                            color: "#0A0A0A",
+                            opacity: 1,
+                            transform: "rotate(0deg)",
+                          }}
+                        >
+                          {currentStrategicGrowthData.buttonText}
+                        </span>
+                      </div>
                     </Link>
-                  </AnimateOnScroll>
-                </div>
+                  </div>
+                </AnimateOnScroll>
               </div>
             </div>
+
+            {/* Desktop-specific styles to maintain original design */}
+            <style jsx global>{`
+              @media (min-width: 1920px) {
+                .strategic-growth-section {
+                  height: 100vh !important;
+                }
+                .strategic-growth-container {
+                  width: 1920px !important;
+                  min-height: 648px !important;
+                  padding-top: 128px !important;
+                  padding-bottom: 128px !important;
+                  justify-content: start !important;
+                }
+                .strategic-growth-content {
+                  width: 862px !important;
+                  min-height: 260px !important;
+                  gap: 40px !important;
+                  text-align: left !important;
+                }
+                .strategic-growth-title {
+                  font-size: 70px !important;
+                  line-height: 70px !important;
+                  text-align: left !important;
+                }
+                .strategic-growth-description {
+                  width: 659px !important;
+                  min-height: 80px !important;
+                  font-size: 32px !important;
+                  line-height: 40px !important;
+                  text-align: left !important;
+                }
+                .strategic-growth-button {
+                  width: 268px !important;
+                  height: 68px !important;
+                  padding: 16px 64px !important;
+                }
+                .strategic-growth-button-text {
+                  font-size: 28px !important;
+                  line-height: 36px !important;
+                }
+                .strategic-growth-button div {
+                  height: 36px !important;
+                }
+              }
+            `}</style>
           </section>
         </AnimateOnScroll>
 
@@ -392,7 +555,12 @@ export default function Home() {
             titleAccent="Perspectives"
             description="Discover curated insights: expert analyses, breakthrough trends, and thought leadership."
           />
-          <IndustryPerspectivesCarousel
+          {/* Old Swiper Carousel - Commented out */}
+          {/* <IndustryPerspectivesCarousel
+            perspectives={currentIndustryPerspectivesData}
+          /> */}
+          {/* New Embla Carousel */}
+          <IndustryPerspectivesCarouselEmbla
             perspectives={currentIndustryPerspectivesData}
           />
         </AnimateOnScroll>

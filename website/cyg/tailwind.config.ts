@@ -86,9 +86,11 @@ const config: Config = {
       
       // Typography
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        display: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Helvetica', 'Grift', 'Arial', 'sans-serif'],
+        display: ['Helvetica', 'Grift', 'Arial', 'sans-serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+        helvetica: ['Helvetica', 'Arial', 'sans-serif'],
+        grift: ['Grift', 'Arial', 'sans-serif'],
       },
       
       // Custom button dimensions

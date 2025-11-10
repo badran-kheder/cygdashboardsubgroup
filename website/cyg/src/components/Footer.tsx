@@ -44,84 +44,186 @@ export default function Footer() {
 
   return (
     <footer
-      className="bg-footer border-t border-gray-700"
-      style={{ position: "relative", height: "80vh" }}
+      className="bg-footer border-t border-gray-700 w-full"
+      style={{
+        minHeight: "100vh",
+        opacity: 1,
+        transform: "rotate(0deg)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        position: "relative",
+      }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        {/* Logo and Contact */}
-        <div className="text-center mb-12">
-          <div className="flex justify-center mb-6">
+      <div
+        className="mx-auto w-full px-4 py-6 sm:px-6 sm:py-12 md:px-8 md:py-16 lg:px-10 lg:py-20 xl:px-40"
+        style={{
+          maxWidth: "1920px",
+          width: "100%",
+          minHeight: "inherit",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          position: "relative",
+          paddingBottom: "3rem",
+        }}
+      >
+        {/* Logo */}
+        <div className="flex justify-center mb-6 sm:mb-12 md:mb-16 lg:mb-20 xl:mb-[20vh]">
             <Image
-              // MODIFIED: Use dynamic data
               src={currentFooterData.logoUrl}
               alt={currentFooterData.logoAlt}
               width={200}
               height={80}
-              className="object-contain"
+            className="object-contain w-auto h-auto"
               style={{
-                position: "absolute",
-                top: "25%",
-                left: "50%",
-                transform: "translate(-50%, -10%)",
+              width: "clamp(80px, 20vw, 200px)",
                 height: "auto",
-                width: "auto",
               }}
             />
           </div>
 
           {/* Contact Information */}
-          <div
-            className="grid md:grid-cols-3 gap-8 max-w-2xl mx-auto"
+        <div className="mt-4 sm:mt-8 md:mt-10 grid grid-cols-1 gap-4 sm:gap-8 md:gap-10 sm:grid-cols-2 lg:grid-cols-3 mx-auto w-full max-w-7xl">
+          <div className="text-center sm:text-center lg:text-left">
+            <h3
+              className="mb-1 sm:mb-2"
             style={{
-              position: "absolute",
-              bottom: "25%",
-              left: "50%",
-              transform: "translate(-50%, -10%)",
+                fontFamily: "SF Pro Display, Arial, sans-serif",
+                fontWeight: 400,
+                fontStyle: "normal",
+                fontSize: "clamp(0.625rem, 1.5vw, 0.875rem)",
+                lineHeight: "1.25rem",
+                letterSpacing: "0%",
+                textAlign: "inherit",
+                color: "white",
+                margin: 0,
             }}
           >
-            <div className="text-center">
-              <h3 className="text-white font-semibold mb-2">Email</h3>
+              Email
+            </h3>
               <a
-                // MODIFIED: Use dynamic data
                 href={`mailto:${currentFooterData.email}`}
-                className="text-gray-300 hover:text-primary-500 transition-colors duration-200"
+              className="hover:text-primary-500 transition-colors duration-200 break-all block"
+              style={{
+                fontFamily: "Grift, Arial, sans-serif",
+                fontWeight: 400,
+                fontStyle: "normal",
+                fontSize: "clamp(0.875rem, 2.5vw, 2rem)",
+                lineHeight: "clamp(1.125rem, 3vw, 2.5rem)",
+                letterSpacing: "0%",
+                color: "white",
+                textDecoration: "none",
+              }}
               >
                 {currentFooterData.email}
               </a>
             </div>
-            <div className="text-center">
-              <h3 className="text-white font-semibold mb-2">Phone</h3>
+          <div className="text-center sm:text-center lg:text-left">
+            <h3
+              className="mb-1 sm:mb-2"
+              style={{
+                fontFamily: "SF Pro Display, Arial, sans-serif",
+                fontWeight: 400,
+                fontStyle: "normal",
+                fontSize: "clamp(0.625rem, 1.5vw, 0.875rem)",
+                lineHeight: "1.25rem",
+                letterSpacing: "0%",
+                textAlign: "inherit",
+                color: "white",
+                margin: 0,
+              }}
+            >
+              Phone
+            </h3>
               <a
-                // MODIFIED: Use dynamic data
                 href={`tel:${currentFooterData.phone.replace(/\s/g, "")}`}
-                className="text-gray-300 hover:text-primary-500 transition-colors duration-200"
+              className="hover:text-primary-500 transition-colors duration-200 block"
+              style={{
+                fontFamily: "Grift, Arial, sans-serif",
+                fontWeight: 400,
+                fontStyle: "normal",
+                fontSize: "clamp(0.875rem, 2.5vw, 2rem)",
+                lineHeight: "clamp(1.125rem, 3vw, 2.5rem)",
+                letterSpacing: "0%",
+                color: "white",
+                textDecoration: "none",
+              }}
               >
                 {currentFooterData.phone}
               </a>
             </div>
-            <div className="text-center">
-              <h3 className="text-white font-semibold mb-2">Address</h3>
-              {/* MODIFIED: Use dynamic data */}
-              <p className="text-gray-300">{currentFooterData.address}</p>
-            </div>
+          <div className="text-center sm:text-center lg:text-left sm:col-span-2 lg:col-span-1">
+            <h3
+              className="mb-1 sm:mb-2"
+              style={{
+                fontFamily: "SF Pro Display, Arial, sans-serif",
+                fontWeight: 400,
+                fontStyle: "normal",
+                fontSize: "clamp(0.625rem, 1.5vw, 0.875rem)",
+                lineHeight: "1.25rem",
+                letterSpacing: "0%",
+                textAlign: "inherit",
+                color: "white",
+                margin: 0,
+              }}
+            >
+              Address
+            </h3>
+            <p
+              style={{
+                fontFamily: "Grift, Arial, sans-serif",
+                fontWeight: 400,
+                fontStyle: "normal",
+                fontSize: "clamp(0.875rem, 2.5vw, 2rem)",
+                lineHeight: "clamp(1.125rem, 3vw, 2.5rem)",
+                letterSpacing: "0%",
+                color: "white",
+                margin: 0,
+              }}
+            >
+              {currentFooterData.address}
+            </p>
           </div>
         </div>
 
         {/* Copyright */}
-        <div
+        <div className="mt-6 sm:mt-10 md:mt-12 lg:mt-16 flex justify-center w-full absolute bottom-3 sm:bottom-6 md:bottom-8 left-0 right-0">
+          <p
+            className="text-center px-4"
           style={{
-            position: "absolute",
-            bottom: "5%",
-            left: "50%",
-            transform: "translate(-50%, -10%)",
+              fontFamily: "Grift, Arial, sans-serif",
+              fontWeight: 400,
+              fontStyle: "normal",
+              fontSize: "clamp(0.625rem, 1.2vw, 0.875rem)",
+              lineHeight: "clamp(0.875rem, 1.8vw, 1.5rem)",
+              letterSpacing: "0%",
+              textAlign: "center",
+              color: "white",
+              margin: 0,
           }}
         >
-          {/* MODIFIED: Use dynamic data */}
-          <p className="text-white text-sm">
             {currentFooterData.copyrightText}
           </p>
         </div>
       </div>
+
+      {/* Responsive styles */}
+      <style jsx global>{`
+        @media (max-width: 639px) {
+          footer {
+            min-height: auto !important;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+          }
+        }
+        @media (min-width: 1920px) {
+          footer {
+            height: 850px !important;
+            min-height: 850px !important;
+          }
+        }
+      `}</style>
     </footer>
   );
 }

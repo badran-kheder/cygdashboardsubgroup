@@ -573,6 +573,37 @@ export interface ApiIndustryPerspectiveIndustryPerspective
   };
 }
 
+export interface ApiIndustryIndustry extends Struct.CollectionTypeSchema {
+  collectionName: 'industries';
+  info: {
+    displayName: 'Industry';
+    pluralName: 'industries';
+    singularName: 'industry';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    href: Schema.Attribute.String & Schema.Attribute.DefaultTo<'/services'>;
+    icon: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::industry.industry'
+    > &
+      Schema.Attribute.Private;
+    order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiNavigationNavigation extends Struct.SingleTypeSchema {
   collectionName: 'navigations';
   info: {
@@ -1395,6 +1426,7 @@ declare module '@strapi/strapi' {
       'api::footer.footer': ApiFooterFooter;
       'api::hero-section.hero-section': ApiHeroSectionHeroSection;
       'api::industry-perspective.industry-perspective': ApiIndustryPerspectiveIndustryPerspective;
+      'api::industry.industry': ApiIndustryIndustry;
       'api::navigation.navigation': ApiNavigationNavigation;
       'api::office-location.office-location': ApiOfficeLocationOfficeLocation;
       'api::page-hero-section.page-hero-section': ApiPageHeroSectionPageHeroSection;

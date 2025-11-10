@@ -409,3 +409,47 @@ export const getPageSectionBySectionId = async (sectionId: string) => {
     return null;
   }
 };
+
+// Industry API functions
+export const getIndustries = async () => {
+  try {
+    const response = await fetch(
+      `${getStrapiURL()}/api/industries?populate=icon&sort=order:asc`
+    );
+    
+    // Check for 403 Forbidden status
+    if (response.status === 403) {
+      console.warn("Access forbidden (403) when fetching industries, using fallback data");
+      throw new Error("FORBIDDEN_403");
+    }
+    
+    // Check for other error statuses
+    if (!response.ok) {
+      console.warn(`Error fetching industries: ${response.status} ${response.statusText}`);
+      throw new Error(`HTTP_${response.status}`);
+    }
+    
+    const data = await response.json();
+    return data.data || [];
+  } catch (error) {
+    // Re-throw 403 errors so component can handle them
+    if (error instanceof Error && error.message === "FORBIDDEN_403") {
+      throw error;
+    }
+    console.error("Error fetching industries:", error);
+    return [];
+  }
+};
+
+export const getIndustryById = async (id: number) => {
+  try {
+    const response = await fetch(
+      `${getStrapiURL()}/api/industries/${id}?populate=icon`
+    );
+    const data = await response.json();
+    return data.data || null;
+  } catch (error) {
+    console.error("Error fetching industry:", error);
+    return null;
+  }
+};

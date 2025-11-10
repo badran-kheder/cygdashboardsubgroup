@@ -2,9 +2,11 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import PhoneInput from "react-phone-number-input";
+import "react-phone-number-input/style.css";
 import Hero from "@/components/Hero";
 import IndustryPerspectivesHeading from "@/components/IndustryPerspectivesHeading";
-import IndustryPerspectivesCarousel from "@/components/IndustryPerspectivesCarousel";
+import IndustryPerspectivesCarouselEmbla from "@/components/IndustryPerspectivesCarouselEmbla";
 import CTA from "@/components/CTA";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
 import { getPageHeroSectionByPageName, getOfficeLocations, submitContactForm } from "@/lib/strapi";
@@ -110,6 +112,14 @@ export default function Contact() {
       category2: "Global Reach",
       date: "Expanding Soon",
     },
+    {
+      id: 4,
+      imageSrc: "/images/form-bg.jpg",
+      title: "Coming Soon",
+      category1: "",
+      category2: "",
+      date: "",
+    },
   ];
 
   const currentOfficeLocationsData = officeLocationsData.length > 0 ? officeLocationsData : fallbackOfficeLocationsData;
@@ -182,15 +192,26 @@ export default function Contact() {
               backgroundSize: "cover",
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
-              boxShadow: "inset 0px 20px 20px 20px black",
             }}
           >
-            {/* Overlay */}
-            <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+            {/* Shadow Overlay */}
+            <div
+              className="absolute inset-0 -top-[7%] sm:-top-[10%]"
+            >
+              <Image
+                src="/images/shadow.png"
+                alt="shadow"
+                fill
+                style={{
+                  objectFit: "cover",
+                  pointerEvents: "none",
+                }}
+              />
+            </div>
 
-            <div className="relative w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center z-10">
+            <div className="relative w-full max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center z-10">
               {/* Left Side: Title */}
-              <div className="text-center md:text-left">
+              <div className="text-center md:text-left absolute top-0 left-0">
                 <h1 className="text-5xl md:text-6xl font-light text-white">
                   Let&apos;s Get to Know
                 </h1>
@@ -198,14 +219,14 @@ export default function Contact() {
                   You
                 </h2>
               </div>
-
+                <div></div>
               {/* Right Side: Form */}
               <div
                 className="p-8 rounded-2xl shadow-lg w-full border border-white"
                 style={{ backgroundColor: "#131313" }}
               >
                 <div className="text-center mb-8">
-                  <div className="inline-block border border-white p-2">
+                  <div className="inline-block p-2">
                     <Image
                       src="/images/cyg-logo.png"
                       alt="CYG Partners"
@@ -216,83 +237,93 @@ export default function Contact() {
                   </div>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="relative mb-5">
+                <form onSubmit={handleSubmit} className="space-y-8">
+                  <div className="relative mb-8">
+                    <label
+                      htmlFor="name"
+                      className="absolute left-0 -top-3 text-white text-sm"
+                    >
+                      Name <span className="text-red-500">*</span>
+                    </label>
                     <input
                       type="text"
                       id="name"
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full bg-transparent border-b border-white focus:border-green-400 outline-none transition duration-300 py-2 text-white"
+                      className="w-full bg-transparent border-b border-white focus:border-green-400 outline-none transition duration-300 py-2 text-white mt-1"
                       required
                     />
-                    <label
-                      htmlFor="name"
-                      className="absolute left-0 -top-5 text-white text-sm"
-                    >
-                      Name <span className="text-red-500">*</span>
-                    </label>
                   </div>
 
-                  <div className="relative mb-5">
+                  <div className="relative mb-8">
+                    <label
+                      htmlFor="companyName"
+                      className="absolute left-0 -top-3 text-white text-sm"
+                    >
+                      Company Name <span className="text-red-500">*</span>
+                    </label>
                     <input
                       type="text"
                       id="companyName"
                       name="companyName"
                       value={formData.companyName}
                       onChange={handleChange}
-                      className="w-full bg-transparent border-b border-white focus:border-green-400 outline-none transition duration-300 py-2 text-white"
+                      className="w-full bg-transparent border-b border-white focus:border-green-400 outline-none transition duration-300 py-2 text-white mt-1"
                       required
                     />
-                    <label
-                      htmlFor="companyName"
-                      className="absolute left-0 -top-5 text-white text-sm"
-                    >
-                      Company Name <span className="text-red-500">*</span>
-                    </label>
                   </div>
 
-                  <div className="relative mb-5">
+                  <div className="relative mb-8">
+                    <label
+                      htmlFor="email"
+                      className="absolute left-0 -top-3 text-white text-sm"
+                    >
+                      Email Address <span className="text-red-500">*</span>
+                    </label>
                     <input
                       type="email"
                       id="email"
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full bg-transparent border-b border-white focus:border-green-400 outline-none transition duration-300 py-2 text-white"
+                      className="w-full bg-transparent border-b border-white focus:border-green-400 outline-none transition duration-300 py-2 text-white mt-1"
                       required
                     />
+                  </div>
+
+                  <div className="relative mb-8">
                     <label
-                      htmlFor="email"
-                      className="absolute left-0 -top-5 text-white text-sm"
+                      htmlFor="phone"
+                      className="absolute left-0 -top-3 text-white text-sm"
                     >
-                      Email Address <span className="text-red-500">*</span>
+                      Phone Number
                     </label>
+                    <div className="mt-1">
+                      <PhoneInput
+                        international
+                        defaultCountry="AE"
+                        value={formData.phone}
+                        onChange={(value) => setFormData({ ...formData, phone: value || "" })}
+                        className="contact-phone-input"
+                      />
+                    </div>
                   </div>
 
-                  <div className="relative flex items-center">
-                    <select className="bg-transparent border-b border-white outline-none py-2 pr-2 text-white">
-                      <option className="bg-gray-800 text-white">UAE</option>
-                    </select>
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      className="w-full bg-transparent border-b border-white focus:border-green-400 outline-none transition duration-300 py-2 pl-2 text-white placeholder-gray-300"
-                      placeholder="+971 (50) 215-7254"
-                    />
-                  </div>
-
-                  <div className="relative mb-5">
+                  <div className="relative mb-8">
+                    <label
+                      htmlFor="service"
+                      className="absolute left-0 -top-3 text-white text-sm"
+                    >
+                      Service of Interest{" "}
+                      <span className="text-red-500">*</span>
+                    </label>
                     <select
                       id="service"
                       name="service"
                       value={formData.service}
                       onChange={handleChange}
-                      className="w-full bg-transparent border-b border-white focus:border-green-400 outline-none transition duration-300 py-2 appearance-none text-white"
+                      className="w-full bg-transparent border-b border-white focus:border-green-400 outline-none transition duration-300 py-2 appearance-none text-white mt-1"
                       required
                     >
                       <option
@@ -324,16 +355,9 @@ export default function Contact() {
                         Other
                       </option>
                     </select>
-                    <label
-                      htmlFor="service"
-                      className="absolute left-0 -top-3 text-white text-sm"
-                    >
-                      Service of Interest{" "}
-                      <span className="text-red-500">*</span>
-                    </label>
                   </div>
 
-                  <div className="relative mb-5">
+                  <div className="relative mb-8">
                     <textarea
                       id="message"
                       name="message"
@@ -374,6 +398,64 @@ export default function Contact() {
               </div>
             </div>
           </section>
+
+          {/* Custom styles for phone input */}
+          <style jsx global>{`
+            .contact-phone-input {
+              width: 100%;
+              display: flex;
+              align-items: center;
+            }
+            .contact-phone-input .PhoneInputInput {
+              background: transparent !important;
+              border: none !important;
+              border-bottom: 1px solid white !important;
+              color: white !important;
+              outline: none !important;
+              padding: 0.5rem 0 !important;
+              font-size: 1rem !important;
+              transition: border-color 0.3s !important;
+            }
+            .contact-phone-input .PhoneInputInput:focus {
+              border-bottom-color: #77EB8A !important;
+            }
+            .contact-phone-input .PhoneInputCountry {
+              margin-right: 0.5rem;
+            }
+            .contact-phone-input .PhoneInputCountryIcon {
+              width: 1.5rem;
+              height: 1.5rem;
+              border-radius: 2px;
+            }
+            .contact-phone-input .PhoneInputCountrySelect {
+              background: transparent !important;
+              border: none !important;
+              border-bottom: 1px solid white !important;
+              color: white !important;
+              outline: none !important;
+              padding: 0.5rem 0.5rem 0.5rem 0 !important;
+              font-size: 1rem !important;
+              margin-right: 0.5rem;
+              appearance: none !important;
+              transition: border-color 0.3s !important;
+            }
+            .contact-phone-input .PhoneInputCountrySelect:focus {
+              border-bottom-color: #77EB8A !important;
+            }
+            .contact-phone-input .PhoneInputCountrySelectArrow {
+              opacity: 0.7;
+              color: white;
+            }
+            /* Style the dropdown options to match service dropdown */
+            .contact-phone-input .PhoneInputCountrySelect option {
+              background: #1f2937 !important;
+              color: white !important;
+            }
+            /* Style the country list dropdown */
+            .PhoneInputCountryIcon--border {
+              border: none !important;
+            }
+          `}</style>
         </AnimateOnScroll>
 
         {/* Our Offices Section */}
@@ -383,7 +465,7 @@ export default function Contact() {
             titleAccent="Offices"
             description="Get in touch with us at any of our offices. We're always ready to support your next step — wherever you are."
           />
-          <IndustryPerspectivesCarousel
+          <IndustryPerspectivesCarouselEmbla
             perspectives={currentOfficeLocationsData}
           />
         </AnimateOnScroll>

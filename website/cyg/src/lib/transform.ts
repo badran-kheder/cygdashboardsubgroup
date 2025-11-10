@@ -27,6 +27,8 @@ import {
   NavigationData,
   PageSectionData,
   PageSection,
+  Industry,
+  IndustryData,
 } from "@/types/strapi";
 import { getStrapiMediaURL } from "./strapi";
 
@@ -285,5 +287,18 @@ export const transformPageSection = (
     backgroundImage: strapiData.backgroundImage?.url
       ? getStrapiMediaURL(strapiData.backgroundImage.url)
       : "/images/about-bg.png", // Fallback image
+  };
+};
+
+// Transform Industry data
+export const transformIndustry = (strapiData: Industry): IndustryData => {
+  return {
+    id: strapiData.id,
+    title: strapiData.title,
+    icon: strapiData.icon?.url
+      ? getStrapiMediaURL(strapiData.icon.url)
+      : "/images/cpu.png", // Fallback icon
+    href: strapiData.href || "/services",
+    order: strapiData.order || 0,
   };
 };

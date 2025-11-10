@@ -19,31 +19,112 @@ export default function Stock({
   backgroundImageAlt,
 }: StockProps) {
   return (
-    <section>
-      <div className="relative w-full h-[800px] flex items-center justify-center text-center overflow-hidden bg-black">
+    <section className="stock-section">
+      <div className="relative w-full stock-hero-container flex items-center justify-center text-center overflow-hidden bg-black" style={{ minHeight: "clamp(400px, 60vh, 800px)" }}>
         {/* Background Image Overlay */}
-        <div className="absolute z-0 opacity-20 w-full h-full">
-          <Image 
-            src={backgroundImage} 
-            alt={backgroundImageAlt} 
+        <div className="absolute z-5 opacity-60 w-full h-full">
+          <Image
+            src={backgroundImage}
+            alt={backgroundImageAlt}
             fill
             className="object-cover"
           />
         </div>
-
+        <div
+          className="stock-overlay"
+          style={{
+            width: "100%",
+            height: "100%",
+            position: "absolute",
+            top: 0,
+            left: 0,
+            zIndex: 5,
+            opacity: 1,
+            background:
+              "radial-gradient(circle, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.47) 50%, rgba(0, 0, 0, 1) 100%)",
+          }}
+        ></div>
         {/* Content */}
-        <div className="relative z-10 p-4">
-          <h1 className="text-4xl sm:text-5xl font-bold leading-tight">
+        <div className="relative z-10 p-4 sm:p-6 md:p-8 stock-content">
+          <h1
+            className="stock-title w-full md:w-auto"
+            style={{
+              width: "100%",
+              maxWidth: "100%",
+              minHeight: "clamp(80px, 12vh, 140px)",
+              opacity: 1,
+              transform: "rotate(0deg)",
+              fontFamily: "Helvetica, Arial, sans-serif",
+              fontWeight: 300,
+              fontStyle: "normal",
+              fontSize: "clamp(2rem, 5vw, 4.375rem)",
+              lineHeight: "clamp(2rem, 5vw, 4.375rem)",
+              letterSpacing: "0%",
+              textAlign: "center",
+              margin: 0,
+            }}
+          >
             {title} <span style={{ color: "#77EB8A" }}>{titleAccent}</span>
           </h1>
-          <p className="mt-4 text-sm sm:text-base text-gray-300 max-w-lg mx-auto text-center">
+          <p
+            className="stock-description w-full md:w-auto"
+            style={{
+              width: "100%",
+              maxWidth: "100%",
+              minHeight: "clamp(60px, 8vh, 80px)",
+              opacity: 1,
+              transform: "rotate(0deg)",
+              fontFamily: "Grift, Arial, sans-serif",
+              fontWeight: 500,
+              fontStyle: "normal",
+              fontSize: "clamp(1rem, 2.5vw, 2rem)",
+              lineHeight: "clamp(1.25rem, 3vh, 2.5rem)",
+              letterSpacing: "0%",
+              textAlign: "center",
+              color: "#DBDBDB",
+              margin: "clamp(10px, 2vh, 15px) 0",
+            }}
+          >
             {description}
           </p>
         </div>
       </div>
-      <div className="px-40 bg-black pb-20">
+      <div className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-40 bg-black pb-8 sm:pb-12 md:pb-16 lg:pb-20">
         <IndustriesGrid />
       </div>
+
+      {/* Desktop-specific styles to maintain original design */}
+      <style jsx global>{`
+        @media (min-width: 768px) and (max-width: 1919px) {
+          .stock-title {
+            width: clamp(100%, 31vw, 600px) !important;
+          }
+          .stock-description {
+            width: clamp(100%, 34vw, 659px) !important;
+          }
+        }
+        @media (min-width: 1920px) {
+          .stock-hero-container {
+            height: 800px !important;
+            min-height: 800px !important;
+          }
+          .stock-title {
+            width: 600px !important;
+            max-width: 600px !important;
+            height: 140px !important;
+            font-size: 70px !important;
+            line-height: 70px !important;
+          }
+          .stock-description {
+            width: 659px !important;
+            max-width: 659px !important;
+            height: 80px !important;
+            font-size: 32px !important;
+            line-height: 40px !important;
+            margin: 15px 0 !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

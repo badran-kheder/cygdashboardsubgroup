@@ -429,3 +429,24 @@ export interface PageSectionData {
   description: string;
   backgroundImage: string;
 }
+
+// Industry types
+export interface Industry {
+  id: number;
+  documentId: string;
+  title: string;
+  icon: StrapiMedia;
+  href: string;
+  order: number;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+}
+
+export interface IndustryData {
+  id: number;
+  title: string;
+  icon: string;
+  href: string;
+  order: number;
+}

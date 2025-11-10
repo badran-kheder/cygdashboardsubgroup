@@ -1,27 +1,24 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useState } from "react";
+import Image from "next/image";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface SlideData {
   id: number;
   title: string;
   description: string;
   image: string;
-  alt: string;
+  alt?: string;
 }
 
 interface HorizontalCarouselProps {
   slides?: SlideData[];
 }
 
-export default function HorizontalCarousel({
-  slides: propSlides,
-}: HorizontalCarouselProps) {
-  const [isClient, setIsClient] = useState(false);
-  const [activeSlideIndex, setActiveSlideIndex] = useState(0); // First slide is initially active
-  const sliderRef = useRef<HTMLUListElement>(null);
-
-  // Fallback slides data (Client Reviews)
+export default function HorizontalCarousel({}: HorizontalCarouselProps = {}) {
+  // Fallback slides data
   const fallbackSlides: SlideData[] = [
     {
       id: 1,
@@ -73,314 +70,296 @@ export default function HorizontalCarousel({
     },
   ];
 
-  // Use prop slides if provided, otherwise use fallback
-  const slides =
-    propSlides && propSlides.length > 0 ? propSlides : fallbackSlides;
+  // Use fallback data by default
+  const slides = fallbackSlides;
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  const activate = (e: React.MouseEvent) => {
-    if (!sliderRef.current) return;
+  const handlePrevious = () => {
+    setActiveIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+  };
 
-    const target = e.target as HTMLElement;
-    const items = sliderRef.current.querySelectorAll(".item");
+  const handleNext = () => {
+    setActiveIndex((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+  };
 
-    if (target.classList.contains("next")) {
-      sliderRef.current.append(items[0]);
-      setActiveSlideIndex((prev) => (prev + 1) % slides.length);
-    } else if (target.classList.contains("prev")) {
-      sliderRef.current.prepend(items[items.length - 1]);
-      setActiveSlideIndex((prev) => (prev - 1 + slides.length) % slides.length);
-    } else if (target.classList.contains("thumbnail")) {
-      // Find which thumbnail was clicked
-      const thumbnailIndex = parseInt(target.getAttribute("data-index") || "0");
+  const getCardStyle = (index: number) => {
+    const diff = index - activeIndex;
 
-      if (thumbnailIndex > activeSlideIndex) {
-        // Move forward
-        for (let i = 0; i < thumbnailIndex - activeSlideIndex; i++) {
-          sliderRef.current.append(items[0]);
-        }
-      } else if (thumbnailIndex < activeSlideIndex) {
-        // Move backward
-        for (let i = 0; i < activeSlideIndex - thumbnailIndex; i++) {
-          sliderRef.current.prepend(items[items.length - 1]);
-        }
-      }
-
-      setActiveSlideIndex(thumbnailIndex);
+    if (diff === 0) {
+      return {
+        width: "50%",
+        opacity: 1,
+        zIndex: 30,
+        transform: "translateX(0)",
+      };
+    } else if (
+      diff === 1 ||
+      (activeIndex === slides.length - 1 && index === 0)
+    ) {
+      return {
+        width: "10%",
+        opacity: 1,
+        zIndex: 20,
+        transform: "translateX(0)",
+      };
+    } else {
+      const position = diff > 0 ? diff - 1 : slides.length + diff - 1;
+      return {
+        width: "10%",
+        opacity: 0.6,
+        zIndex: 10,
+        transform: `translateX(${position * 2}px)`,
+      };
     }
   };
 
-  if (!isClient) {
-    // Return a static version for SSR
-    return (
-      <div className="relative w-full h-[60vh] bg-black">
-        <div className="flex items-center justify-center h-full">
-          <div className="text-center text-white">
-            <h2 className="text-2xl font-bold mb-4">Our Team</h2>
-            <p className="text-gray-300">Loading team information...</p>
+  return (
+    <>
+      <div
+        className="horizontal-carousel-container relative overflow-hidden"
+        style={{
+          width: "clamp(100%, 100vw, 1920px)",
+          maxWidth: "100%",
+          minHeight: "clamp(400px, 50vh, 75vh)",
+          height: "70vh",
+          paddingTop: "clamp(1.5rem, 3vh, 48px)",
+          paddingRight: "clamp(1rem, 8vw, 160px)",
+          paddingBottom: "clamp(1.5rem, 3vh, 48px)",
+          paddingLeft: "clamp(1rem, 8vw, 160px)",
+          gap: "clamp(20px, 2vw, 40px)",
+          display: "flex",
+          flexDirection: "column",
+          boxSizing: "border-box",
+        }}
+      >
+        <div
+          className="flex items-center justify-center flex-1 gap-4 bg-black border rounded-2xl overflow-hidden "
+          style={{ gap: "clamp(20px, 2vw, 40px)", minHeight: 0 }}
+        >
+          {/* Arrow buttons hidden - items are clickable instead */}
+          <button
+            onClick={handlePrevious}
+            className="hidden absolute left-4 z-40 p-3 rounded-full bg-white/90 shadow-lg hover:bg-white transition-colors"
+            aria-label="Previous"
+          >
+            <ChevronLeft className="w-6 h-6 text-slate-900" />
+          </button>
+
+          <div className="flex items-center justify-start w-full h-full gap-3 overflow-visible p-10">
+            {slides.map((slide, index) => {
+              const style = getCardStyle(index);
+              const isActive = index === activeIndex;
+
+              return (
+                <div
+                  key={slide.id}
+                  onClick={() => setActiveIndex(index)}
+                  className={cn(
+                    "relative h-full overflow-hidden cursor-pointer transition-all duration-500 ease-in-out shrink-0 bg-black",
+                  )}
+                  style={style}
+                >
+                  <div className="relative w-full h-full flex flex-row">
+                    {/* Left Column: Image */}
+                    <div 
+                      className="relative h-full flex-shrink-0 transition-all duration-500"
+                      style={{
+                        width: isActive ? "50%" : "100%"
+                      }}
+                    >
+                      {slide.image && (
+                        <Image
+                          src={slide.image}
+                          alt={slide.alt || slide.title}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 50vw, (max-width: 1200px) 35vw, 25vw"
+                        />
+                      )}
+                    </div>
+
+                    {/* Right Column: Title and Description */}
+                    {isActive && (
+                    <div
+                      className="relative h-full flex flex-col flex-grow bg-black text-white transition-all duration-500 p-4 sm:p-6 md:p-8"
+                      style={{
+                        width: "50%"
+                      }}
+                    >
+                      <div className="mb-4">
+                        <h3
+                          className="text-primary-500 mb-2 horizontal-carousel-name"
+                          style={{
+                            fontFamily: "Helvetica, Arial, sans-serif",
+                            fontWeight: 300,
+                            fontStyle: "normal",
+                            fontSize: "clamp(2rem, 5vw, 4.375rem)",
+                            lineHeight: "clamp(2rem, 5vw, 4.375rem)",
+                            letterSpacing: "0%",
+                            margin: 0,
+                          }}
+                        >
+                          {slide.title}
+                        </h3>
+                        <div className="w-full my-10 h-px bg-white mb-6"></div>
+                      </div>
+                      <div className="flex-grow">
+                        {slide.description
+                          .split(". ")
+                          .filter((sentence) => sentence.trim().length > 0)
+                          .map((sentence, pIndex) => {
+                            const paragraph = sentence.endsWith(".") ? sentence : sentence + ".";
+                            return (
+                              <p
+                                key={pIndex}
+                                className="text-white mb-3 sm:mb-4 horizontal-carousel-description"
+                                style={{
+                                  fontFamily: "Grift, Arial, sans-serif",
+                                  fontWeight: 400,
+                                  fontStyle: "normal",
+                                  fontSize: "clamp(0.875rem, 1.5vw, 1.25rem)",
+                                  lineHeight: "clamp(1.125rem, 2vh, 1.75rem)",
+                                  letterSpacing: "0%",
+                                  margin: 0,
+                                }}
+                              >
+                                {paragraph}
+                              </p>
+                            );
+                          })}
+                      </div>
+                    </div>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
           </div>
+
+          {/* Arrow buttons hidden - items are clickable instead */}
+          <button
+            onClick={handleNext}
+            className="hidden absolute right-4 z-40 p-3 rounded-full bg-white/90 shadow-lg hover:bg-white transition-colors"
+            aria-label="Next"
+          >
+            <ChevronRight className="w-6 h-6 text-slate-900" />
+          </button>
+        </div>
+
+        {/* Dots/pagination hidden - items are clickable instead */}
+        <div className="hidden absolute bottom-6 left-1/2 transform -translate-x-1/2 flex gap-2 z-40">
+          {slides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setActiveIndex(index)}
+              className={cn(
+                "rounded-full transition-all duration-300 bg-white/70 hover:bg-white",
+                index === activeIndex ? "w-8 h-2" : "w-2 h-2"
+              )}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
         </div>
       </div>
-    );
-  }
 
-  return (
-    <main className="relative w-full h-[70vh] bg-black overflow-hidden">
-      <ul ref={sliderRef} className="slider">
-        {slides.map((slide) => (
-          <li
-            key={slide.id}
-            className="item"
-            style={{
-              background: `linear-gradient(0deg, rgba(0, 0, 0, 0.87), rgba(0, 0, 0, 0.84)), url('${slide.image}') center / cover no-repeat`,
-            }}
-          >
-            <div className="content">
-              <h2 className="title">{slide.title}</h2>
-              <p className="description">{slide.description}</p>
-              <button>Read More</button>
-            </div>
-          </li>
-        ))}
-      </ul>
-      <div className="thumbnails">
-        {slides.map((slide, index) => (
-          <div
-            key={slide.id}
-            className={`thumbnail ${
-              activeSlideIndex === index ? "active" : ""
-            }`}
-            data-index={index}
-            onClick={activate}
-            style={{
-              background: `linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(${slide.image})`,
-            }}
-          />
-        ))}
-      </div>
-
-      <style jsx>{`
-        .slider {
-          position: relative;
-          width: 100%;
-          height: 100%;
-          list-style: none;
-          margin: 0;
-          padding: 0;
+      {/* Scoped styles for this carousel only */}
+      <style jsx global>{`
+        .horizontal-carousel-container {
+          --carousel-foreground-rgb: 0, 0, 0;
         }
 
-        .item {
-          width: 200px;
-          height: 300px;
-          list-style-type: none;
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          z-index: 1;
-          background-position: center;
-          background-size: cover;
-          border-radius: 20px;
-          box-shadow: 0 20px 30px rgba(255, 255, 255, 0.3) inset;
-          transition: transform 0.1s, left 0.75s, top 0.75s, width 0.75s,
-            height 0.75s;
-        }
-
-        .item:nth-child(1),
-        .item:nth-child(2) {
-          left: 0;
-          top: 0;
-          width: 100%;
-          height: 100%;
-          transform: none;
-          border-radius: 0;
-          box-shadow: none;
-          opacity: 1;
-        }
-
-        .item:nth-child(3) {
-          left: 50%;
-        }
-        .item:nth-child(4) {
-          left: calc(50% + 220px);
-        }
-        .item:nth-child(5) {
-          left: calc(50% + 440px);
-        }
-        .item:nth-child(6) {
-          left: calc(50% + 660px);
-          opacity: 0;
-        }
-
-        .content {
-          width: min(40vw, 800px);
-          position: absolute;
-          top: 50%;
-          left: 5rem;
-          transform: translateY(-50%);
-          font: 400 0.85rem helvetica, sans-serif;
-          color: white;
-          text-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
-          opacity: 0;
-          display: none;
-        }
-
-        .content .title {
-          font-family: "Helvetica, Arial, sans-serif";
-          text-transform: uppercase;
-          font-size: 3rem;
-          font-weight: bold;
-          margin-bottom: 0.5rem;
-        }
-
-        .content .description {
-          line-height: 1.7;
-          margin: 1rem 0 1.5rem;
-          font-size: 1.5rem;
-        }
-
-        .content button {
-          width: fit-content;
-          background-color: rgba(0, 0, 0, 0.1);
-          color: white;
-          border: 2px solid white;
-          border-radius: 0.25rem;
-          padding: 0.75rem 1.5rem;
-          cursor: pointer;
-          font-size: 0.8rem;
-          transition: all 0.3s ease;
-        }
-
-        .content button:hover {
-          background-color: rgba(255, 255, 255, 0.2);
-          transform: translateY(-2px);
-        }
-
-        .item:nth-of-type(2) .content {
-          display: block;
-          animation: show 0.75s ease-in-out 0.3s forwards;
-        }
-
-        @keyframes show {
-          0% {
-            filter: blur(5px);
-            transform: translateY(calc(-50% + 75px));
-          }
-          100% {
-            opacity: 1;
-            filter: blur(0);
+        @media (prefers-color-scheme: dark) {
+          .horizontal-carousel-container {
+            --carousel-foreground-rgb: 255, 255, 255;
           }
         }
 
-        .thumbnails {
-          position: absolute;
-          bottom: 2rem;
-          left: 50%;
-          transform: translateX(-50%);
-          z-index: 5;
-          user-select: none;
-          display: flex;
-          gap: 1rem;
+        .horizontal-carousel-container {
+          --carousel-background: 0 0% 100%;
+          --carousel-foreground: 0 0% 3.9%;
+          --carousel-card: 0 0% 100%;
+          --carousel-card-foreground: 0 0% 3.9%;
+          --carousel-popover: 0 0% 100%;
+          --carousel-popover-foreground: 0 0% 3.9%;
+          --carousel-primary: 0 0% 9%;
+          --carousel-primary-foreground: 0 0% 98%;
+          --carousel-secondary: 0 0% 96.1%;
+          --carousel-secondary-foreground: 0 0% 9%;
+          --carousel-muted: 0 0% 96.1%;
+          --carousel-muted-foreground: 0 0% 45.1%;
+          --carousel-accent: 0 0% 96.1%;
+          --carousel-accent-foreground: 0 0% 9%;
+          --carousel-destructive: 0 84.2% 60.2%;
+          --carousel-destructive-foreground: 0 0% 98%;
+          --carousel-border: 0 0% 89.8%;
+          --carousel-input: 0 0% 89.8%;
+          --carousel-ring: 0 0% 3.9%;
+          --carousel-chart-1: 12 76% 61%;
+          --carousel-chart-2: 173 58% 39%;
+          --carousel-chart-3: 197 37% 24%;
+          --carousel-chart-4: 43 74% 66%;
+          --carousel-chart-5: 27 87% 67%;
+          --carousel-radius: 0.5rem;
         }
 
-        .thumbnail {
-          width: 60px;
-          height: 60px;
-          border-radius: 10px;
-          background-position: center;
-          background-size: cover;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          border: 2px solid transparent;
-          opacity: 0.6;
+        .horizontal-carousel-container.dark {
+          --carousel-background: 0 0% 3.9%;
+          --carousel-foreground: 0 0% 98%;
+          --carousel-card: 0 0% 3.9%;
+          --carousel-card-foreground: 0 0% 98%;
+          --carousel-popover: 0 0% 3.9%;
+          --carousel-popover-foreground: 0 0% 98%;
+          --carousel-primary: 0 0% 98%;
+          --carousel-primary-foreground: 0 0% 9%;
+          --carousel-secondary: 0 0% 14.9%;
+          --carousel-secondary-foreground: 0 0% 98%;
+          --carousel-muted: 0 0% 14.9%;
+          --carousel-muted-foreground: 0 0% 63.9%;
+          --carousel-accent: 0 0% 14.9%;
+          --carousel-accent-foreground: 0 0% 98%;
+          --carousel-destructive: 0 62.8% 30.6%;
+          --carousel-destructive-foreground: 0 0% 98%;
+          --carousel-border: 0 0% 14.9%;
+          --carousel-input: 0 0% 14.9%;
+          --carousel-ring: 0 0% 83.1%;
+          --carousel-chart-1: 220 70% 50%;
+          --carousel-chart-2: 160 60% 45%;
+          --carousel-chart-3: 30 80% 55%;
+          --carousel-chart-4: 280 65% 60%;
+          --carousel-chart-5: 340 75% 55%;
         }
 
-        .thumbnail:hover {
-          opacity: 1;
-          transform: scale(1.1);
-          border-color: rgba(255, 255, 255, 0.5);
+        .horizontal-carousel-container * {
+          border-color: hsl(var(--carousel-border));
         }
 
-        .thumbnail.active {
-          opacity: 1;
-          border-color: rgba(255, 255, 255, 0.8);
-          transform: scale(1.1);
+        .horizontal-carousel-container {
+          color: hsl(var(--carousel-foreground));
         }
 
-        @media (width > 650px) and (width < 900px) {
-          .content .title {
-            font-size: 1rem;
+        /* Desktop lock: Maintain original desktop view */
+        @media (min-width: 1920px) {
+          .horizontal-carousel-container {
+            width: 1920px !important;
+            max-width: 1920px !important;
+            height: 1006px !important;
+            padding-top: 48px !important;
+            padding-right: 160px !important;
+            padding-bottom: 48px !important;
+            padding-left: 160px !important;
+            gap: 40px !important;
           }
-          .content .description {
-            font-size: 0.7rem;
+          .horizontal-carousel-name {
+            font-size: 70px !important;
+            line-height: 70px !important;
           }
-          .content button {
-            font-size: 0.7rem;
-          }
-
-          .item {
-            width: 160px;
-            height: 270px;
-          }
-
-          .item:nth-child(3) {
-            left: 50%;
-          }
-          .item:nth-child(4) {
-            left: calc(50% + 170px);
-          }
-          .item:nth-child(5) {
-            left: calc(50% + 340px);
-          }
-          .item:nth-child(6) {
-            left: calc(50% + 510px);
-            opacity: 0;
-          }
-
-          .thumbnail {
-            width: 50px;
-            height: 50px;
-          }
-        }
-
-        @media (width < 650px) {
-          .content .title {
-            font-size: 0.9rem;
-          }
-          .content .description {
-            font-size: 0.65rem;
-          }
-          .content button {
-            font-size: 0.7rem;
-          }
-
-          .item {
-            width: 130px;
-            height: 220px;
-          }
-
-          .item:nth-child(3) {
-            left: 50%;
-          }
-          .item:nth-child(4) {
-            left: calc(50% + 140px);
-          }
-          .item:nth-child(5) {
-            left: calc(50% + 280px);
-          }
-          .item:nth-child(6) {
-            left: calc(50% + 420px);
-            opacity: 0;
-          }
-
-          .thumbnail {
-            width: 40px;
-            height: 40px;
+          .horizontal-carousel-description {
+            font-size: 20px !important;
+            line-height: 28px !important;
           }
         }
       `}</style>
-    </main>
+    </>
   );
 }

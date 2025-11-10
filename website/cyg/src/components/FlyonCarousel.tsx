@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface TeamMemberData {
   id: number;
@@ -73,10 +74,10 @@ export default function FlyonCarousel({ teamMembers: propTeamMembers }: FlyonCar
   if (!isClient) {
     // Return a static version for SSR
     return (
-      <div className="relative w-full h-[60vh]">
+      <div className="relative w-full h-[55vh] sm:h-[60vh] border rounded-2xl">
         <div className="carousel flex space-x-2 rounded-none">
           <div className="relative grow overflow-hidden rounded-2xl">
-            <div className="h-[60vh]">
+              <div className="h-[55vh] sm:h-[60vh]">
               <div className="flex size-full bg-black rounded-2xl overflow-hidden">
                 <div className="w-1/2 relative">
                   <Image
@@ -150,11 +151,11 @@ export default function FlyonCarousel({ teamMembers: propTeamMembers }: FlyonCar
   }));
 
   return (
-    <div className="relative w-full h-[70vh] bg-black p-8">
+    <div className="relative w-full h-[60vh] sm:h-[65vh] md:h-[70vh] bg-black p-6 sm:p-8 border rounded-2xl">
       <div className="flex space-x-2 rounded-none h-full">
-        <div className="relative grow overflow-hidden rounded-2xl">
+        <div className="relative grow overflow-hidden">
           {/* Main slide container with fade effect */}
-          <div className="relative h-[63vh] overflow-hidden">
+          <div className="relative h-[53vh] sm:h-[58vh] md:h-[63vh] overflow-hidden">
             {slides.map((slide, index) => (
               <div
                 key={index}
@@ -163,7 +164,7 @@ export default function FlyonCarousel({ teamMembers: propTeamMembers }: FlyonCar
                 }`}
               >
                 <div className="flex size-full bg-black rounded-2xl overflow-hidden">
-                  <div className="w-1/3 relative h-[80%] mt-[5%]">
+                  <div className="w-[35%] relative h-[100%] sm:h-[100%] ">
                     <Image
                       src={slide.image}
                       fill
@@ -171,17 +172,52 @@ export default function FlyonCarousel({ teamMembers: propTeamMembers }: FlyonCar
                       alt={slide.name}
                     />
                   </div>
-                  <div className="w-1/2 bg-black p-8 pt-[5%] flex flex-col justify-space-between">
-                    <div>
-                      <h3 className="text-4xl font-bold text-primary-500 mb-2">
+                  <div className="w-1/2 bg-black p-4 sm:p-8 pt-[5%] flex flex-col justify-space-between">
+                    <div className="pl-10">
+                      <h3
+                        className="text-primary-500 mb-2 flyon-carousel-name"
+                        style={{
+                          fontFamily: "Helvetica, Arial, sans-serif",
+                          fontWeight: 300,
+                          fontStyle: "normal",
+                          fontSize: "clamp(2rem, 5vw, 4.375rem)",
+                          lineHeight: "clamp(2rem, 5vw, 4.375rem)",
+                          letterSpacing: "0%",
+                          margin: 0,
+                        }}
+                      >
                         {slide.name}
                       </h3>
-                      <p className="text-white text-lg mb-4">{slide.title}</p>
-                      <div className="w-full h-px bg-white mb-6"></div>
+                      <p
+                        className="text-white mb-4 mt-5 flyon-carousel-title"
+                        style={{
+                          fontFamily: "Grift, Arial, sans-serif",
+                          fontWeight: 400,
+                          fontStyle: "italic",
+                          fontSize: "clamp(1rem, 2.5vw, 2rem)",
+                          lineHeight: "clamp(1.25rem, 3vh, 2.5rem)",
+                          letterSpacing: "0%",
+                        }}
+                      >
+                        {slide.title}
+                      </p>
+                      <div className="w-full my-10 h-px bg-white mb-6"></div>
                     </div>
-                    <div>
+                    <div className="pl-10">
                       {slide.description.map((paragraph, pIndex) => (
-                        <p key={pIndex} className="text-white text-sm leading-relaxed mb-4">
+                        <p
+                          key={pIndex}
+                          className="text-white mb-3 sm:mb-4 flyon-carousel-description"
+                          style={{
+                            fontFamily: "Grift, Arial, sans-serif",
+                            fontWeight: 400,
+                            fontStyle: "normal",
+                            fontSize: "clamp(0.875rem, 1.5vw, 1.25rem)",
+                            lineHeight: "clamp(2rem, 2vh, 1.75rem)",
+                            letterSpacing: "0%",
+                            margin: 0,
+                          }}
+                        >
                           {paragraph}
                         </p>
                       ))}
@@ -196,18 +232,20 @@ export default function FlyonCarousel({ teamMembers: propTeamMembers }: FlyonCar
           <button
             type="button"
             onClick={() => goToSlide((currentSlide - 1 + 3) % 3)}
-            className="absolute start-5 max-sm:start-3 top-1/2 -translate-y-1/2 size-9.5 bg-white/20 hover:bg-white/30 flex items-center justify-center rounded-full shadow-lg transition-all duration-200"
+            className="absolute start-5 max-sm:start-3 top-1/2 -translate-y-1/2 w-12 h-12 bg-black/60 hover:bg-black/80 backdrop-blur-sm border border-white/20 hover:border-white/40 flex items-center justify-center rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95 z-10"
+            aria-label="Previous"
           >
-            <span className="icon-[tabler--chevron-left] size-5 text-white"></span>
+            <ChevronLeft className="w-6 h-6 text-white stroke-[2.5]" />
             <span className="sr-only">Previous</span>
           </button>
           
           <button
             type="button"
             onClick={() => goToSlide((currentSlide + 1) % 3)}
-            className="absolute end-5 max-sm:end-3 top-1/2 -translate-y-1/2 size-9.5 bg-white/20 hover:bg-white/30 flex items-center justify-center rounded-full shadow-lg transition-all duration-200"
+            className="absolute end-5 max-sm:end-3 top-1/2 -translate-y-1/2 w-12 h-12 bg-black/60 hover:bg-black/80 backdrop-blur-sm border border-white/20 hover:border-white/40 flex items-center justify-center rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95 z-10"
+            aria-label="Next"
           >
-            <span className="icon-[tabler--chevron-right] size-5 text-white"></span>
+            <ChevronRight className="w-6 h-6 text-white stroke-[2.5]" />
             <span className="sr-only">Next</span>
           </button>
         </div>
@@ -236,6 +274,24 @@ export default function FlyonCarousel({ teamMembers: propTeamMembers }: FlyonCar
           </div>
         </div>
       </div>
+
+      {/* Desktop lock: Maintain original desktop view for team member name, title, and description */}
+      <style jsx global>{`
+        @media (min-width: 1920px) {
+          .flyon-carousel-name {
+            font-size: 70px !important;
+            line-height: 70px !important;
+          }
+          .flyon-carousel-title {
+            font-size: 32px !important;
+            line-height: 40px !important;
+          }
+          .flyon-carousel-description {
+            font-size: 20px !important;
+            line-height: 28px !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }

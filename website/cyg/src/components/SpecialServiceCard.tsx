@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRightIcon } from "@heroicons/react/24/solid";
 
 interface SubService {
   title: string;
@@ -36,58 +35,114 @@ export default function SpecialServiceCard({
   mainContentOrder = 1,
 }: SpecialServiceCardProps) {
   return (
-    <div className="py-20 px-4">
+    <div className="py-8 sm:py-12 md:py-16 lg:py-20 px-4 sm:px-6 md:px-8">
       <div
-        className={`max-w-7xl mx-auto flex border border-white border-radius p-10 bg-black hover:border-primary-500 transition-all duration-200 hover:shadow-glow ${
+        className={`mx-auto flex border border-white border-radius bg-black hover:border-primary-500 transition-all duration-200 hover:shadow-glow ${
           mainContentOrder === 2 ? "flex-col-reverse" : "flex-col"
         }`}
+        style={{
+          padding: "clamp(1rem, 3vw, 2.5rem)",
+          maxWidth: "100%",
+        }}
       >
         {/* Main Content - Two Column Layout */}
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8 lg:gap-1 items-center md:items-start">
           <div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            <h2 
+              className="mb-4 sm:mb-5 md:mb-6 special-service-card-title text-center md:text-left"
+              style={{
+                fontFamily: "Helvetica, Arial, sans-serif",
+                fontWeight: 300,
+                fontStyle: "normal",
+                fontSize: "clamp(1.5rem, 4vw, 4.375rem)",
+                lineHeight: "clamp(1.5rem, 4vw, 4.375rem)",
+                letterSpacing: "0%",
+                margin: 0,
+              }}
+            >
               <span className="text-white">{title}</span>
               <br />
               <span style={{ color: "#77EB8A" }}>{titleAccent}</span>
             </h2>
-            <p className="text-xl text-white mb-8 text-gray-300">
+            <p 
+              className="text-white my-4 sm:my-6 md:my-8 special-service-card-description text-center md:text-left"
+              style={{
+                fontFamily: "Grift, Arial, sans-serif",
+                fontWeight: 400,
+                fontStyle: "normal",
+                fontSize: "clamp(0.875rem, 2vw, 1.75rem)",
+                lineHeight: "clamp(1.25rem, 2.5vh, 2.25rem)",
+                letterSpacing: "0%",
+              }}
+            >
               {description}
             </p>
             <Link
               href={buttonHref}
-              className="inline-flex items-center justify-center font-semibold hover:scale-105 px-8 py-4 rounded-full transition-all duration-300"
+              className="inline-flex items-center justify-center special-service-card-button transition-all duration-300 mx-auto md:mx-0"
               style={{
+                width: "fit-content",
+                height: "clamp(48px, 6vh, 68px)",
+                borderLeftWidth: "3px",
+                borderLeftStyle: "solid",
+                borderLeftColor: "transparent",
+                paddingTop: "clamp(10px, 1.5vh, 16px)",
+                paddingRight: "clamp(24px, 5vw, 64px)",
+                paddingBottom: "clamp(10px, 1.5vh, 16px)",
+                paddingLeft: "clamp(24px, 5vw, 64px)",
+                gap: "0px",
+                borderRadius: "80px",
                 backgroundColor: "#77EB8A",
-                color: "#0B1F3A",
+                color: "#ffffff",
                 textDecoration: "none",
                 cursor: "pointer",
+                opacity: 1,
+                transform: "rotate(0deg)",
                 boxShadow: "0 4px 15px rgba(119, 235, 138, 0.3)",
+                display: "flex",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = "#4FD1C5";
-                e.currentTarget.style.transform = "translateY(-2px)";
+                e.currentTarget.style.transform = "translateY(-2px) rotate(0deg)";
                 e.currentTarget.style.boxShadow =
                   "0 8px 25px rgba(119, 235, 138, 0.4)";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.backgroundColor = "#77EB8A";
-                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.transform = "translateY(0) rotate(0deg)";
                 e.currentTarget.style.boxShadow =
                   "0 4px 15px rgba(119, 235, 138, 0.3)";
               }}
             >
-              {buttonText}
-              <ArrowRightIcon className="ml-2 h-5 w-5" />
+              <span 
+                className="special-service-card-button-text"
+                style={{
+                  fontFamily: "Grift, Arial, sans-serif",
+                  fontWeight: 500,
+                  fontStyle: "normal",
+                  fontSize: "clamp(1rem, 2vw, 1.75rem)",
+                  lineHeight: "clamp(1.25rem, 2.5vh, 2.25rem)",
+                  letterSpacing: "0%",
+                }}
+              >
+                {buttonText}
+              </span>
             </Link>
           </div>
 
-          <div className="flex justify-end">
-            <div className="w-64 h-64 flex items-center justify-center relative">
+          <div className="flex justify-center">
+            <div 
+              className="flex items-center justify-center relative"
+              style={{
+                width: "clamp(200px, 50vw, 330px)",
+                height: "clamp(228px, 55vw, 377px)",
+              }}
+            >
               <Image
                 src={mainIcon}
                 alt={mainIconAlt}
                 fill
-                sizes="256px"
+                sizes="(max-width: 640px) 200px, (max-width: 1024px) 250px, 330px"
                 className="object-contain"
               />
             </div>
@@ -96,8 +151,8 @@ export default function SpecialServiceCard({
 
         {/* Sub-services Grid */}
         <div
-          className={`grid md:grid-cols-3 ${
-            mainContentOrder === 2 ? "mb-16" : "mt-16"
+          className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 ${
+            mainContentOrder === 2 ? "mb-8 sm:mb-12 md:mb-16" : "mt-8 sm:mt-12 md:mt-16"
           }`}
         >
           {subServices.map((service, index) => (
@@ -108,15 +163,47 @@ export default function SpecialServiceCard({
             // >
             <div
               key={index}
-              className="p-6 text-center transition-all duration-300 hover:scale-105 hover:shadow-lg bg-black border border-gray-700 hover:border-primary-500 hover:bg-primary-500"
+              className="text-center transition-all duration-300 hover:scale-105 hover:shadow-lg special-service-sub-card"
+              style={{
+                width: "100%",
+                maxWidth: "clamp(280px, 30vw, 448px)",
+                height: "clamp(220px, 35vh, 343px)",
+                gap: "10px",
+                borderRadius: "0px",
+                opacity: 1,
+                transform: "rotate(0deg)",
+                borderWidth: "1px",
+                borderStyle: "solid",
+                borderColor: "#454545",
+                padding: "clamp(1rem, 3vw, 40px)",
+                backgroundColor: "#000000",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                margin: "0 auto",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = "#52B162";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = "#000000";
+              }}
             >
-              <div className="w-48 h-48 rounded-full flex items-center justify-center mx-auto mb-4 relative">
+              <div 
+                className="flex items-center justify-center mx-auto mb-4 relative special-service-sub-icon"
+                style={{
+                  width: "clamp(50px, 6vw, 75px)",
+                  height: "clamp(50px, 6vw, 75px)",
+                }}
+              >
                 {service.icon && typeof service.icon === "string" && service.icon.trim() !== "" ? (
                   <Image
                     src={service.icon}
                     alt={service.title}
                     fill
-                    sizes="192px"
+                    sizes="(max-width: 640px) 50px, (max-width: 1024px) 60px, 75px"
                     className="object-contain"
                   />
                 ) : (
@@ -124,12 +211,25 @@ export default function SpecialServiceCard({
                     src="/images/spec-ico.png"
                     alt={service.title}
                     fill
-                    sizes="192px"
+                    sizes="(max-width: 640px) 50px, (max-width: 1024px) 60px, 75px"
                     className="object-contain"
                   />
                 )}
               </div>
-              <h3 className="text-white font-semibold text-lg">
+              <h3 
+                className="special-service-sub-title"
+                style={{
+                  fontFamily: "Grift, Arial, sans-serif",
+                  fontWeight: 300,
+                  fontStyle: "normal",
+                  fontSize: "clamp(1rem, 2.5vw, 2rem)",
+                  lineHeight: "clamp(1.25rem, 3vh, 2.5rem)",
+                  letterSpacing: "0%",
+                  textAlign: "center",
+                  color: "#FFFFFF",
+                  margin: 0,
+                }}
+              >
                 {service.title}
               </h3>
             </div>
@@ -137,6 +237,69 @@ export default function SpecialServiceCard({
           ))}
         </div>
       </div>
+
+      {/* Responsive and Desktop lock styles */}
+      <style jsx global>{`
+        /* Mobile and Tablet: Center text on smaller screens */
+        @media (max-width: 1023px) {
+          .special-service-card-title {
+            text-align: center !important;
+          }
+          .special-service-card-description {
+            text-align: center !important;
+          }
+        }
+        
+        /* Desktop lock: Maintain original desktop view */
+        @media (min-width: 1920px) {
+          .special-service-card-title {
+            font-size: 70px !important;
+            line-height: 70px !important;
+            text-align: left !important;
+          }
+          .special-service-card-description {
+            font-size: 28px !important;
+            line-height: 36px !important;
+            text-align: left !important;
+          }
+          .special-service-card-button {
+            width: 268px !important;
+            height: 68px !important;
+            border-left-width: 3px !important;
+            padding-top: 16px !important;
+            padding-right: 64px !important;
+            padding-bottom: 16px !important;
+            padding-left: 64px !important;
+            gap: 0px !important;
+            border-radius: 80px !important;
+            opacity: 1 !important;
+            transform: rotate(0deg) !important;
+          }
+          .special-service-card-button-text {
+            font-size: 28px !important;
+            line-height: 36px !important;
+          }
+          .special-service-sub-card {
+            width: 448px !important;
+            height: 343px !important;
+            gap: 10px !important;
+            padding: 40px !important;
+            border: 1px solid #454545 !important;
+          }
+          .special-service-sub-card:hover {
+            background-color: #52B162 !important;
+          }
+          .special-service-sub-icon {
+            width: 75px !important;
+            height: 75px !important;
+          }
+          .special-service-sub-title {
+            font-size: 32px !important;
+            line-height: 40px !important;
+            color: #FFFFFF !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }

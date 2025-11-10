@@ -13,13 +13,14 @@ import {
 // Data layer functions and types
 import { getNavigation, getServices } from "@/lib/strapi";
 import { transformNavigation, transformService } from "@/lib/transform";
-import { NavigationData, Service, ServiceData, NavLink } from "@/types/strapi";
+import { NavigationData, Service, ServiceData } from "@/types/strapi";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [headerPadding, setHeaderPadding] = useState("2.5rem 10rem");
+  const [headerHeight, setHeaderHeight] = useState<string>("10rem");
   const pathname = usePathname();
 
   // State for dynamic data
@@ -65,15 +66,42 @@ export default function Header() {
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
       const shouldBeScrolled = scrollTop > 20;
       setIsScrolled(shouldBeScrolled);
+      // Adjust height while scrolling based on viewport width
+      const width = window.innerWidth;
+      if (shouldBeScrolled) {
+        if (width < 640) setHeaderHeight("3.5rem");
+        else if (width < 1024) setHeaderHeight("4.5rem");
+        else if (width >= 1920) setHeaderHeight("6rem");
+        else setHeaderHeight("5rem");
+      } else {
+        if (width < 640) setHeaderHeight("4rem");
+        else if (width < 1024) setHeaderHeight("5rem");
+        else if (width >= 1920) setHeaderHeight("10rem");
+        else setHeaderHeight("8rem");
+      }
     };
 
     const handleResize = () => {
       const width = window.innerWidth;
-      if (width >= 1536) setHeaderPadding("2.5rem 8rem");
+      // Desktop (1920px+) keeps original padding
+      if (width >= 1920) setHeaderPadding("2.5rem 10rem");
+      else if (width >= 1536) setHeaderPadding("2.5rem 8rem");
       else if (width >= 1280) setHeaderPadding("2.5rem 6rem");
       else if (width >= 1024) setHeaderPadding("2.5rem 4rem");
-      else if (width >= 768) setHeaderPadding("2.5rem 2rem");
-      else setHeaderPadding("2.5rem 1rem");
+      else if (width >= 768) setHeaderPadding("1.5rem 2rem");
+      else setHeaderPadding("1rem 1rem");
+      // Keep height in sync on resize
+      if (isScrolled) {
+        if (width < 640) setHeaderHeight("3.5rem");
+        else if (width < 1024) setHeaderHeight("4.5rem");
+        else if (width >= 1920) setHeaderHeight("6rem");
+        else setHeaderHeight("5rem");
+      } else {
+        if (width < 640) setHeaderHeight("4rem");
+        else if (width < 1024) setHeaderHeight("5rem");
+        else if (width >= 1920) setHeaderHeight("10rem");
+        else setHeaderHeight("8rem");
+      }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -86,7 +114,7 @@ export default function Header() {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [isScrolled]);
 
   // Fallback data for initial render or API failure
   const fallbackNavigationData: NavigationData = {
@@ -156,7 +184,7 @@ export default function Header() {
       style={{
         backgroundColor: isScrolled ? "rgba(0, 0, 0, 0.95)" : "transparent",
         backdropFilter: isScrolled ? "blur(8px)" : "none",
-        borderBottom: isScrolled ? "2px solid #FAFAFA" : "none",
+        borderBottom: "2px solid #FAFAFA",
         boxShadow: isScrolled ? "0px 4px 16px 0px rgba(0, 0, 0, 0.1)" : "none",
       }}
     >
@@ -166,7 +194,7 @@ export default function Header() {
           width: "100%",
           maxWidth: "1920px",
           margin: "0 auto",
-          height: isScrolled ? "6rem" : "10rem",
+          height: headerHeight,
         }}
       >
         <div
@@ -187,21 +215,31 @@ export default function Header() {
               width={120}
               height={48}
               className="object-contain"
-              style={{ height: "auto", width: "auto" }}
+              style={{
+                height: "auto",
+                width: "clamp(80px, 15vw, 120px)",
+              }}
             />
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center space-x-4 lg:space-x-8">
             {mainLinks.map((link) => (
               <Link
                 key={link.id}
                 href={link.url}
                 className={`transition-colors duration-200 ${
                   isActive(link.url)
-                    ? "text-primary-500 font-semibold"
+                    ? "text-white underline underline-offset-4"
                     : "text-primary-200 hover:text-primary-500"
                 }`}
+                style={{
+                  fontFamily: 'Grift',
+                  fontWeight: isActive(link.url) ? 700 : 400,
+                  fontSize: 'clamp(0.875rem, 1.5vw, 1.25rem)',
+                  lineHeight: 'clamp(1.25rem, 2vw, 1.75rem)',
+                  letterSpacing: '0%',
+                }}
               >
                 {link.label}
               </Link>
@@ -217,12 +255,19 @@ export default function Header() {
                 href="/services"
                 className={`flex items-center transition-colors duration-200 ${
                   isServicesActive()
-                    ? "text-primary-500 font-semibold"
+                    ? "text-white underline underline-offset-4"
                     : "text-primary-200 hover:text-primary-500"
                 }`}
+                style={{
+                  fontFamily: 'Grift',
+                  fontWeight: isServicesActive() ? 700 : 400,
+                  fontSize: 'clamp(0.875rem, 1.5vw, 1.25rem)',
+                  lineHeight: 'clamp(1.25rem, 2vw, 1.75rem)',
+                  letterSpacing: '0%',
+                }}
               >
                 Services
-                <ChevronDownIcon className="ml-1 h-4 w-4" />
+                <ChevronDownIcon className="ml-1 h-3 w-3 md:h-4 md:w-4" />
               </Link>
 
               <div
@@ -239,9 +284,16 @@ export default function Header() {
                       href={service.buttonHref}
                       className={`block px-4 py-3 transition-colors duration-200 ${
                         isServicesDetailActive(service.buttonHref)
-                          ? "text-primary-500 bg-primary-700 font-semibold"
+                          ? "text-white bg-primary-700 underline underline-offset-4"
                           : "text-primary-200 hover:bg-primary-700"
                       }`}
+                      style={{
+                        fontFamily: 'Grift',
+                        fontWeight: isServicesDetailActive(service.buttonHref) ? 700 : 400,
+                        fontSize: 'clamp(0.875rem, 1.5vw, 1.25rem)',
+                        lineHeight: 'clamp(1.25rem, 2vw, 1.75rem)',
+                        letterSpacing: '0%',
+                      }}
                     >
                       {service.title} {service.titleAccent}
                     </Link>
@@ -255,9 +307,16 @@ export default function Header() {
                 href={contactLink.url}
                 className={`transition-colors duration-200 ${
                   isActive(contactLink.url)
-                    ? "text-primary-500 font-semibold"
+                    ? "text-white underline underline-offset-4"
                     : "text-primary-200 hover:text-primary-500"
                 }`}
+                style={{
+                  fontFamily: 'Grift',
+                  fontWeight: isActive(contactLink.url) ? 700 : 400,
+                  fontSize: 'clamp(0.875rem, 1.5vw, 1.25rem)',
+                  lineHeight: 'clamp(1.25rem, 2vw, 1.75rem)',
+                  letterSpacing: '0%',
+                }}
               >
                 {contactLink.label}
               </Link>
@@ -286,11 +345,18 @@ export default function Header() {
                 <Link
                   key={`mobile-${link.id}`}
                   href={link.url}
-                  className={`block px-3 py-2 rounded-md transition-colors duration-200 ${
+                  className={`block px-3 py-2 rounded-md transition-colors duration-200 text-center ${
                     isActive(link.url)
-                      ? "text-primary-500 bg-primary-800 font-semibold"
+                      ? "text-white bg-primary-800 underline underline-offset-4"
                       : "text-primary-200 hover:bg-primary-800"
                   }`}
+                  style={{
+                    fontFamily: 'Grift',
+                    fontWeight: isActive(link.url) ? 700 : 400,
+                    fontSize: 'clamp(0.875rem, 2vw, 1.125rem)',
+                    lineHeight: 'clamp(1.25rem, 2.5vw, 1.5rem)',
+                    letterSpacing: '0%',
+                  }}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {link.label}
@@ -302,11 +368,18 @@ export default function Header() {
                 <Link
                   key={`mobile-service-${service.id}`}
                   href={service.buttonHref}
-                  className={`block px-3 py-2 rounded-md transition-colors duration-200 ${
+                  className={`block px-3 py-2 rounded-md transition-colors duration-200 text-center ${
                     isServicesDetailActive(service.buttonHref)
-                      ? "text-primary-500 bg-primary-800 font-semibold"
+                      ? "text-white bg-primary-800 underline underline-offset-4"
                       : "text-primary-200 hover:bg-primary-800"
                   }`}
+                  style={{
+                    fontFamily: 'Grift',
+                    fontWeight: isServicesDetailActive(service.buttonHref) ? 700 : 400,
+                    fontSize: 'clamp(0.875rem, 2vw, 1.125rem)',
+                    lineHeight: 'clamp(1.25rem, 2.5vw, 1.5rem)',
+                    letterSpacing: '0%',
+                  }}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {service.title} {service.titleAccent}
@@ -317,11 +390,18 @@ export default function Header() {
               {contactLink && (
                 <Link
                   href={contactLink.url}
-                  className={`block px-3 py-2 rounded-md transition-colors duration-200 ${
+                  className={`block px-3 py-2 rounded-md transition-colors duration-200 text-center ${
                     isActive(contactLink.url)
-                      ? "text-primary-500 bg-primary-800 font-semibold"
+                      ? "text-white bg-primary-800 underline underline-offset-4"
                       : "text-primary-200 hover:bg-primary-800"
                   }`}
+                  style={{
+                    fontFamily: 'Grift',
+                    fontWeight: isActive(contactLink.url) ? 700 : 400,
+                    fontSize: 'clamp(0.875rem, 2vw, 1.125rem)',
+                    lineHeight: 'clamp(1.25rem, 2.5vw, 1.5rem)',
+                    letterSpacing: '0%',
+                  }}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {contactLink.label}
@@ -331,6 +411,17 @@ export default function Header() {
           </div>
         )}
       </div>
+
+      {/* Desktop-specific styles to maintain original design */}
+      <style jsx global>{`
+        @media (min-width: 1920px) {
+          header nav a,
+          header nav div a {
+            font-size: 20px !important;
+            line-height: 28px !important;
+          }
+        }
+      `}</style>
     </header>
   );
 }

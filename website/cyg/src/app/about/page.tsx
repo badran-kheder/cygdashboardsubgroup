@@ -5,6 +5,7 @@ import Hero from "@/components/Hero";
 import SimpleHero from "@/components/SimpleHero";
 import Services from "@/components/Services";
 import FlyonCarousel from "@/components/FlyonCarousel";
+import TeamMemberCarousel from "@/components/TeamMemberCarousel";
 // ADDED: Import functions and types for the services section
 import {
   getPageHeroSectionByPageName,
@@ -174,6 +175,40 @@ export default function AboutPage() {
   };
   const currentSimpleHeroData = simpleHeroData || fallbackSimpleHeroData;
 
+  // Fallback team members data
+  const fallbackTeamMembersData = [
+    {
+      id: 1,
+      title: "Fouad Najjar",
+      description:
+        "With over a decade of banking and advisory experience across MENA, Fouad guides business through complex financial decisions—from strategic planning to mergers & acquisitions. He turns data into actionable insights, empowering teams to make confident, growth-driven decisions, and is known for his collaborative approach and clear communication.",
+      image: "/images/slide.png",
+      alt: "Fouad Najjar",
+      position: "Managing Director",
+    },
+    {
+      id: 2,
+      title: "Sarah Johnson",
+      description:
+        "Sarah brings extensive experience in financial strategy and risk management, helping organizations navigate complex market conditions with data-driven insights. Her expertise in regulatory compliance and strategic planning has helped numerous companies achieve sustainable growth and operational excellence.",
+      image: "/images/hero-bg.png",
+      alt: "Sarah Johnson",
+      position: "Senior Advisor",
+    },
+    {
+      id: 3,
+      title: "Ahmed Hassan",
+      description:
+        "Ahmed specializes in investment analysis and portfolio management, with a proven track record of identifying high-potential opportunities across diverse sectors. His analytical approach and deep market knowledge enable clients to make informed investment decisions that drive long-term value creation.",
+      image: "/images/services.png",
+      alt: "Ahmed Hassan",
+      position: "Investment Director",
+    },
+  ];
+
+  const currentTeamMembersData =
+    teamMembersData.length > 0 ? teamMembersData : fallbackTeamMembersData;
+
   return (
     <main className="min-h-screen bg-black text-primary-200">
       {/* Hero Section */}
@@ -207,21 +242,62 @@ export default function AboutPage() {
       {/* Industry Perspectives Section */}
       <section className="py-16 px-4 bg-[#2C2C2C]">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl mb-4">
+          <div className="text-center mb-20">
+            <h2
+              className="mb-4 about-team-heading"
+              style={{
+                fontFamily: "Helvetica, Arial, sans-serif",
+                fontWeight: 300,
+                fontStyle: "normal",
+                fontSize: "clamp(2rem, 5vw, 4.375rem)",
+                lineHeight: "clamp(2rem, 5vw, 4.375rem)",
+                letterSpacing: "0%",
+                textAlign: "center",
+                margin: 0,
+              }}
+            >
               Meet <span className="text-primary-500">CYG</span> Team
             </h2>
             <p
-              className="text-lg text-gray-300 max-w-2xl mx-auto"
-              style={{ fontFamily: "Grift, Arial, sans-serif" }}
+              className="text-gray-300 mt-10 mx-auto about-team-description"
+              style={{
+                fontFamily: "Grift, Arial, sans-serif",
+                fontWeight: 500,
+                fontStyle: "normal",
+                fontSize: "clamp(1rem, 2.5vw, 2rem)",
+                lineHeight: "clamp(1.25rem, 3vh, 2.5rem)",
+                letterSpacing: "0%",
+                textAlign: "center",
+              }}
             >
               We provide end‑to‑end advisory—from capital raises and M&A to
               long‑term strategy—empowering confident, growth‑driven decisions
             </p>
           </div>
-          <FlyonCarousel teamMembers={teamMembersData} />
+          {/* Mobile: TeamMemberCarousel */}
+          <div className="block md:hidden">
+            <TeamMemberCarousel teamMembers={currentTeamMembersData} />
+          </div>
+        </div>
+        {/* Desktop: FlyonCarousel */}
+        <div className="hidden md:block w-[80%] mx-auto">
+          <FlyonCarousel teamMembers={currentTeamMembersData} />
         </div>
       </section>
+
+      {/* Desktop lock: Maintain original desktop view for team heading and description */}
+      <style jsx global>{`
+        @media (min-width: 1920px) {
+          .about-team-heading {
+            font-size: 70px !important;
+            line-height: 70px !important;
+          }
+          .about-team-description {
+            font-size: 32px !important;
+            line-height: 40px !important;
+          }
+        }
+      `}</style>
     </main>
   );
 }
