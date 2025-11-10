@@ -89,7 +89,7 @@ export default function Stock({
           </p>
         </div>
       </div>
-      <div className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-40 bg-black pb-8 sm:pb-12 md:pb-16 lg:pb-20">
+      <div className="w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-40 bg-black pb-8 sm:pb-12 md:pb-16 lg:pb-20">
         <IndustriesGrid />
       </div>
 

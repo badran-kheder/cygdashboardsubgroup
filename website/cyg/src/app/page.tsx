@@ -412,8 +412,6 @@ export default function Home() {
                       href={currentStrategicGrowthData.buttonHref}
                       className="inline-flex items-center justify-center font-semibold hover:scale-105 strategic-growth-button"
                       style={{
-                        width: "clamp(200px, 20vw, 268px)",
-                        height: "clamp(56px, 7vh, 68px)",
                         borderLeftWidth: "3px",
                         borderLeftColor: "#38A169",
                         borderLeftStyle: "solid",

@@ -329,7 +329,7 @@ export default function Hero({
             borderTop: "1px solid rgba(255, 255, 255, 0.1)",
           }}
         >
-          <div className="mx-auto flex flex-col h-full sm:flex-row justify-between items-center max-w-7xl">
+          <div className="mx-auto flex flex-col h-full sm:flex-row justify-between items-center">
             {/* Brand Logos - Infinite Scrolling */}
             <div className="flex-1 mb-2 sm:mb-0 overflow-hidden">
               <div className="flex items-center space-x-4 sm:space-x-8 animate-scroll">

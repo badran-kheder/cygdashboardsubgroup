@@ -84,8 +84,8 @@ export default function Footer() {
           </div>
 
           {/* Contact Information */}
-        <div className="mt-4 sm:mt-8 md:mt-10 grid grid-cols-1 gap-4 sm:gap-8 md:gap-10 sm:grid-cols-2 lg:grid-cols-3 mx-auto w-full max-w-7xl">
-          <div className="text-center sm:text-center lg:text-left">
+        <div className="mt-4 sm:mt-8 md:mt-10 grid grid-cols-1 gap-4 sm:gap-8 md:gap-10 sm:grid-cols-2 lg:grid-cols-3 mx-auto w-full">
+          <div className="text-center">
             <h3
               className="mb-1 sm:mb-2"
             style={{
@@ -119,7 +119,7 @@ export default function Footer() {
                 {currentFooterData.email}
               </a>
             </div>
-          <div className="text-center sm:text-center lg:text-left">
+          <div className="text-center">
             <h3
               className="mb-1 sm:mb-2"
               style={{
@@ -153,7 +153,7 @@ export default function Footer() {
                 {currentFooterData.phone}
               </a>
             </div>
-          <div className="text-center sm:text-center lg:text-left sm:col-span-2 lg:col-span-1">
+          <div className="text-center sm:col-span-2 lg:col-span-1">
             <h3
               className="mb-1 sm:mb-2"
               style={{

@@ -552,10 +552,9 @@
   .hero-headline-accent {
     font-family: 'Helvetica', Arial, sans-serif;
     font-weight: 300;
-    font-style: normal;
+    font-style: light;
     font-size: clamp(2rem, 5vw, 110px);
     line-height: clamp(4rem, 5vw, 110px);
-    letter-spacing: 0%;
     background: #77EB8A;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
