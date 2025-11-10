@@ -55,17 +55,18 @@ export default function FlyonCarousel({ teamMembers: propTeamMembers }: FlyonCar
 
   // Use prop team members if provided, otherwise use fallback
   const teamMembers = propTeamMembers && propTeamMembers.length > 0 ? propTeamMembers : fallbackTeamMembers;
+  const hasMultipleItems = teamMembers.length > 1;
 
-  // Auto-advance slides every 5 seconds
+  // Auto-advance slides every 5 seconds (only if multiple items)
   useEffect(() => {
-    if (!isClient) return;
+    if (!isClient || !hasMultipleItems) return;
     
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % teamMembers.length);
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [isClient, teamMembers.length]);
+  }, [isClient, teamMembers.length, hasMultipleItems]);
 
   const goToSlide = (index: number) => {
     setCurrentSlide(index);
@@ -217,51 +218,57 @@ export default function FlyonCarousel({ teamMembers: propTeamMembers }: FlyonCar
             ))}
           </div>
           
-          {/* Navigation buttons */}
-          <button
-            type="button"
-            onClick={() => goToSlide((currentSlide - 1 + 3) % 3)}
-            className="absolute start-5 max-sm:start-3 top-1/2 -translate-y-1/2 w-12 h-12 bg-black/60 hover:bg-black/80 backdrop-blur-sm border border-white/20 hover:border-white/40 flex items-center justify-center rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95 z-10"
-            aria-label="Previous"
-          >
-            <ChevronLeft className="w-6 h-6 text-white stroke-[2.5]" />
-            <span className="sr-only">Previous</span>
-          </button>
-          
-          <button
-            type="button"
-            onClick={() => goToSlide((currentSlide + 1) % 3)}
-            className="absolute end-5 max-sm:end-3 top-1/2 -translate-y-1/2 w-12 h-12 bg-black/60 hover:bg-black/80 backdrop-blur-sm border border-white/20 hover:border-white/40 flex items-center justify-center rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95 z-10"
-            aria-label="Next"
-          >
-            <ChevronRight className="w-6 h-6 text-white stroke-[2.5]" />
-            <span className="sr-only">Next</span>
-          </button>
+          {/* Navigation buttons - only show if multiple items */}
+          {hasMultipleItems && (
+            <>
+              <button
+                type="button"
+                onClick={() => goToSlide((currentSlide - 1 + teamMembers.length) % teamMembers.length)}
+                className="absolute start-5 max-sm:start-3 top-1/2 -translate-y-1/2 w-12 h-12 bg-black/60 hover:bg-black/80 backdrop-blur-sm border border-white/20 hover:border-white/40 flex items-center justify-center rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95 z-10"
+                aria-label="Previous"
+              >
+                <ChevronLeft className="w-6 h-6 text-white stroke-[2.5]" />
+                <span className="sr-only">Previous</span>
+              </button>
+              
+              <button
+                type="button"
+                onClick={() => goToSlide((currentSlide + 1) % teamMembers.length)}
+                className="absolute end-5 max-sm:end-3 top-1/2 -translate-y-1/2 w-12 h-12 bg-black/60 hover:bg-black/80 backdrop-blur-sm border border-white/20 hover:border-white/40 flex items-center justify-center rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95 z-10"
+                aria-label="Next"
+              >
+                <ChevronRight className="w-6 h-6 text-white stroke-[2.5]" />
+                <span className="sr-only">Next</span>
+              </button>
+            </>
+          )}
         </div>
         
-        {/* Thumbnail navigation */}
-        <div className="flex-none">
-          <div className="h-full max-sm:w-8 w-[200px] flex justify-between flex-col gap-y-2 overflow-hidden">
-            {slides.map((slide, index) => (
-              <button
-                key={index}
-                onClick={() => goToSlide(index)}
-                className={`relative rounded-lg h-[30%] w-full transition-all duration-300 ${
-                  currentSlide === index 
-                    ? 'opacity-100 scale-105' 
-                    : 'opacity-30 grayscale hover:opacity-60'
-                }`}
-              >
-                <Image
-                  src={slide.image}
-                  fill
-                  className="object-cover rounded-lg"
-                  alt={slide.name}
-                />
-              </button>
-            ))}
+        {/* Thumbnail navigation - only show if multiple items */}
+        {hasMultipleItems && (
+          <div className="flex-none">
+            <div className="h-full max-sm:w-8 w-[200px] flex justify-between flex-col gap-y-2 overflow-hidden">
+              {slides.map((slide, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToSlide(index)}
+                  className={`relative rounded-lg h-[30%] w-full transition-all duration-300 ${
+                    currentSlide === index 
+                      ? 'opacity-100 scale-105' 
+                      : 'opacity-30 grayscale hover:opacity-60'
+                  }`}
+                >
+                  <Image
+                    src={slide.image}
+                    fill
+                    className="object-cover rounded-lg"
+                    alt={slide.name}
+                  />
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* Desktop lock: Maintain original desktop view for team member name, title, and description */}

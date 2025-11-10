@@ -28,6 +28,7 @@ export default function IndustryPerspectivesCarousel({
   perspectives,
 }: IndustryPerspectivesCarouselProps) {
   const swiperRef = useRef<SwiperType | null>(null);
+  const hasMultipleItems = perspectives.length > 1;
 
   useEffect(() => {
     if (swiperRef.current) {
@@ -63,12 +64,12 @@ export default function IndustryPerspectivesCarousel({
         }}
         modules={[Navigation, Pagination, Autoplay]}
         spaceBetween={30}
-        navigation={true}
-        pagination={{ clickable: true }}
-        allowSlideNext={true}
-        allowSlidePrev={true}
+        navigation={hasMultipleItems}
+        pagination={hasMultipleItems ? { clickable: true } : false}
+        allowSlideNext={hasMultipleItems}
+        allowSlidePrev={hasMultipleItems}
         watchOverflow={false}
-        allowTouchMove={true}
+        allowTouchMove={hasMultipleItems}
         resistance={true}
         resistanceRatio={0}
         // autoplay={{

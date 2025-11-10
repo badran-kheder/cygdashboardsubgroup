@@ -25,15 +25,17 @@ interface TeamMemberCarouselProps {
 export default function TeamMemberCarousel({
   teamMembers,
 }: TeamMemberCarouselProps) {
+  const hasMultipleItems = teamMembers.length > 1;
+  
   return (
     <div className="py-8">
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         spaceBetween={30}
-        navigation={true}
-        pagination={{ clickable: true }}
-        allowSlideNext={true}
-        allowSlidePrev={true}
+        navigation={hasMultipleItems}
+        pagination={hasMultipleItems ? { clickable: true } : false}
+        allowSlideNext={hasMultipleItems}
+        allowSlidePrev={hasMultipleItems}
         breakpoints={{
           640: {
             slidesPerView: 1,

@@ -20,6 +20,8 @@ interface IndustryPerspectivesCarouselEmblaProps {
 export default function IndustryPerspectivesCarouselEmbla({
   perspectives,
 }: IndustryPerspectivesCarouselEmblaProps) {
+  const hasMultipleItems = perspectives.length > 1;
+  
   // Check if mobile on initial render (synchronously if in browser)
   const [isMobile, setIsMobile] = useState(() => {
     if (typeof window !== "undefined") {
@@ -40,10 +42,11 @@ export default function IndustryPerspectivesCarouselEmbla({
   }, []);
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
-    loop: isMobile, // Loop on mobile, no loop on desktop
+    loop: hasMultipleItems && isMobile, // Loop on mobile only if multiple items, no loop on desktop
     align: "start",
     skipSnaps: false,
     containScroll: "trimSnaps",
+    watchDrag: hasMultipleItems, // Disable drag when only one item
   });
 
   const scrollPrev = useCallback(() => {
@@ -57,9 +60,9 @@ export default function IndustryPerspectivesCarouselEmbla({
   // Re-initialize carousel when isMobile changes
   useEffect(() => {
     if (emblaApi) {
-      emblaApi.reInit({ loop: isMobile });
+      emblaApi.reInit({ loop: hasMultipleItems && isMobile, watchDrag: hasMultipleItems });
     }
-  }, [isMobile, emblaApi]);
+  }, [isMobile, emblaApi, hasMultipleItems]);
 
   return (
     <section

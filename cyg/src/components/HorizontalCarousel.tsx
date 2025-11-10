@@ -86,12 +86,15 @@ export default function HorizontalCarousel({}: HorizontalCarouselProps = {}) {
   }, []);
 
   const [activeIndex, setActiveIndex] = useState(0);
+  const hasMultipleItems = slides.length > 1;
 
   const handlePrevious = () => {
+    if (!hasMultipleItems) return;
     setActiveIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
   };
 
   const handleNext = () => {
+    if (!hasMultipleItems) return;
     setActiveIndex((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
   };
 
@@ -166,9 +169,10 @@ export default function HorizontalCarousel({}: HorizontalCarouselProps = {}) {
               return (
                 <div
                   key={slide.id}
-                  onClick={() => setActiveIndex(index)}
+                  onClick={() => hasMultipleItems && setActiveIndex(index)}
                   className={cn(
-                    "relative h-full overflow-hidden cursor-pointer transition-all duration-500 ease-in-out shrink-0 bg-black",
+                    "relative h-full overflow-hidden transition-all duration-500 ease-in-out shrink-0 bg-black",
+                    hasMultipleItems && "cursor-pointer"
                   )}
                   style={style}
                 >
