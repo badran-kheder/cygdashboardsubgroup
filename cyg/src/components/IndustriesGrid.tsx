@@ -103,38 +103,29 @@ const FALLBACK_INDUSTRIES: IndustryData[] = [
 ];
 
 const IndustriesGrid: React.FC = () => {
-  const [industriesData, setIndustriesData] = useState<IndustryData[]>(FALLBACK_INDUSTRIES);
+  const [industriesData, setIndustriesData] = useState<IndustryData[]>([]);
 
-  // useEffect(() => {
-  //   const fetchIndustries = async () => {
-  //     try {
-  //       const industries = await getIndustries();
-  //       console.log("Industries from Strapi:", industries);
-  //       if (industries && industries.length > 0) {
-  //         const transformedIndustriesData = industries.map((industry: Industry) =>
-  //           transformIndustry(industry)
-  //         );
-  //         console.log("Transformed industries data:", transformedIndustriesData);
-  //         setIndustriesData(transformedIndustriesData);
-  //       } else {
-  //         // Use fallback if Strapi returns empty array
-  //         console.log("No industries found in Strapi, using fallback data");
-  //         setIndustriesData(FALLBACK_INDUSTRIES);
-  //       }
-  //     } catch (error) {
-  //       // Check if it's a 403 Forbidden error
-  //       if (error instanceof Error && error.message === "FORBIDDEN_403") {
-  //         console.warn("Access forbidden (403) when fetching industries, using fallback data");
-  //       } else {
-  //         console.error("Error fetching industries:", error);
-  //       }
-  //       // Fallback to default industries if Strapi fails or returns 403
-  //       setIndustriesData(FALLBACK_INDUSTRIES);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchIndustries = async () => {
+      try {
+        const industries = await getIndustries();
+        if (industries && industries.length > 0) {
+          const transformedIndustriesData = industries.map((industry: Industry) =>
+            transformIndustry(industry)
+          );
+          setIndustriesData(transformedIndustriesData);
+        } else {
+          // Use fallback if Strapi returns empty array
+          setIndustriesData(FALLBACK_INDUSTRIES);
+        }
+      } catch {
+        // Fallback to default industries if Strapi fails or returns 403
+        setIndustriesData(FALLBACK_INDUSTRIES);
+      }
+    };
 
-  //   fetchIndustries();
-  // }, []);
+    fetchIndustries();
+  }, []);
 
   return (
     <>

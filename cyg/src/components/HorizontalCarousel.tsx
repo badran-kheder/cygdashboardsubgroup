@@ -20,70 +20,45 @@ interface HorizontalCarouselProps {
   slides?: SlideData[];
 }
 
-export default function HorizontalCarousel({}: HorizontalCarouselProps = {}) {
-  // Fallback slides data
-  const fallbackSlides: SlideData[] = [
-    {
-      id: 1,
-      title: "John Smith",
-      description:
-        "CYG Partners transformed our financial strategy completely. Their expertise in M&A helped us achieve a 40% increase in valuation. Exceptional service and deep market insights.",
-      image: "/images/slide.png",
-      alt: "John Smith - CEO",
-    },
-    {
-      id: 2,
-      title: "Maria Garcia",
-      description:
-        "The team's strategic advisory was instrumental in our successful exit. Their attention to detail and comprehensive approach exceeded our expectations. Highly recommended.",
-      image: "/images/hero-bg.png",
-      alt: "Maria Garcia - Founder",
-    },
-    {
-      id: 3,
-      title: "Ahmed Al-Rashid",
-      description:
-        "Outstanding support throughout our capital raise process. CYG's network and expertise opened doors we never knew existed. Professional, reliable, and results-driven.",
-      image: "/images/services.png",
-      alt: "Ahmed Al-Rashid - Managing Partner",
-    },
-    {
-      id: 4,
-      title: "Jennifer Lee",
-      description:
-        "Their buy-side advisory helped us identify and acquire the perfect strategic assets. The due diligence process was thorough and their guidance invaluable.",
-      image: "/images/slide-1.png",
-      alt: "Jennifer Lee - CFO",
-    },
-  ];
-
-  const [slides, setSlides] = useState<SlideData[]>(fallbackSlides);
+export default function HorizontalCarousel(
+  { slides: slidesProp }: HorizontalCarouselProps = {}
+) {
+  const [slides, setSlides] = useState<SlideData[]>(slidesProp ?? []);
 
   useEffect(() => {
+    // If slides are provided via props, prefer them
+    if (slidesProp && slidesProp.length > 0) {
+      setSlides(slidesProp);
+      return;
+    }
+    // Otherwise, fetch from backend
     const fetchCarouselData = async () => {
       try {
         const clientReviews = await getClientReviewsForCarousel();
         if (clientReviews && clientReviews.length > 0) {
-          const transformedReviews = clientReviews.map((review: ClientReview) => {
-            const transformed = transformClientReview(review);
-            return {
-              id: transformed.id,
-              title: transformed.title,
-              description: transformed.description,
-              image: transformed.image,
-              alt: transformed.alt,
-            };
-          });
+          const transformedReviews = clientReviews.map(
+            (review: ClientReview) => {
+              const transformed = transformClientReview(review);
+              return {
+                id: transformed.id,
+                title: transformed.title,
+                description: transformed.description,
+                image: transformed.image,
+                alt: transformed.alt,
+              };
+            }
+          );
           setSlides(transformedReviews);
+        } else {
+          setSlides([]);
         }
       } catch (error) {
         console.error("Error fetching carousel data:", error);
-        // Keep fallback data on error
+        setSlides([]);
       }
     };
-
     fetchCarouselData();
-  }, []);
+  }, [slidesProp]);
 
   const [activeIndex, setActiveIndex] = useState(0);
   const hasMultipleItems = slides.length > 1;
