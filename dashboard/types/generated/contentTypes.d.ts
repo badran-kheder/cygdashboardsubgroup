@@ -519,6 +519,9 @@ export interface ApiHomeHeroFooterLogoHomeHeroFooterLogo
     draftAndPublish: true;
   };
   attributes: {
+    brandLogoUrl: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
     brands: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

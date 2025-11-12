@@ -17,6 +17,16 @@
     },
     "quote": {
       "type": "text"
+    },
+    "brandLogoUrl": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
     }
   }
 }
