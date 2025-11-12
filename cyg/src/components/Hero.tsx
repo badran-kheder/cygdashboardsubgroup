@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRightIcon } from "@heroicons/react/24/solid";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
@@ -23,6 +24,7 @@ interface HeroProps {
   footerLogos?: Array<{
     brand: string;
     quote: string;
+    brandLogoUrl?: string | null;
   }>;
   reviewsLink?: string;
   showScrollDown?: boolean;
@@ -360,20 +362,32 @@ export default function Hero({
                     key={`first-${index}`}
                     className="flex items-center space-x-1 sm:space-x-2 whitespace-nowrap"
                   >
-                    <div
-                      className="text-white text-sm sm:text-base md:text-lg mx-5"
-                      style={{
-                        fontFamily: "Helvetica, Arial, sans-serif",
-                        fontSize: "36px",
-                      }}
-                    >
-                      {logo.brand}
-                    </div>
+                    {logo.brandLogoUrl ? (
+                      <div className="relative h-6 sm:h-8 md:h-10 w-24 sm:w-28 md:w-32 mx-5">
+                        <Image
+                          src={logo.brandLogoUrl}
+                          alt={logo.brand ? `${logo.brand} logo` : "Brand logo"}
+                          fill
+                          className="object-contain"
+                          sizes="(max-width: 640px) 96px, (max-width: 1024px) 112px, 128px"
+                        />
+                      </div>
+                    ) : (
+                      <div
+                        className="text-white text-sm sm:text-base md:text-lg mx-5"
+                        style={{
+                          fontFamily: "Helvetica, Arial, sans-serif",
+                          fontSize: "36px",
+                        }}
+                      >
+                        {logo.brand}
+                      </div>
+                    )}
                     <span
-                      className="text-white"
                       style={{
                         fontFamily: "Grift",
                         fontWeight: 400,
+                        color: "#C4C7CC",
                         fontStyle: "italic",
                         fontSize: "28px",
                         lineHeight: "36px",
@@ -389,12 +403,24 @@ export default function Hero({
                     key={`second-${index}`}
                     className="flex items-center space-x-1 sm:space-x-2 whitespace-nowrap"
                   >
-                    <div
-                      className="text-white font-bold text-sm sm:text-base md:text-lg"
-                      style={{ fontFamily: "Helvetica, Arial, sans-serif" }}
-                    >
-                      {logo.brand}
-                    </div>
+                    {logo.brandLogoUrl ? (
+                      <div className="relative h-6 sm:h-8 md:h-10 w-24 sm:w-28 md:w-32">
+                        <Image
+                          src={logo.brandLogoUrl}
+                          alt={logo.brand ? `${logo.brand} logo` : "Brand logo"}
+                          fill
+                          className="object-contain"
+                          sizes="(max-width: 640px) 96px, (max-width: 1024px) 112px, 128px"
+                        />
+                      </div>
+                    ) : (
+                      <div
+                        className="text-white font-bold text-sm sm:text-base md:text-lg"
+                        style={{ fontFamily: "Helvetica, Arial, sans-serif" }}
+                      >
+                        {logo.brand}
+                      </div>
+                    )}
                     <span className="text-white text-xs sm:text-sm">
                       &ldquo;{logo.quote}&rdquo;
                     </span>

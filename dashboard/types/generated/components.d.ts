@@ -33,6 +33,7 @@ export interface LinksNavLink extends Struct.ComponentSchema {
   };
   attributes: {
     label: Schema.Attribute.String;
+    order: Schema.Attribute.Integer;
     url: Schema.Attribute.String;
   };
 }

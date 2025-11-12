@@ -10,6 +10,9 @@
     },
     "url": {
       "type": "string"
+    },
+    "order": {
+      "type": "integer"
     }
   },
   "config": {}

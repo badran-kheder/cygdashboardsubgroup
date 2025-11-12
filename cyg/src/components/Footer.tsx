@@ -70,96 +70,99 @@ export default function Footer() {
       >
         {/* Logo */}
         <div className="flex justify-center mb-6 sm:mb-12 md:mb-16 lg:mb-20 xl:mb-[20vh]">
-            <Image
-              src={currentFooterData.logoUrl}
-              alt={currentFooterData.logoAlt}
-              width={200}
-              height={80}
+          <Image
+            src={currentFooterData.logoUrl}
+            alt={currentFooterData.logoAlt}
+            width={200}
+            height={80}
             className="object-contain w-auto h-auto"
-              style={{
-              width: "clamp(80px, 20vw, 200px)",
-                height: "auto",
-              }}
-            />
-          </div>
-
-          {/* Contact Information */}
-        <div className="mt-4 sm:mt-8 md:mt-10 grid grid-cols-1 gap-4 sm:gap-8 md:gap-10 sm:grid-cols-2 lg:grid-cols-3 mx-auto w-full">
-          <div className="text-center">
-            <h3
-              className="mb-1 sm:mb-2"
             style={{
-                fontFamily: "SF Pro Display, Arial, sans-serif",
-                fontSize: "clamp(0.625rem, 1.5vw, 0.875rem)",
-                textAlign: "inherit",
-                color: "white",
-                margin: 0,
+              width: "clamp(80px, 20vw, 200px)",
+              height: "auto",
             }}
-          >
-              Email
-            </h3>
+          />
+        </div>
+
+        {/* Contact Information */}
+        <div className="mt-4 sm:mt-8 md:mt-10 grid grid-cols-1 gap-4 sm:gap-8 md:gap-10 sm:grid-cols-2 lg:grid-cols-3 mx-auto w-full">
+          <div className="flex justify-center align-center">
+            <div className="text-left">
+              <h3
+                style={{
+                  fontFamily: "SF Pro Display, Arial, sans-serif",
+                  fontSize: "clamp(1rem, 1.5vw, 1rem)",
+                  textAlign: "inherit",
+                  color: "white",
+                  margin: "0 0 -15px 0",
+                }}
+              >
+                Email
+              </h3>
               <a
                 href={`mailto:${currentFooterData.email}`}
-              className="hover:text-primary-500 transition-colors duration-200 break-all block"
-              style={{
-                fontFamily: "Grift, Arial, sans-serif",
-                fontSize: "clamp(0.875rem, 2.5vw, 2rem)",
-                color: "white",
-                textDecoration: "none",
-              }}
+                className="hover:text-primary-500 transition-colors duration-200 break-all block"
+                style={{
+                  fontFamily: "Grift, Arial, sans-serif",
+                  fontSize: "clamp(0.875rem, 2.5vw, 2rem)",
+                  color: "white",
+                  textDecoration: "none",
+                }}
               >
                 {currentFooterData.email}
               </a>
             </div>
-          <div className="text-center">
-            <h3
-              className="mb-1 sm:mb-2"
-              style={{
-                fontFamily: "SF Pro Display, Arial, sans-serif",
-                fontSize: "clamp(0.625rem, 1.5vw, 0.875rem)",
-                textAlign: "inherit",
-                color: "white",
-                margin: 0,
-              }}
-            >
-              Phone
-            </h3>
+          </div>
+          <div className="flex justify-center align-center">
+            <div className="text-left">
+              <h3
+                style={{
+                  fontFamily: "SF Pro Display, Arial, sans-serif",
+                  fontSize: "clamp(1rem, 1.5vw, 1rem)",
+                  textAlign: "inherit",
+                  color: "white",
+                  margin: "0 0 -15px 0",
+                }}
+              >
+                Phone
+              </h3>
               <a
                 href={`tel:${currentFooterData.phone.replace(/\s/g, "")}`}
-              className="hover:text-primary-500 transition-colors duration-200 block"
-              style={{
-                fontFamily: "Grift, Arial, sans-serif",
-                fontSize: "clamp(0.875rem, 2.5vw, 2rem)",
-                color: "white",
-                textDecoration: "none",
-              }}
+                className="hover:text-primary-500 transition-colors duration-200 block"
+                style={{
+                  fontFamily: "Grift, Arial, sans-serif",
+                  fontSize: "clamp(0.875rem, 2.5vw, 2rem)",
+                  color: "white",
+                  textDecoration: "none",
+                }}
               >
                 {currentFooterData.phone}
               </a>
             </div>
-          <div className="text-center sm:col-span-2 lg:col-span-1">
-            <h3
-              className="mb-1 sm:mb-2"
-              style={{
-                fontFamily: "SF Pro Display, Arial, sans-serif",
-                fontSize: "clamp(0.625rem, 1.5vw, 0.875rem)",
-                textAlign: "inherit",
-                color: "white",
-                margin: 0,
-              }}
-            >
-              Address
-            </h3>
-            <p
-              style={{
-                fontFamily: "Grift, Arial, sans-serif",
-                fontSize: "clamp(0.875rem, 2.5vw, 2rem)",
-                color: "white",
-                margin: 0,
-              }}
-            >
-              {currentFooterData.address}
-            </p>
+          </div>
+          <div className="flex justify-center align-center sm:col-span-2 lg:col-span-1">
+            <div className="text-left">
+              <h3
+                style={{
+                  fontFamily: "SF Pro Display, Arial, sans-serif",
+                  fontSize: "clamp(1rem, 1.5vw, 1rem)",
+                  textAlign: "inherit",
+                  color: "white",
+                  margin: "0 0 -15px 0",
+                }}
+              >
+                Address
+              </h3>
+              <p
+                style={{
+                  fontFamily: "Grift, Arial, sans-serif",
+                  fontSize: "clamp(0.875rem, 2.5vw, 2rem)",
+                  color: "white",
+                  margin: "0 0 -15px 0",
+                }}
+              >
+                {currentFooterData.address}
+              </p>
+            </div>
           </div>
         </div>
 
@@ -167,14 +170,14 @@ export default function Footer() {
         <div className="mt-6 sm:mt-10 md:mt-12 lg:mt-16 flex justify-center w-full absolute bottom-3 sm:bottom-6 md:bottom-8 left-0 right-0">
           <p
             className="text-center px-4"
-          style={{
+            style={{
               fontFamily: "Grift, Arial, sans-serif",
               fontSize: "clamp(0.625rem, 1.2vw, 0.875rem)",
               textAlign: "center",
               color: "white",
               margin: 0,
-          }}
-        >
+            }}
+          >
             {currentFooterData.copyrightText}
           </p>
         </div>

@@ -199,6 +199,9 @@ export interface FooterLogo {
   documentId: string;
   brands: string;
   quote: string;
+  logo?: StrapiMedia | null;
+  brandLogo?: StrapiMedia | null;
+  image?: StrapiMedia | null;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
@@ -208,6 +211,7 @@ export interface FooterLogoData {
   id: number;
   brand: string;
   quote: string;
+  brandLogoUrl?: string | null;
 }
 
 export interface PageHeroSection {
@@ -391,6 +395,7 @@ export interface NavLink {
   id: number;
   label: string;
   url: string;
+  order?: number | null;
 }
 
 // Navigation types

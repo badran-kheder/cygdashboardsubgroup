@@ -147,10 +147,16 @@ export const transformStock = (strapiData: StockSection): StockData => {
 
 // Transform Strapi footer logo data to component-friendly format
 export const transformFooterLogo = (strapiData: FooterLogo): FooterLogoData => {
+  const media =
+    strapiData.logo ||
+    strapiData.brandLogo ||
+    strapiData.image ||
+    null;
   return {
     id: strapiData.id,
     brand: strapiData.brands,
     quote: strapiData.quote,
+    brandLogoUrl: media?.url ? getStrapiMediaURL(media.url) : null,
   };
 };
 
@@ -263,16 +269,31 @@ export const transformFooter = (strapiData: Footer): FooterData => {
 
 // Transform Strapi navigation data
 export const transformNavigation = (strapiData: Navigation): NavigationData => {
-  return {
-    logoUrl: strapiData.logo?.url
-      ? getStrapiMediaURL(strapiData.logo.url)
-      : "/images/logo.png", // fallback
-    logoAlt: strapiData.logo?.alternativeText || "CYG Partners", // fallback
-    navLinks: strapiData.navLinks.map((link) => ({
+  const logoUrl = strapiData.logo?.url
+    ? getStrapiMediaURL(strapiData.logo.url)
+    : "/images/logo.png";
+  const logoAlt = strapiData.logo?.alternativeText || "CYG Partners";
+
+  const navLinks = (strapiData.navLinks || [])
+    .map((link) => ({
       id: link.id,
       label: link.label,
       url: link.url.startsWith("/") ? link.url : `/${link.url}`,
-    })),
+      order: link.order ?? null,
+    }))
+    .sort((a, b) => {
+      const orderA = a.order ?? Number.MAX_SAFE_INTEGER;
+      const orderB = b.order ?? Number.MAX_SAFE_INTEGER;
+      if (orderA !== orderB) {
+        return orderA - orderB;
+      }
+      return a.id - b.id;
+    });
+
+  return {
+    logoUrl,
+    logoAlt,
+    navLinks,
   };
 };
 

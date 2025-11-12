@@ -121,10 +121,11 @@ export default function Header() {
     logoUrl: "/images/logo.png",
     logoAlt: "CYG Partners",
     navLinks: [
-      { id: 1, label: "Home", url: "/" },
-      { id: 2, label: "About Us", url: "/about" },
-      { id: 3, label: "Clients", url: "/clients" },
-      { id: 4, label: "Contact Us", url: "/contact" },
+      { id: 1, label: "Home", url: "/", order: 1 },
+      { id: 2, label: "About Us", url: "/about", order: 2 },
+      { id: 3, label: "Services", url: "/services", order: 3 },
+      { id: 4, label: "Clients", url: "/clients", order: 4 },
+      { id: 5, label: "Contact Us", url: "/contact", order: 5 },
     ],
   };
 
@@ -168,15 +169,35 @@ export default function Header() {
   ];
 
   const currentNavData = navigationData || fallbackNavigationData;
-  const currentServices = services.length > 0 ? services : fallbackServices;
 
-  // Split navLinks for layout flexibility (e.g., Contact Us as a button)
-  const mainLinks = currentNavData.navLinks.filter(
-    (link) => link.url !== "/contact"
-  );
-  const contactLink = currentNavData.navLinks.find(
-    (link) => link.url === "/contact"
-  );
+  const navLinksWithServices = (() => {
+    const links = currentNavData.navLinks.map((link) =>
+      link.url === "/services"
+        ? { ...link, order: link.order ?? 3 }
+        : link
+    );
+
+    if (!links.some((link) => link.url === "/services")) {
+      links.push({
+        id: -1,
+        label: "Services",
+        url: "/services",
+        order: 3,
+      });
+    }
+
+    return links;
+  })();
+
+  const sortedNavLinks = [...navLinksWithServices].sort((a, b) => {
+    const orderA = a.order ?? Number.MAX_SAFE_INTEGER;
+    const orderB = b.order ?? Number.MAX_SAFE_INTEGER;
+    if (orderA !== orderB) {
+      return orderA - orderB;
+    }
+    return a.id - b.id;
+  });
+  const currentServices = services.length > 0 ? services : fallbackServices;
 
   return (
     <header
@@ -224,91 +245,82 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-4 lg:space-x-8">
-            {mainLinks.map((link) => (
-              <Link
-                key={link.id}
-                href={link.url}
-                className={`transition-colors duration-200 ${
-                  isActive(link.url)
-                    ? "text-white underline underline-offset-4"
-                    : "text-primary-200 hover:text-primary-500"
-                }`}
-                style={{
-                  fontFamily: 'Grift',
-                  fontSize: 'clamp(0.875rem, 1.5vw, 1.25rem)',
-                }}
-              >
-                {link.label}
-              </Link>
-            ))}
-
-            {/* Services Dropdown */}
-            <div
-              className="relative"
-              onMouseEnter={() => setIsServicesOpen(true)}
-              onMouseLeave={() => setIsServicesOpen(false)}
-            >
-              <Link
-                href="/services"
-                className={`flex items-center transition-colors duration-200 ${
-                  isServicesActive()
-                    ? "text-white underline underline-offset-4"
-                    : "text-primary-200 hover:text-primary-500"
-                }`}
-                style={{
-                  fontFamily: 'Grift',
-                  fontSize: 'clamp(0.875rem, 1.5vw, 1.25rem)',
-                }}
-              >
-                Services
-                <ChevronDownIcon className="ml-1 h-3 w-3 md:h-4 md:w-4" />
-              </Link>
-
-              <div
-                className={`absolute top-full left-0 mt-0 w-64 bg-primary-950 border border-primary-700 rounded-lg shadow-xl transition-all duration-200 ${
-                  isServicesOpen
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 -translate-y-2 pointer-events-none"
-                }`}
-              >
-                <div className="py-2">
-                  {currentServices.map((service) => (
+            {sortedNavLinks.map((link) => {
+                if (link.url === "/services") {
+                return (
+                  <div
+                    key={link.id}
+                    className="relative"
+                    onMouseEnter={() => setIsServicesOpen(true)}
+                    onMouseLeave={() => setIsServicesOpen(false)}
+                  >
                     <Link
-                      key={service.id}
-                      href={service.buttonHref}
-                      className={`block px-4 py-3 transition-colors duration-200 ${
-                        isServicesDetailActive(service.buttonHref)
-                          ? "text-white bg-primary-700 underline underline-offset-4"
-                          : "text-primary-200 hover:bg-primary-700"
+                      href={link.url}
+                      className={`flex items-center transition-colors duration-200 ${
+                        isServicesActive()
+                          ? "text-white underline underline-offset-4"
+                          : "text-primary-200 hover:text-primary-500"
                       }`}
                       style={{
-                        fontFamily: 'Grift',
-                        fontSize: 'clamp(0.875rem, 1.5vw, 1.25rem)',
+                        fontFamily: "Grift",
+                        fontSize: "clamp(0.875rem, 1.5vw, 1.25rem)",
+                        textTransform: "capitalize",
                       }}
                     >
-                      {service.title} {service.titleAccent}
+                      {link.label}
+                      <ChevronDownIcon className="ml-1 h-3 w-3 md:h-4 md:w-4" />
                     </Link>
-                  ))}
-                </div>
-              </div>
-            </div>
 
-            {contactLink && (
-              <Link
-                href={contactLink.url}
-                className={`transition-colors duration-200 ${
-                  isActive(contactLink.url)
-                    ? "text-white underline underline-offset-4"
-                    : "text-primary-200 hover:text-primary-500"
-                }`}
-                style={{
-                  fontFamily: 'Grift',
-                  fontSize: 'clamp(0.875rem, 1.5vw, 1.25rem)',
-                }}
-              >
-                {contactLink.label}
-              </Link>
-            )}
+                    <div
+                      className={`absolute top-full left-0 mt-0 w-64 bg-primary-950 border border-primary-700 rounded-lg shadow-xl transition-all duration-200 ${
+                        isServicesOpen
+                          ? "opacity-100 translate-y-0"
+                          : "opacity-0 -translate-y-2 pointer-events-none"
+                      }`}
+                    >
+                      <div className="py-2">
+                        {currentServices.map((service) => (
+                          <Link
+                            key={service.id}
+                            href={service.buttonHref}
+                            className={`block px-4 py-3 transition-colors duration-200 ${
+                              isServicesDetailActive(service.buttonHref)
+                                ? "text-white bg-primary-700 underline underline-offset-4"
+                                : "text-primary-200 hover:bg-primary-700"
+                            }`}
+                            style={{
+                              fontFamily: "Grift",
+                              fontSize: "clamp(0.875rem, 1.5vw, 1.25rem)",
+                            }}
+                          >
+                            {service.title} {service.titleAccent}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+
+              return (
+                <Link
+                  key={link.id}
+                  href={link.url}
+                  className={`transition-colors duration-200 ${
+                    isActive(link.url)
+                      ? "text-white underline underline-offset-4"
+                      : "text-primary-200 hover:text-primary-500"
+                  }`}
+                  style={{
+                    fontFamily: "Grift",
+                    fontSize: "clamp(0.875rem, 1.5vw, 1.25rem)",
+                    textTransform: "capitalize",
+                  }}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Mobile menu button */}
@@ -328,64 +340,69 @@ export default function Header() {
         {isMenuOpen && (
           <div className="md:hidden border-t border-primary-700 bg-black">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              {/* Main Links */}
-              {mainLinks.map((link) => (
-                <Link
-                  key={`mobile-${link.id}`}
-                  href={link.url}
-                  className={`block px-3 py-2 rounded-md transition-colors duration-200 text-center ${
-                    isActive(link.url)
-                      ? "text-white bg-primary-800 underline underline-offset-4"
-                      : "text-primary-200 hover:bg-primary-800"
-                  }`}
-                  style={{
-                    fontFamily: 'Grift',
-                    fontSize: 'clamp(0.875rem, 2vw, 1.125rem)',
-                  }}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {sortedNavLinks.map((link) => {
+                if (link.url === "/services") {
+                  return (
+                    <div key={`mobile-${link.id}`} className="space-y-1">
+                      <Link
+                        href={link.url}
+                        className={`block px-3 py-2 rounded-md transition-colors duration-200 text-center ${
+                          isServicesActive()
+                            ? "text-white bg-primary-800 underline underline-offset-4"
+                            : "text-primary-200 hover:bg-primary-800"
+                        }`}
+                        style={{
+                          fontFamily: "Grift",
+                          fontSize: "clamp(0.875rem, 2vw, 1.125rem)",
+                          textTransform: "capitalize",
+                        }}
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        {link.label}
+                      </Link>
 
-              {/* Service Links */}
-              {currentServices.map((service) => (
-                <Link
-                  key={`mobile-service-${service.id}`}
-                  href={service.buttonHref}
-                  className={`block px-3 py-2 rounded-md transition-colors duration-200 text-center ${
-                    isServicesDetailActive(service.buttonHref)
-                      ? "text-white bg-primary-800 underline underline-offset-4"
-                      : "text-primary-200 hover:bg-primary-800"
-                  }`}
-                  style={{
-                    fontFamily: 'Grift',
-                    fontSize: 'clamp(0.875rem, 2vw, 1.125rem)',
-                  }}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {service.title} {service.titleAccent}
-                </Link>
-              ))}
+                      {currentServices.map((service) => (
+                        <Link
+                          key={`mobile-service-${service.id}`}
+                          href={service.buttonHref}
+                          className={`block px-3 py-2 rounded-md transition-colors duration-200 text-center ${
+                            isServicesDetailActive(service.buttonHref)
+                              ? "text-white bg-primary-800 underline underline-offset-4"
+                              : "text-primary-200 hover:bg-primary-800"
+                          }`}
+                          style={{
+                            fontFamily: "Grift",
+                            fontSize: "clamp(0.875rem, 2vw, 1.125rem)",
+                          }}
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          {service.title} {service.titleAccent}
+                        </Link>
+                      ))}
+                    </div>
+                  );
+                }
 
-              {/* Contact Link */}
-              {contactLink && (
-                <Link
-                  href={contactLink.url}
-                  className={`block px-3 py-2 rounded-md transition-colors duration-200 text-center ${
-                    isActive(contactLink.url)
-                      ? "text-white bg-primary-800 underline underline-offset-4"
-                      : "text-primary-200 hover:bg-primary-800"
-                  }`}
-                  style={{
-                    fontFamily: 'Grift',
-                    fontSize: 'clamp(0.875rem, 2vw, 1.125rem)',
-                  }}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {contactLink.label}
-                </Link>
-              )}
+                return (
+                  <Link
+                    key={`mobile-${link.id}`}
+                    href={link.url}
+                    className={`block px-3 py-2 rounded-md transition-colors duration-200 text-center ${
+                      isActive(link.url)
+                        ? "text-white bg-primary-800 underline underline-offset-4"
+                        : "text-primary-200 hover:bg-primary-800"
+                    }`}
+                    style={{
+                      fontFamily: "Grift",
+                      fontSize: "clamp(0.875rem, 2vw, 1.125rem)",
+                      textTransform: "capitalize",
+                    }}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
             </div>
           </div>
         )}
