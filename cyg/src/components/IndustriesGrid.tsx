@@ -79,7 +79,6 @@ const IndustryCard: React.FC<IndustryCardProps> = ({ icon, title, href, isLastIn
           style={{
             minHeight: "clamp(30px, 5vh, 40px)",
             fontFamily: "Grift, Arial, sans-serif",
-            fontSize: "clamp(1.25rem, 3vw, 2.5rem)",
             textAlign: "center",
           }}
         >
@@ -148,6 +147,15 @@ const IndustriesGrid: React.FC = () => {
 
       {/* Responsive border and desktop-specific styles */}
       <style jsx global>{`
+        .industry-card-text {
+          font-size: clamp(1.25rem, 3vw, 1.8rem);
+          transition: font-size 0.3s ease;
+        }
+
+        .industry-card:hover .industry-card-text {
+          font-size: clamp(1.25rem, 3vw, 2rem);
+        }
+
         /* Mobile and Tablet: Right border on every 2nd item (2 columns) */
         .industries-grid > .industry-card:nth-child(2n) {
           border-right-width: 1px !important;
