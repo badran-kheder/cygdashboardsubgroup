@@ -62,7 +62,6 @@ const IndustryCard: React.FC<IndustryCardProps> = ({ icon, title, href, isLastIn
             width: "clamp(50px, 8vw, 75px)",
             height: "clamp(50px, 8vw, 75px)",
             opacity: 1,
-            transform: "rotate(-180deg)",
           }}
         >
           <Image

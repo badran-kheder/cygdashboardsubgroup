@@ -113,7 +113,7 @@ export default function Hero({
 
   return (
     <section
-      className="relative flex items-center bg-cover bg-center bg-no-repeat [background-attachment:fixed] sm:[background-attachment:scroll]"
+      className="relative hero_mobile flex items-center bg-cover bg-center bg-no-repeat [background-attachment:fixed] sm:[background-attachment:scroll]"
       style={{
         backgroundImage: `url('${backgroundImage}')`,
         minHeight: "110vh",
@@ -435,6 +435,18 @@ export default function Hero({
 
       {/* Desktop-specific styles to maintain original design */}
       <style jsx global>{`
+        @media (max-width: 640px) {
+          .hero_mobile {
+            min-height: 90vh !important;
+          }
+          .hero-button {
+            width: 100% !important;
+            max-width: 100% !important;
+          }
+          .hero-button > div {
+            width: 100% !important;
+          }
+        }
         @media (min-width: 1920px) {
           .hero-button-primary {
             width: 274px !important;

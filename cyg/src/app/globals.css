@@ -554,7 +554,7 @@
     font-family: 'Helvetica', Arial, sans-serif;
     font-weight: 300;
     font-style: light;
-    font-size: clamp(2rem, 5vw, 110px);
+    font-size: clamp(2rem, 6vw, 110px);
     line-height: clamp(4rem, 5vw, 110px);
     background: #77EB8A;
     -webkit-background-clip: text;

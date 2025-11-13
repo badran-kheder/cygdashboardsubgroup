@@ -56,7 +56,7 @@ export default function Footer() {
       }}
     >
       <div
-        className="mx-auto w-full px-4 py-6 sm:px-6 sm:py-12 md:px-8 md:py-16 lg:px-10 lg:py-20 xl:px-40"
+        className="footer-content mx-auto w-full px-4 py-6 sm:px-6 sm:py-12 md:px-8 md:py-16 lg:px-10 lg:py-20 xl:px-40"
         style={{
           maxWidth: "1920px",
           width: "100%",
@@ -84,7 +84,7 @@ export default function Footer() {
         </div>
 
         {/* Contact Information */}
-        <div className="mt-4 sm:mt-8 md:mt-10 grid grid-cols-1 gap-4 sm:gap-8 md:gap-10 sm:grid-cols-2 lg:grid-cols-3 mx-auto w-full">
+        <div className="footer-contact-grid mt-4 sm:mt-8 md:mt-10 grid grid-cols-1 gap-4 sm:gap-8 md:gap-10 sm:grid-cols-2 lg:grid-cols-3 mx-auto w-full">
           <div className="flex justify-center align-center">
             <div className="text-left">
               <h3
@@ -190,6 +190,35 @@ export default function Footer() {
             min-height: auto !important;
             padding-top: 2rem;
             padding-bottom: 2rem;
+          }
+          .footer-content {
+            align-items: center !important;
+            justify-content: center !important;
+            padding-left: 1.5rem !important;
+            padding-right: 1.5rem !important;
+          }
+          .footer-contact-grid {
+            justify-items: center !important;
+            text-align: center !important;
+          }
+          .footer-contact-grid .text-left {
+            text-align: center !important;
+          }
+          .footer-contact-grid a,
+          .footer-contact-grid p,
+          .footer-contact-grid h3 {
+            text-align: center !important;
+          }
+          .footer-contact-grid > div {
+            width: 100% !important;
+            display: flex !important;
+            justify-content: center !important;
+          }
+          .footer-contact-grid > div > div {
+            text-align: center !important;
+          }
+          footer .absolute {
+            bottom: 0 !important;
           }
         }
         @media (min-width: 1920px) {

@@ -404,7 +404,8 @@ export default function Home() {
                       href={currentStrategicGrowthData.buttonHref}
                       className="inline-flex items-center justify-center mt-8 hover:scale-105 strategic-growth-button"
                       style={{
-                        padding: "clamp(12px, 1.5vh, 16px) clamp(32px, 5vw, 64px)",
+                        padding:
+                          "clamp(12px, 1.5vh, 16px) clamp(32px, 5vw, 64px)",
                         gap: "0px",
                         borderRadius: "80px",
                         backgroundColor: "#9DD8A7",
@@ -499,6 +500,11 @@ export default function Home() {
                 }
                 .strategic-growth-button div {
                   height: 36px !important;
+                }
+              }
+              @media (max-width: 600px) {
+                .strategic-growth-description {
+                  margin: 0 auto !important;
                 }
               }
             `}</style>

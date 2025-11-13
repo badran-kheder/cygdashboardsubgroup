@@ -60,7 +60,6 @@ export default function Services({
   title,
   titleAccent,
   description,
-  backgroundGradient,
   services,
   showSpecialService = false,
   clickableCards = false,
@@ -319,7 +318,7 @@ export default function Services({
                           maxWidth: "100%",
                           minHeight: "clamp(80px, 12vh, 110px)",
                           fontFamily: "Helvetica, Arial, sans-serif",
-                          fontSize: "clamp(1.5rem, 3.5vw, 3rem)",
+                          fontSize: "clamp(1.5rem, 3.5vw, 2.2rem)",
                           textAlign: "center",
                           color: "white",
                           margin: 0,
@@ -351,7 +350,7 @@ export default function Services({
                           width: "100%",
                           minHeight: "clamp(80px, 10vh, 108px)",
                           fontFamily: "Grift, Arial, sans-serif",
-                          fontSize: "clamp(0.875rem, 2vw, 1.75rem)",
+                          fontSize: "clamp(0.875rem, 2vw, 1.3rem)",
                           textAlign: "center",
                           color: "white",
                           margin: 0,
@@ -430,7 +429,7 @@ export default function Services({
                             className="service-card-button-text"
                             style={{
                               fontFamily: "Grift, Arial, sans-serif",
-                              fontSize: "clamp(1rem, 2vw, 1.75rem)",
+                              fontSize: "clamp(1rem, 1.7vw, 1.5rem)",
                               color: "#FAFAFA",
                               backgroundColor: "transparent",
                               border: "none",
@@ -450,7 +449,7 @@ export default function Services({
                             className="service-card-button-text"
                             style={{
                               fontFamily: "Grift, Arial, sans-serif",
-                              fontSize: "clamp(1rem, 2vw, 1.75rem)",
+                              fontSize: "clamp(1rem, 1.7vw, 1.5rem)",
                               color: "#FAFAFA",
                               textDecoration: "none",
                               display: "flex",
@@ -467,7 +466,7 @@ export default function Services({
                             className="service-card-button-text"
                             style={{
                               fontFamily: "Grift, Arial, sans-serif",
-                              fontSize: "clamp(1rem, 2vw, 1.75rem)",
+                              fontSize: "clamp(1rem, 1.7vw, 1.5rem)",
                               color: "#FAFAFA",
                               backgroundColor: "transparent",
                               border: "none",
@@ -487,7 +486,7 @@ export default function Services({
                             className="service-card-button-text"
                             style={{
                               fontFamily: "Grift, Arial, sans-serif",
-                              fontSize: "clamp(1rem, 2vw, 1.75rem)",
+                              fontSize: "clamp(1rem, 1.7vw, 1.5rem)",
                               color: "#FAFAFA",
                               textDecoration: "none",
                               display: "flex",
@@ -518,12 +517,25 @@ export default function Services({
 
       {/* Desktop-specific styles to maintain original design */}
       <style jsx global>{`
-        @media (min-width: 768px) and (max-width: 1919px) {
+        @media (min-width: 1020px) and (max-width: 1919px) {
           .services-header-content {
             width: clamp(100%, 54vw, 1032px) !important;
           }
           .service-card {
             width: clamp(280px, 26vw, 493.33px) !important;
+          }
+        }
+          @media (min-width: 1020px) {
+          .services-header-content {
+            width: 100% !important;
+          }
+          .service-card {
+            width: 100% !important;
+          }
+          }
+        @media (min-width: 1000px) and (max-width: 1150px) {
+          .service-card-title {
+            font-size: clamp(1.5rem, 3.5vw, 2rem) !important;
           }
         }
         @media (min-width: 1920px) {
