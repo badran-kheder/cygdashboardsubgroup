@@ -1,0 +1,281 @@
+name: Audit-backend Full CI/CD
+
+on:
+  push:
+    branches:
+      - audit
+      - pending
+      - production
+  pull_request:
+    branches:
+      - audit
+      - production
+      - pending
+  workflow_dispatch:
+    inputs:
+      rollback_audit:
+        description: "Manual rollback audit environment to last snapshot"
+        required: false
+        type: boolean
+      rollback_production:
+        description: "Manual rollback production environment to last snapshot"
+        required: false
+        type: boolean
+
+env:
+  ARTIFACTS_PATH: "./artifacts"
+  AUDIT_TAG_ENV: "tag_backend_audit.env"
+  PROD_TAG_ENV: "tag_backend_production.env"
+  CURRENT_BRANCH: "current"
+  PREVIOUS_BRANCH: "previous"
+  PENDING_BRANCH: "pending"
+
+jobs:
+
+  export_report:
+    name: Export Report For Every Merge/Push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Report
+        id: export
+        run: |
+          mkdir -p ${{ env.ARTIFACTS_PATH }}
+          REPORT="${{ env.ARTIFACTS_PATH }}/report_${{ github.ref_name }}_${{ github.run_id }}.txt"
+          echo "User: ${{ github.actor }}" > $REPORT
+          echo "User Email: ${{ github.actor }}@users.noreply.github.com" >> $REPORT
+          echo "Branch: ${{ github.ref_name }}" >> $REPORT
+          echo "Commit SHA: ${{ github.sha }}" >> $REPORT
+          echo "Commit Message: ${{ github.event.head_commit.message }}" >> $REPORT
+          echo "Repository: ${{ github.repository }}" >> $REPORT
+          echo "Job: ${{ github.job }}" >> $REPORT
+          echo "Workflow: ${{ github.workflow }}" >> $REPORT
+          echo "Run Id: ${{ github.run_id }}" >> $REPORT
+          echo "Date: $(date)" >> $REPORT
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "PR Title: ${{ github.event.pull_request.title }}" >> $REPORT
+            echo "PR By: ${{ github.event.pull_request.user.login }}" >> $REPORT
+            echo "PR Merge SHA: ${{ github.event.pull_request.merge_commit_sha }}" >> $REPORT
+            echo "PR Message: ${{ github.event.pull_request.body }}" >> $REPORT
+            echo "PR Target Branch: ${{ github.event.pull_request.base.ref }}" >> $REPORT
+          fi
+          cat $REPORT
+      - name: Upload Merge/Push Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: merge-report
+          path: ${{ env.ARTIFACTS_PATH }}/report_*.txt
+
+  audit_tag:
+    name: Create Audit Tag (Snapshot)
+    runs-on: ubuntu-latest
+    needs: export_report
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: audit
+      - name: Set Audit Tag
+        id: set_tag
+        run: |
+          TAG="snapshot-Audit-$(date -d '+3 hours' +'%Y-%m-%d_%H-%M-%S')"
+          echo "TAG=$TAG" >> $GITHUB_OUTPUT
+          echo "$TAG" > ${{ env.AUDIT_TAG_ENV }}
+      - name: Tag Audit
+        run: |
+          git fetch --all
+          git tag -a "$(cat ${{ env.AUDIT_TAG_ENV }})" -m "[skip ci]"
+          git push origin "$(cat ${{ env.AUDIT_TAG_ENV }})"
+      - name: Upload tag env
+        uses: actions/upload-artifact@v4
+        with:
+          name: audit-tag-env
+          path: ${{ env.AUDIT_TAG_ENV }}
+
+  mirror_repository:
+    name: Mirror Audit Repository (Sync)
+    runs-on: ubuntu-latest
+    needs: audit_tag
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: audit
+      - name: Mirror Audit Environment
+        run: |
+          echo "Compiling the code..."
+          git fetch --all
+          git reset --hard origin/audit
+          echo "Mirror is done."
+
+  deploy_on_audit:
+    name: Deploy Project in Audit
+    runs-on: ubuntu-latest
+    needs: mirror_repository
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: audit
+      - name: Deploy Audit (Simulated)
+        run: |
+          date -d '+3 hours'
+          echo "docker compose exec app composer install"
+          echo "docker compose exec app php artisan migrate --force"
+          echo "Deploy audit finished"
+
+  test_audit:
+    name: Test Audit Environment
+    runs-on: ubuntu-latest
+    needs: deploy_on_audit
+    steps:
+      - name: Simulated Audit Test
+        run: |
+          echo "Run backend tests for audit"
+          # python3 /home/gitlab-runner/backend-testing.py
+
+  approval_production:
+    name: Manual Approval To Production
+    runs-on: ubuntu-latest
+    needs: test_audit
+    environment:
+      name: production
+    steps:
+      - name: Manual approval before prod
+        run: echo "Manual approval needed before push to production."
+
+  production_tag:
+    name: Create Production Tag
+    runs-on: ubuntu-latest
+    needs: approval_production
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: production
+      - name: Set Prod Tag
+        id: set_tag_prod
+        run: |
+          TAG="snapshot-production-$(date -d '+3 hours' +'%Y-%m-%d_%H-%M-%S')"
+          echo "TAG=$TAG" >> $GITHUB_OUTPUT
+          echo "$TAG" > ${{ env.PROD_TAG_ENV }}
+      - name: Tag Production
+        run: |
+          git tag -a "$(cat ${{ env.PROD_TAG_ENV }})" -m "[skip ci]"
+          git push origin "$(cat ${{ env.PROD_TAG_ENV }})"
+      - name: Upload production tag env
+        uses: actions/upload-artifact@v4
+        with:
+          name: prod-tag-env
+          path: ${{ env.PROD_TAG_ENV }}
+
+  push_to_production:
+    name: Merge Audit to Production
+    runs-on: ubuntu-latest
+    needs: production_tag
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: audit
+      - name: Push to Production
+        run: |
+          git push origin audit:production -f
+          echo "Pushed code from audit to production."
+
+  pull_production:
+    name: Pull latest Production code
+    runs-on: ubuntu-latest
+    needs: push_to_production
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: production
+      - name: Pull Prod
+        run: |
+          git fetch --all
+          git reset --hard origin/production
+
+  deploy_production:
+    name: Deploy Production Environment
+    runs-on: ubuntu-latest
+    needs: pull_production
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: production
+      - name: Deploy Production
+        run: |
+          date -d '+3 hours'
+          echo "docker compose exec app composer install"
+          echo "docker compose exec app php artisan migrate --force"
+
+  test_production:
+    name: Test Production Environment
+    runs-on: ubuntu-latest
+    needs: deploy_production
+    steps:
+      - name: Simulated test production
+        run: |
+          echo "Run backend tests for production"
+          # python3 /home/gitlab-runner/backend-testing.py
+
+  # Branch Automation for pending, current, previous
+  automate_branches:
+    name: Automate Branches (Pending/Current/Previous)
+    runs-on: ubuntu-latest
+    if: github.ref_name == 'pending'
+    needs: test_production
+    steps:
+      - name: Checkout pending branch
+        uses: actions/checkout@v4
+        with:
+          ref: pending
+          fetch-depth: 0
+      - name: Set up git for automation
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+      # Set previous = current
+      - name: Make previous = current
+        run: |
+          git fetch origin current
+          git branch -f previous origin/current
+          git push origin previous --force
+      # Set current = pending
+      - name: Make current = pending
+        run: |
+          git branch -f current origin/pending
+          git push origin current --force
+      - name: Optional cleanup pending
+        run: |
+          echo "You can safely delete pending if desired"
+          # git push origin --delete pending
+
+  rollback_audit:
+    name: Manual Rollback Audit
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.rollback_audit == 'true' }}
+    needs: audit_tag
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: audit
+      - name: Rollback Audit Branch
+        run: |
+          git fetch --all
+          git reset --hard "$(cat ${{ env.AUDIT_TAG_ENV }})"
+          echo "docker compose exec app composer install"
+          echo "docker compose exec app php artisan migrate --force"
+          git push origin audit --force
+
+  rollback_production:
+    name: Manual Rollback Production
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.rollback_production == 'true' }}
+    needs: production_tag
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: production
+      - name: Rollback Production Branch
+        run: |
+          git fetch --all
+          git reset --hard "$(cat ${{ env.PROD_TAG_ENV }})"
+          echo "docker compose exec app composer install"
+          echo "docker compose exec app php artisan migrate --force"
+          git push origin production --force
