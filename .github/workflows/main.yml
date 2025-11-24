@@ -80,7 +80,10 @@ jobs:
           echo "TAG=$TAG" >> $GITHUB_OUTPUT
           echo "$TAG" > ${{ env.AUDIT_TAG_ENV }}
       - name: Tag Audit
-
+        run: |
+          git fetch --all
+          git tag -a "$(cat ${{ env.AUDIT_TAG_ENV }})" -m "[skip ci]"
+          git push origin "$(cat ${{ env.AUDIT_TAG_ENV }})"
       - name: Upload tag env
         uses: actions/upload-artifact@v4
         with:
@@ -96,7 +99,8 @@ jobs:
         with:
           ref: audit
       - name: Mirror Audit Environment
-
+        run: |
+          echo "Compiling the code..."
 
   deploy_on_audit:
     name: Deploy Project in Audit
@@ -143,9 +147,12 @@ jobs:
           ref: production
       - name: Set Prod Tag
         id: set_tag_prod
-
+        run: |
+          echo "TAG=$TAG" >> $GITHUB_OUTPUT
+          echo "$TAG" > ${{ env.PROD_TAG_ENV }}
       - name: Tag Production
-
+        run: |
+          echo "Compiling the code..."
       - name: Upload production tag env
         uses: actions/upload-artifact@v4
         with:
@@ -161,6 +168,8 @@ jobs:
         with:
           ref: audit
       - name: Push to Production
+        run: |
+          echo "Pushed code from audit to production."
 
   pull_production:
     name: Pull latest Production code
@@ -171,6 +180,9 @@ jobs:
         with:
           ref: production
       - name: Pull Prod
+        run: |
+          git fetch --all
+          git reset --hard origin/production
 
   deploy_production:
     name: Deploy Production Environment
@@ -181,7 +193,10 @@ jobs:
         with:
           ref: production
       - name: Deploy Production
-
+        run: |
+          date -d '+3 hours'
+          echo "docker compose exec app composer install"
+          echo "docker compose exec app php artisan migrate --force"
 
   test_production:
     name: Test Production Environment
@@ -189,8 +204,11 @@ jobs:
     needs: deploy_production
     steps:
       - name: Simulated test production
+        run: |
+          echo "Run backend tests for production"
+          # python3 /home/gitlab-runner/backend-testing.py
 
-
+  # Branch Automation for pending, current, previous
   automate_branches:
     name: Automate Branches (Pending/Current/Previous)
     runs-on: ubuntu-latest
@@ -203,13 +221,20 @@ jobs:
           ref: pending
           fetch-depth: 0
       - name: Set up git for automation
-
+        run: |
+          echo "Compiling the code..."
+      # Set previous = current
       - name: Make previous = current
-
+        run: |
+          echo "Compiling the code..."
+      # Set current = pending
       - name: Make current = pending
- 
+        run: |
+           echo "Compiling the code..."
       - name: Optional cleanup pending
-
+        run: |
+          echo "You can safely delete pending if desired"
+          # git push origin --delete pending
 
   rollback_audit:
     name: Manual Rollback Audit
@@ -221,6 +246,9 @@ jobs:
         with:
           ref: audit
       - name: Rollback Audit Branch
+        run: |
+          echo "docker compose exec app composer install"
+          echo "docker compose exec app php artisan migrate --force"
 
 
   rollback_production:
@@ -234,8 +262,5 @@ jobs:
           ref: production
       - name: Rollback Production Branch
         run: |
-          git fetch --all
-          git reset --hard "$(cat ${{ env.PROD_TAG_ENV }})"
           echo "docker compose exec app composer install"
           echo "docker compose exec app php artisan migrate --force"
-          git push origin production --force
