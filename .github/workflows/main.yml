@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: 'What do you want to run? (normal / rollback_audit / rollback_production)'
+        description: 'Mode: normal / rollback_audit / rollback_production'
         required: true
         default: 'normal'
         type: choice
@@ -16,6 +16,12 @@ on:
           - normal
           - rollback_audit
           - rollback_production
+      rollback_audit_tag:
+        description: 'Tag to rollback AUDIT to (used when mode=rollback_audit)'
+        required: false
+      rollback_production_tag:
+        description: 'Tag to rollback PRODUCTION to (used when mode=rollback_production)'
+        required: false
 
 env:
   artifacts_path: "/home/gitlab-runner/artifacts"
@@ -23,29 +29,31 @@ env:
   artifacts_production: "/home/gitlab-runner/artifacts/tag_name_backend_production.env"
 
 jobs:
+  # ================= NORMAL PIPELINE (AUDIT → TEST → APPROVAL → PRODUCTION) ================
+
   export_report:
     if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.mode == 'normal' }}
     runs-on: ubuntu-latest
     steps:
       - name: Simulate before_script
         run: |
-          echo "[SIM] Welcome to the backend-Audit project..."
-          echo "[SIM] Would run: date -d '+3 hours'"
+          echo "[SIM][export_report] Welcome to the backend-Audit project..."
+          echo "[SIM][export_report] Would run: date -d '+3 hours'"
 
       - name: Simulate export report info
         run: |
-          echo "[SIM] Would print CI/GitHub context variables:"
-          echo "[SIM] GITHUB_WORKSPACE"
-          echo "[SIM] GITHUB_RUN_ID"
-          echo "[SIM] GITHUB_SHA"
-          echo "[SIM] LAST_COMMIT_MESSAGE (via git log -1 --pretty=%B)"
-          echo "[SIM] GITHUB_ACTOR"
-          echo "[SIM] GITHUB_REF_NAME"
-          echo "[SIM] GITHUB_REPOSITORY"
-          echo "[SIM] JOB_NAME"
-          echo "[SIM] WORKFLOW_NAME"
-          echo "[SIM] GITHUB_EVENT_NAME"
-          echo "[SIM] GITHUB_RUN_NUMBER"
+          echo "[SIM][export_report] Would print CI/GitHub context variables:"
+          echo "[SIM] GITHUB_WORKSPACE=$GITHUB_WORKSPACE"
+          echo "[SIM] GITHUB_RUN_ID=$GITHUB_RUN_ID"
+          echo "[SIM] GITHUB_SHA=$GITHUB_SHA"
+          echo "[SIM] LAST_COMMIT_MESSAGE via: git log -1 --pretty=%B"
+          echo "[SIM] GITHUB_ACTOR=$GITHUB_ACTOR"
+          echo "[SIM] GITHUB_REF_NAME=${GITHUB_REF_NAME}"
+          echo "[SIM] GITHUB_REPOSITORY=$GITHUB_REPOSITORY"
+          echo "[SIM] JOB_NAME=${{ github.job }}"
+          echo "[SIM] WORKFLOW_NAME=${{ github.workflow }}"
+          echo "[SIM] GITHUB_EVENT_NAME=${{ github.event_name }}"
+          echo "[SIM] GITHUB_RUN_NUMBER=${GITHUB_RUN_NUMBER}"
 
   artifacts_tag_audit:
     if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.mode == 'normal' }}
@@ -57,9 +65,9 @@ jobs:
       - name: Simulate creating audit tag name
         id: set_tag
         run: |
-          echo "[SIM] Would sanitize commit message and build TAG_NAME_audit"
+          echo "[SIM][artifacts_tag_audit] Would sanitize commit message and build TAG_NAME_audit"
           TAG_NAME_audit="SIMULATED_AUDIT_TAG_$(date +'%Y-%m-%d_%H-%M-%S')"
-          echo "[SIM] TAG_NAME_audit would be: $TAG_NAME_audit"
+          echo "[SIM][artifacts_tag_audit] TAG_NAME_audit would be: $TAG_NAME_audit"
           echo "TAG_NAME_audit=$TAG_NAME_audit" >> $GITHUB_ENV
           echo "tag_name_audit=$TAG_NAME_audit" >> $GITHUB_OUTPUT
 
@@ -72,11 +80,12 @@ jobs:
     steps:
       - name: Simulate snapshot tag creation on audit branch
         run: |
-          echo "[SIM] Would cd to /home/kbadran/backend"
-          echo "[SIM] Would run: git checkout audit"
-          echo "[SIM] Would run: git fetch --all"
-          echo "[SIM] Would run: git tag -a \"$TAG_NAME_audit\" -m \"[skip ci]\""
-          echo "[SIM] (Optional) Would push tag to remote"
+          echo "[SIM][snapshot_audit] TAG_NAME_audit: $TAG_NAME_audit"
+          echo "[SIM][snapshot_audit] Would cd to /home/kbadran/backend"
+          echo "[SIM][snapshot_audit] Would run: git checkout audit"
+          echo "[SIM][snapshot_audit] Would run: git fetch --all"
+          echo "[SIM][snapshot_audit] Would run: git tag -a \"$TAG_NAME_audit\" -m \"[skip ci]\""
+          echo "[SIM][snapshot_audit] (Optional) Would push tag to remote"
 
   mirror_job:
     if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.mode == 'normal' }}
@@ -85,12 +94,12 @@ jobs:
     steps:
       - name: Simulate mirror repository
         run: |
-          echo "[SIM] Would cd to /home/kbadran/backend"
-          echo "[SIM] Would run: docker exec backend-con id"
-          echo "[SIM] Would run: git checkout audit"
-          echo "[SIM] Would run: git fetch --all"
-          echo "[SIM] Would run: git reset --hard origin/audit"
-          echo "[SIM] Mirror is done."
+          echo "[SIM][mirror_job] Would cd to /home/kbadran/backend"
+          echo "[SIM][mirror_job] Would run: docker exec backend-con id"
+          echo "[SIM][mirror_job] Would run: git checkout audit"
+          echo "[SIM][mirror_job] Would run: git fetch --all"
+          echo "[SIM][mirror_job] Would run: git reset --hard origin/audit"
+          echo "[SIM][mirror_job] Mirror is done."
 
   deploy_on_audit:
     if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.mode == 'normal' }}
@@ -99,12 +108,12 @@ jobs:
     steps:
       - name: Simulate deploy project backend-audit
         run: |
-          echo "[SIM] Would cd to /home/kbadran/backend"
-          echo "[SIM] Would run: date -d '+3 hours'"
-          echo "[SIM] Deploy project backend-audit"
-          echo "[SIM] Would run: docker compose exec app composer install"
-          echo "[SIM] Would run: docker compose exec app php artisan migrate --force"
-          echo "[SIM] Deploy job has been successfully"
+          echo "[SIM][deploy_on_audit] Would cd to /home/kbadran/backend"
+          echo "[SIM][deploy_on_audit] Would run: date -d '+3 hours'"
+          echo "[SIM][deploy_on_audit] Deploy project backend-audit"
+          echo "[SIM][deploy_on_audit] Would run: docker compose exec app composer install"
+          echo "[SIM][deploy_on_audit] Would run: docker compose exec app php artisan migrate --force"
+          echo "[SIM][deploy_on_audit] Deploy job has been successfully"
 
   test_on_audit:
     if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.mode == 'normal' }}
@@ -113,7 +122,7 @@ jobs:
     steps:
       - name: Simulate running audit tests
         run: |
-          echo "[SIM] Would run: python3 /home/gitlab-runner/backend-testing.py"
+          echo "[SIM][test_on_audit] Would run: python3 /home/gitlab-runner/backend-testing.py"
 
   final_approval_for_production:
     if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.mode == 'normal' }}
@@ -124,29 +133,8 @@ jobs:
     steps:
       - name: Simulate manual approval gate
         run: |
-          echo "[SIM] Manual approval needed to proceed to push to production."
-          echo "[SIM] Configure environment 'production-approval' with required reviewers in GitHub."
-
-  rollback_audit_branch:
-    # rollback audit (تشغّله من workflow_dispatch مع mode=rollback_audit)
-    if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.mode == 'rollback_audit' }}
-    needs: artifacts_tag_audit
-    runs-on: ubuntu-latest
-    env:
-      TAG_NAME_audit: ${{ needs.artifacts_tag_audit.outputs.tag_name_audit }}
-    steps:
-      - name: Simulate rollback audit branch
-        run: |
-          echo "[SIM] Would cd to /home/kbadran/backend"
-          echo "[SIM] Would run: git checkout audit"
-          echo "[SIM] TAG_NAME_audit is: $TAG_NAME_audit"
-          echo "[SIM] Would run: git fetch --all"
-          echo "[SIM] Would run: git reset --hard \"$TAG_NAME_audit\""
-          echo "[SIM] Roll Back Audit Branch to previous merge request MR"
-          echo "[SIM] Deploy project backend"
-          echo "[SIM] Would run: docker compose exec app composer install"
-          echo "[SIM] Would run: docker compose exec app php artisan migrate --force"
-          echo "[SIM] Would run: git push origin audit --force -o ci.skip"
+          echo "[SIM][final_approval_for_production] Manual approval needed to proceed to push to production."
+          echo "[SIM][final_approval_for_production] Make sure environment 'production-approval' has Required reviewers in Settings → Environments."
 
   artifacts_tag_production:
     if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.mode == 'normal' }}
@@ -158,9 +146,9 @@ jobs:
       - name: Simulate creating production tag name
         id: set_tag
         run: |
-          echo "[SIM] Would build TAG_NAME_production"
+          echo "[SIM][artifacts_tag_production] Would build TAG_NAME_production"
           TAG_NAME_production="SIMULATED_PRODUCTION_TAG_$(date +'%Y-%m-%d_%H-%M-%S')"
-          echo "[SIM] TAG_NAME_production would be: $TAG_NAME_production"
+          echo "[SIM][artifacts_tag_production] TAG_NAME_production would be: $TAG_NAME_production"
           echo "TAG_NAME_production=$TAG_NAME_production" >> $GITHUB_ENV
           echo "tag_name_production=$TAG_NAME_production" >> $GITHUB_OUTPUT
 
@@ -173,94 +161,120 @@ jobs:
     steps:
       - name: Simulate snapshot tag creation on production branch
         run: |
-          echo "[SIM] Would cd to /home/dockerme/backend"
-          echo "[SIM] Would run: git checkout production"
-          echo "[SIM] Would run: git tag -a \"$TAG_NAME_production\" -m \"[skip ci]\""
-          echo "[SIM] (Optional) Would push tag to remote"
+          echo "[SIM][snapshot_production] TAG_NAME_production: $TAG_NAME_production"
+          echo "[SIM][snapshot_production] Would cd to /home/dockerme/backend"
+          echo "[SIM][snapshot_production] Would run: git checkout production"
+          echo "[SIM][snapshot_production] Would run: git tag -a \"$TAG_NAME_production\" -m \"[skip ci]\""
+          echo "[SIM][snapshot_production] (Optional) Would push tag to remote"
 
   push_to_production:
-    if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.mode == 'normal' }}
+    if: ${{ github.event_name != 'workflow_dispatch' || github.event_inputs.mode == 'normal' }}
     needs: snapshot_production
     runs-on: ubuntu-latest
     steps:
       - name: Simulate pushing code from audit to production
         run: |
-          echo "[SIM] Would run: git push origin audit:production -f"
-          echo "[SIM] Pushed code from audit to production."
-          echo "[SIM] Code move to production repo"
+          echo "[SIM][push_to_production] Would run: git push origin audit:production -f"
+          echo "[SIM][push_to_production] Pushed code from audit to production."
+          echo "[SIM][push_to_production] Code move to production repo"
 
   pull_to_production:
-    if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.mode == 'normal' }}
+    if: ${{ github.event_name != 'workflow_dispatch' || github.event_inputs.mode == 'normal' }}
     needs: push_to_production
     runs-on: ubuntu-latest
     steps:
       - name: Simulate pulling latest code to production server
         run: |
-          echo "[SIM] Would cd to /home/dockerme/backend"
-          echo "[SIM] Would run: git checkout production"
-          echo "[SIM] Would run: git fetch --all"
-          echo "[SIM] Would run: git reset --hard origin/production"
-          echo "[SIM] Pulled latest code to production server."
+          echo "[SIM][pull_to_production] Would cd to /home/dockerme/backend"
+          echo "[SIM][pull_to_production] Would run: git checkout production"
+          echo "[SIM][pull_to_production] Would run: git fetch --all"
+          echo "[SIM][pull_to_production] Would run: git reset --hard origin/production"
+          echo "[SIM][pull_to_production] Pulled latest code to production server."
 
   deploy_in_production:
-    if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.mode == 'normal' }}
+    if: ${{ github.event_name != 'workflow_dispatch' || github.event_inputs.mode == 'normal' }}
     needs: pull_to_production
     runs-on: ubuntu-latest
     steps:
       - name: Simulate deploy project backend to production
         run: |
-          echo "[SIM] Would cd to /home/dockerme/backend"
-          echo "[SIM] Would run: date -d '+3 hours'"
-          echo "[SIM] Deploy project backend to production"
-          echo "[SIM] Would run: docker compose exec app composer install"
-          echo "[SIM] Would run: docker compose exec app php artisan migrate --force"
-          echo "[SIM] Deploy job in production completed successfully"
+          echo "[SIM][deploy_in_production] Would cd to /home/dockerme/backend"
+          echo "[SIM][deploy_in_production] Would run: date -d '+3 hours'"
+          echo "[SIM][deploy_in_production] Deploy project backend to production"
+          echo "[SIM][deploy_in_production] Would run: docker compose exec app composer install"
+          echo "[SIM][deploy_in_production] Would run: docker compose exec app php artisan migrate --force"
+          echo "[SIM][deploy_in_production] Deploy job in production completed successfully"
 
   test_production:
-    if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.mode == 'normal' }}
+    if: ${{ github.event_name != 'workflow_dispatch' || github.event_inputs.mode == 'normal' }}
     needs: deploy_in_production
     runs-on: ubuntu-latest
     steps:
       - name: Simulate running production tests
         run: |
-          echo "[SIM] Would run: python3 /home/gitlab-runner/backend-testing.py"
+          echo "[SIM][test_production] Would run: python3 /home/gitlab-runner/backend-testing.py"
 
-  rollback_production_branch:
-    # rollback production (تشغّله بـ workflow_dispatch + mode=rollback_production)
-    if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.mode == 'rollback_production' }}
-    needs: artifacts_tag_production
+  # ========================== ROLLBACK: AUDIT ONLY ==========================
+
+  rollback_audit_branch:
+    if: ${{ github.event_name == 'workflow_dispatch' && github.event_inputs.mode == 'rollback_audit' }}
     runs-on: ubuntu-latest
     env:
-      TAG_NAME_production: ${{ needs.artifacts_tag_production.outputs.tag_name_production }}
+      TAG_NAME_audit: ${{ github.event.inputs.rollback_audit_tag }}
+    steps:
+      - name: Simulate rollback audit branch
+        run: |
+          echo "[SIM][rollback_audit_branch] MODE = rollback_audit"
+          echo "[SIM][rollback_audit_branch] TAG_NAME_audit from input: $TAG_NAME_audit"
+          echo "[SIM][rollback_audit_branch] Would cd to /home/kbadran/backend"
+          echo "[SIM][rollback_audit_branch] Would run: git checkout audit"
+          echo "[SIM][rollback_audit_branch] Would run: git fetch --all"
+          echo "[SIM][rollback_audit_branch] Would run: git reset --hard \"$TAG_NAME_audit\""
+          echo "[SIM][rollback_audit_branch] Roll Back Audit Branch to previous merge request MR"
+          echo "[SIM][rollback_audit_branch] Deploy project backend"
+          echo "[SIM][rollback_audit_branch] Would run: docker compose exec app composer install"
+          echo "[SIM][rollback_audit_branch] Would run: docker compose exec app php artisan migrate --force"
+          echo "[SIM][rollback_audit_branch] Would run: git push origin audit --force -o ci.skip"
+
+  # ======================== ROLLBACK: PRODUCTION (+ AUDIT) ========================
+
+  rollback_production_branch:
+    if: ${{ github.event_name == 'workflow_dispatch' && github.event_inputs.mode == 'rollback_production' }}
+    runs-on: ubuntu-latest
+    env:
+      TAG_NAME_production: ${{ github.event.inputs.rollback_production_tag }}
     steps:
       - name: Simulate rollback production branch
         run: |
-          echo "[SIM] Would cd to /home/dockerme/backend"
-          echo "[SIM] Would run: git checkout production"
-          echo "[SIM] Would run: git fetch --all"
-          echo "[SIM] Would run: git reset --hard \"$TAG_NAME_production\""
-          echo "[SIM] Roll Back production Branch to previous merge request MR with Audit"
-          echo "[SIM] Deploy project backend"
-          echo "[SIM] Would run: docker compose exec app composer install"
-          echo "[SIM] Would run: docker compose exec app php artisan migrate --force"
-          echo "[SIM] Would run: git push origin production -f"
-          echo "[SIM] Would run: git push origin production:audit --force -o ci.skip"
+          echo "[SIM][rollback_production_branch] MODE = rollback_production"
+          echo "[SIM][rollback_production_branch] TAG_NAME_production from input: $TAG_NAME_production"
+          echo "[SIM][rollback_production_branch] Would cd to /home/dockerme/backend"
+          echo "[SIM][rollback_production_branch] Would run: git checkout production"
+          echo "[SIM][rollback_production_branch] Would run: git fetch --all"
+          echo "[SIM][rollback_production_branch] Would run: git reset --hard \"$TAG_NAME_production\""
+          echo "[SIM][rollback_production_branch] Roll Back production Branch to previous merge request MR with Audit"
+          echo "[SIM][rollback_production_branch] Deploy project backend"
+          echo "[SIM][rollback_production_branch] Would run: docker compose exec app composer install"
+          echo "[SIM][rollback_production_branch] Would run: docker compose exec app php artisan migrate --force"
+          echo "[SIM][rollback_production_branch] Would run: git push origin production -f"
+          echo "[SIM][rollback_production_branch] Would run: git push origin production:audit --force -o ci.skip"
 
   rollback_audit_after_rollback_production_branch:
-    if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.mode == 'rollback_production' }}
+    if: ${{ github.event_name == 'workflow_dispatch' && github.event_inputs.mode == 'rollback_production' }}
     needs: rollback_production_branch
     runs-on: ubuntu-latest
     steps:
       - name: Simulate rollback audit branch after production rollback
         run: |
-          echo "[SIM] Would cd to /home/kbadran/customer-relations"
-          echo "[SIM] Would run: git checkout audit"
-          echo "[SIM] Would run: git fetch --all"
-          echo "[SIM] Would run: git reset --hard origin/audit"
-          echo "[SIM] Roll Back Audit Branch to previous merge request MR"
-          echo "[SIM] Deploy project cms"
-          echo "[SIM] Would run: docker compose exec app composer install"
-          echo "[SIM] Would run: docker compose exec app npm install"
-          echo "[SIM] Would run: docker compose exec app php artisan migrate --force"
-          echo "[SIM] Would run: docker compose exec app php artisan db:seed --class=PermissionsSeeder --force"
-          echo "[SIM] Would run: docker compose exec app npm run build"
+          echo "[SIM][rollback_audit_after_rollback_production_branch] MODE = rollback_production"
+          echo "[SIM][rollback_audit_after_rollback_production_branch] Would cd to /home/kbadran/customer-relations"
+          echo "[SIM][rollback_audit_after_rollback_production_branch] Would run: git checkout audit"
+          echo "[SIM][rollback_audit_after_rollback_production_branch] Would run: git fetch --all"
+          echo "[SIM][rollback_audit_after_rollback_production_branch] Would run: git reset --hard origin/audit"
+          echo "[SIM][rollback_audit_after_rollback_production_branch] Roll Back Audit Branch to previous merge request MR"
+          echo "[SIM][rollback_audit_after_rollback_production_branch] Deploy project cms"
+          echo "[SIM][rollback_audit_after_rollback_production_branch] Would run: docker compose exec app composer install"
+          echo "[SIM][rollback_audit_after_rollback_production_branch] Would run: docker compose exec app npm install"
+          echo "[SIM][rollback_audit_after_rollback_production_branch] Would run: docker compose exec app php artisan migrate --force"
+          echo "[SIM][rollback_audit_after_rollback_production_branch] Would run: docker compose exec app php artisan db:seed --class=PermissionsSeeder --force"
+          echo "[SIM][rollback_audit_after_rollback_production_branch] Would run: docker compose exec app npm run build"
